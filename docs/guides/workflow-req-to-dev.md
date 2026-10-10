@@ -22,6 +22,26 @@ Fases 1–3 (`req-*`) são **agnósticas de linguagem**: leem qualquer fonte (PH
 
 ## Fase 1 — Requisito e Análise
 
+### 1.0 `analyse/*` — análise especialista (opcional por tarefa)
+
+A camada `analyse/` reúne 12 skills de analista sênior que **alimentam** as fases `req-*` com artefatos auditáveis. Use conforme a lacuna:
+
+| Necessidade | Skill `analyse/` |
+|-------------|------------------|
+| Preparar entrevistas/workshops | `requirements-elicitation` |
+| Mapear poder × interesse e conflitos | `stakeholder-analysis` |
+| Extrair requisitos/regras do código legado | `legacy-code-analyzer` |
+| Extrair BCs, entidades, VOs e linguagem ubíqua | `domain-model-extractor` |
+| Avaliar aderência a Clean/Hexagonal/DDD | `architecture-assessment` |
+| RNFs com métricas mensuráveis | `nfr-specialist` |
+| Estratégia de migração e riscos | `migration-strategy-advisor` |
+| Gerar stories, priorizar, rastrear, validar | `user-story-generator`, `prioritization-agent`, `traceability-matrix-builder`, `validation-quality-gate` |
+| Avaliar impacto de mudança de escopo | `change-impact-analyzer` |
+
+> Os formatos de saída seguem a biblioteca **T01–T11** em [`../../references/templates-luiza-silva.md`](../../references/templates-luiza-silva.md), usada pelos `req-*` para registrar decisões, regras de negócio e pendências.
+>
+> Fluxo detalhado das especialistas (matriz objetivo → skill): [`analysis-expert-flow.md`](analysis-expert-flow.md).
+
 ### 1.1 `req-discovery` — entender o que existe
 
 Quando o pedido for analisar um sistema existente (URL, caminho local) ou documentar requisitos.
@@ -31,7 +51,9 @@ Quando o pedido for analisar um sistema existente (URL, caminho local) ou docume
   - `requirements.md` — requisitos funcionais (RF-XXX) e não-funcionais;
   - `ddd-analysis.md` — Bounded Contexts, entidades, VOs iniciais;
   - `screens.md` — telas e fluxos (web/mobile);
-  - `domain-model.md` — modelo de domínio.
+  - `domain-model.md` — modelo de domínio;
+  - **Registro de Regras de Negócio** — regras/políticas desacopladas dos RFs (template T05);
+  - **Registro de Dúvidas e Pendências** — matriz de controle de bloqueios (template T07).
 
 ### 1.2 `req-ddd-modeling` — modelar o domínio
 
@@ -40,6 +62,8 @@ Quando o pedido for analisar um sistema existente (URL, caminho local) ou docume
   - `ddd-strategic-model.md` — subdomínios (Core/Supporting/Generic), BCs com cardinalidade, context map, linguagem ubíqua, topologia (monólito modular vs microserviços);
   - `ddd-tactical-model.md` — entities, VOs, domain events **+ seções de apresentação web/mobile por BC**;
   - `ddd-operational-notes.md`.
+
+> **Análise das 4 Dimensões**: antes de recomendar a topologia (monólito modular vs microserviços), o skill avalia 4 dimensões (checklist de viabilidade holística) para evitar pontos cegos.
 
 ### 1.3 `req-migration-strategy` (opcional — legado)
 
@@ -59,7 +83,11 @@ Transforma o modelo DDD em backlog acionável.
 - **Épicos = Bounded Contexts** (+ `EP-000 [TECH]` de bootstrap com Docker e CI/CD).
 - **Stories** com critérios de aceitação; se o BC tem web/mobile → subseções **Telas e fluxos (web/mobile)**.
 - **Tasks por camada**, sempre com **Agent + Prompt**.
+- **Gate de Qualidade (Definition of Ready)**: cada User Story passa pelo checklist de prontidão **T11** (clareza, critérios, dependências, viabilidade, dúvidas resolvidas) antes de entrar na sprint; **Matriz de Validação** para checar completude.
+- **Registro de Decisões (T06)** para toda priorização/corte de escopo; **Registro de Dúvidas e Pendências (T07)** para bloqueios; **Solicitação de Mudança (T08)** + **Análise de Impacto (T09)** pós-baseline.
 - **Saída**: `backlog.md` (obrigatório), `epics-summary.md`, `sprint-plan.md`.
+
+> Planejamento completo = backlog **+ rastreabilidade** (`traceability-matrix-builder`) **+ gate DoR** (`validation-quality-gate`). Sem isso, o backlog vira caos: decisões sem registro (T06) geram rediscussão e pendências sem responsável (T07) nunca são resolvidas.
 
 ### 2.2 Ordem inside-out (referência das tasks)
 
@@ -165,6 +193,8 @@ Ver [`../tutorial/04-ciclo-completo-openspec.md`](../tutorial/04-ciclo-completo-
 ## Referências
 
 - Tutoriais: [`../tutorial/README.md`](../tutorial/README.md) (01 análise/planejamento, 02 hub full-stack, 04 ciclo OpenSpec).
-- Inventário de skills: [`skills-inventory.md`](skills-inventory.md).
+- Inventário de skills: [`skills-inventory.md`](skills-inventory.md) (inclui `analyse/*` §11 e `commands/*` §12).
+- Análise especialista: skills em [`../../analyse/`](../../analyse/).
+- Templates de análise (T01–T11): [`../../references/templates-luiza-silva.md`](../../references/templates-luiza-silva.md).
 - Convenções globais: [`../../skills-standards.md`](../../skills-standards.md).
 - Matriz de stack: [`fullstack-stack-matrix.md`](fullstack-stack-matrix.md).

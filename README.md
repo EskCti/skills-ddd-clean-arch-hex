@@ -26,6 +26,7 @@ O objetivo é oferecer um conjunto de instruções reutilizáveis para agentes q
 
 - [Inventário de Skills](docs/guides/skills-inventory.md) — levantamento por categoria, stack e papel.
 - [Fluxo Requisito → Análise → Planejamento → Desenvolvimento](docs/guides/workflow-req-to-dev.md) — como encadear as skills da descoberta à entrega.
+- [Fluxo de Análise Especialista (`analyse/*`)](docs/guides/analysis-expert-flow.md) — como os agentes sempre consultam as skills especialistas.
 
 ## Tutoriais
 

@@ -8,18 +8,20 @@ Fonte canônica das convenções: [`../../skills-standards.md`](../../skills-sta
 | Categoria | Prefixo | Qtd | Papel |
 |-----------|---------|-----|-------|
 | Orquestrador | `config-project-fullstack` | 1 | Ponto de entrada full-stack |
-| Config / Bootstrap | `config-*` | 51 | Projeto, módulo, docker, CI/CD, auth, banco, shared kernel, AGENTS.md |
-| Núcleo (domínio + aplicação) | `core-*` | 35 | entity, value object, domain service, repository, use case, DTO, CQRS |
-| Backend (infra + interface) | `backend-*` | 10 | adapters de persistência e controllers |
+| Análise especialista | `analyse/*` | 12 | elicitação, stakeholder, legado, NFR, impacto, priorização, rastreabilidade, gate de qualidade |
+| Comandos | `commands/*` | 7 | slash-commands (opsx-* / pos-*) sobre o fluxo OpenSpec |
+| Config / Bootstrap | `config-*` | 55 | Projeto, módulo, docker, CI/CD, auth, banco, shared kernel, Dioxus, AGENTS.md |
+| Núcleo (domínio + aplicação) | `core-*` | 40 | entity, value object, domain service, repository, use case, DTO, CQRS, Dioxus |
+| Backend (infra + interface) | `backend-*` | 11 | adapters de persistência e controllers |
 | Frontend web | `frontend-*` | 16 | entity → usecase → repository → page / form |
 | Mobile | `mobile-*` | 10 | entity → usecase → repository → screen / form |
 | Requisitos / Análise | `req-*` | 4 | discovery, modelagem DDD, migração, planejamento |
-| Qualidade | `test-*` | 10 | unit (≥95% domain+app) e e2e |
-| OpenSpec | `openspec-*` | 6 | propose → explore → apply → archive |
+| Qualidade | `test-*` | 12 | unit (≥95% domain+app) e e2e |
+| OpenSpec | `openspec-*` | 7 | propose → explore → apply → sync → archive |
 | Workflow | `git-*` | 1 | commits atômicos por área |
-| **Total** | | **144** | |
+| **Total** | | **175** | |
 
-Stacks suportadas: **TypeScript** (sem sufixo), **Kotlin** (`-kt`), **Java** (`-java`), **C#** (`-cs`), **Rust** (`-rs`), **Angular**, **Vue**, **Leptos**, **Flutter**, **Android**.
+Stacks suportadas: **TypeScript** (sem sufixo), **Kotlin** (`-kt`), **Java** (`-java`), **C#** (`-cs`), **Rust** (`-rs`), **Angular**, **Vue**, **Leptos**, **Dioxus**, **Flutter**, **Android**.
 
 ---
 
@@ -142,6 +144,15 @@ Padrão de estilização: **Tailwind CSS** (`skills-standards.md §4.1`).
 | `req-migration-strategy` | estratégia de migração de legado (Strangler Fig, ACL) | plano de migração/coexistência |
 | `req-agile-planning` | backlog com épicos (BCs), stories e tasks por camada (Agent + Prompt) | `backlog.md`, `epics-summary.md`, `sprint-plan.md`, `delivery-profile.md` |
 
+**Governança dos `req-*`** (adicionada no merge do upstream):
+
+- `req-discovery`: **Registro de Regras de Negócio** (desacoplado) + **Registro de Dúvidas e Pendências** (matriz de controle).
+- `req-ddd-modeling`: **Análise das 4 Dimensões** (checklist de viabilidade holística antes de escolher topologia).
+- `req-agile-planning`: **Gate de Qualidade / Definition of Ready** + **Matriz de Validação**.
+- Biblioteca de templates **T01–T11**: `references/templates-luiza-silva.md` (entrevista, ata, ficha de requisito, user story, regra de negócio, decisões, dúvidas/pendências, mudança, impacto, DoR).
+
+> A camada de **análise especialista** (`analyse/*`, §11) fornece a base para preencher esses registros e o gate de prontidão.
+
 ---
 
 ## 8. Qualidade (`test-*`)
@@ -162,6 +173,7 @@ Detalhes de cobertura: `skills-standards.md §11` (Test Coverage Standard) e Epi
 | `openspec-propose` | criar proposta de mudança |
 | `openspec-explore` | investigação prévia do problema |
 | `openspec-apply-change` | aplicar/implementar as tasks da mudança |
+| `openspec-sync-specs` | sincronizar delta specs da mudança para as specs principais |
 | `openspec-archive-change` | arquivar mudança concluída |
 | `openspec-validate-dependencies` | validar dependências entre mudanças |
 | `openspec-context-cache` | cache de contexto entre execuções |
@@ -174,9 +186,47 @@ Detalhes de cobertura: `skills-standards.md §11` (Test Coverage Standard) e Epi
 
 ---
 
+## 11. Análise especialista (`analyse/*`)
+
+Skills de analista sênior que alimentam as fases `req-*`. Ficam em `analyse/` e não usam sufixo de stack.
+
+| Skill | Papel | Alimenta |
+|-------|-------|----------|
+| `requirements-elicitation` | gera perguntas de entrevista, roteiros de workshop e converte anotações em requisitos | Discovery |
+| `stakeholder-analysis` | mapa poder × interesse, conflitos e plano de comunicação | Discovery |
+| `legacy-code-analyzer` | extrai requisitos/RFs implícitos, regras, fluxos e acoplamentos de código legado | Discovery |
+| `domain-model-extractor` | extrai BCs, entidades, VOs, agregados e linguagem ubíqua do legado | Discovery + DDD |
+| `architecture-assessment` | avalia legado contra Clean Architecture/Hexagonal/DDD (acoplamento, coesão) | Discovery + DDD |
+| `nfr-specialist` | RNFs (desempenho, segurança, escalabilidade) com métricas mensuráveis | todas |
+| `migration-strategy-advisor` | Strangler Fig, ACL, Branch by Abstraction, riscos | Migração |
+| `user-story-generator` | converte requisitos em User Stories com Given/When/Then | Planejamento |
+| `prioritization-agent` | MoSCoW, Valor×Esforço×Risco×Urgência, quick wins, ROI | Planejamento |
+| `traceability-matrix-builder` | matriz objetivo → requisito → funcionalidade → teste; órfãos | Planejamento |
+| `validation-quality-gate` | checklist de qualidade, ambiguidades, testabilidade (gate) | Planejamento |
+| `change-impact-analyzer` | impacto de mudança em requisitos/testes/prazos e custo de oportunidade | Planejamento |
+
+---
+
+## 12. Comandos (`commands/*`)
+
+Atalhos de fluxo (formato slash-command) sobre OpenSpec e Jira/GitHub do POS.
+
+| Comando | Papel |
+|---------|-------|
+| `opsx-explore` | entrar em modo exploração (pensar, investigar, clarificar) |
+| `opsx-propose` | propor mudança e gerar artefatos em um passo |
+| `opsx-apply` | implementar tasks de uma mudança OpenSpec |
+| `opsx-sync` | sincronizar delta specs para as specs principais |
+| `opsx-archive` | arquivar mudança concluída |
+| `pos-review-pr` | review de PR (GitHub) + Jira: proposta OpenSpec → aprovação → implementação |
+| `pos-tarefa` | tarefa Jira (FA-XXX): proposta OpenSpec → aprovação → implementação |
+
+---
+
 ## Como navegar
 
 1. Para **entender o fluxo** requisito → desenvolvimento, ver [`workflow-req-to-dev.md`](workflow-req-to-dev.md).
 2. Para **escolher a stack**, ver [`fullstack-stack-matrix.md`](fullstack-stack-matrix.md) e [`../tutorial/stacks/`](../tutorial/stacks/).
 3. Para **convenções de código**, ver [`../../skills-standards.md`](../../skills-standards.md).
-4. Para **documentar o projeto para agentes**, usar `config-agents-md`.
+4. Para **os templates de análise** (T01–T11), ver [`../../references/templates-luiza-silva.md`](../../references/templates-luiza-silva.md).
+5. Para **documentar o projeto para agentes**, usar `config-agents-md`.
