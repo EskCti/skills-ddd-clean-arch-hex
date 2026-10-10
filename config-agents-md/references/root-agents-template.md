@@ -86,6 +86,21 @@ Inventário completo: `<skills>/docs/guides/skills-inventory.md`.
 
 Fluxo detalhado: `<skills>/docs/guides/analysis-expert-flow.md`.
 
+## Rastreamento de tarefas (Jira / GitHub) — escolha do projeto
+
+> Onde criar as issues/tarefas deste repositório. Definido na geração deste AGENTS.md; **varia por projeto** e o transporte pode ser MCP ou CLI.
+
+| Item | Valor |
+|------|-------|
+| Tracker | <Jira | GitHub Issues | Ambos | Nenhum> |
+| Transporte | <MCP | CLI (`gh`/API) | Auto> |
+| Direção | <1 via (OpenSpec → tracker) | 2 vias> |
+| Jira project | <PROJ ou —> |
+| GitHub repo | <org/repo ou —> |
+
+**Fluxo**: OpenSpec é canônico → `openspec-sync-issues` espelha change → issue, tasks → subtasks e fecha no archive.
+Profile detalhado: `<docsPath>/planning/<projeto>/tracker-profile.md`.
+
 ## Comandos transversais
 
 ```bash

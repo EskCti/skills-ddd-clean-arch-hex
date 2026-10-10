@@ -57,6 +57,32 @@ Cada submódulo de microserviço = **1 AGENTS.md**. Cada app de frontend/mobile 
 
 ---
 
+## Fase 0.1 — Rastreamento de tarefas (Jira / GitHub) — escolha do usuário
+
+Antes de gerar o AGENTS.md, **perguntar e registrar** onde as tarefas devem ser criadas — isso **varia por projeto** e **pode usar MCP ou CLI (`gh`/API)**.
+
+```
+Onde criar as tarefas (issues) deste projeto?
+[ ] Jira         projeto/board: _____
+[ ] GitHub Issues   repo: _____ (vazio = origin)
+[ ] Ambos
+[ ] Nenhum (só OpenSpec .md)
+Transporte: [ ] MCP  [ ] CLI (gh/API)  [ ] Auto
+Direção:    [ ] 1 via (OpenSpec → tracker)  [ ] 2 vias
+```
+
+Registrar em:
+
+- `<projectRoot>/AGENTS.md` → seção **obrigatória** "Rastreamento de tarefas (Jira/GitHub)".
+- `<docsPath>/planning/<projeto>/tracker-profile.md` (formato em `../openspec-sync-issues/references/tracker-config.md`).
+- Opcional: `skills.config.json` → bloco `tracking`.
+
+Precedência: argumento do usuário > `tracker-profile.md` > `skills.config.json` > `none`.
+
+> A sincronização em si é feita pela skill `openspec-sync-issues` (change → issue, tasks → subtasks, archive → fechar). O AGENTS.md só **declara a escolha** para todo agente saber onde criar tarefas.
+
+---
+
 ## Fase 1 — Detecção de stack por módulo
 
 Para cada módulo, detectar stack e layout de camadas:
@@ -90,7 +116,8 @@ Gerar `<projectRoot>/AGENTS.md` com o template de `references/root-agents-templa
 4. **Fluxo de trabalho** — requisito → análise → planejamento → desenvolvimento (ver `docs/guides/workflow-req-to-dev.md`).
 5. **Skills disponíveis** — categorias (`req-*`, `analyse/*`, `core-*`, `backend-*`, `config-*`, `test-*`, `git-*`, `openspec-*`).
 6. **Análise especialista (`analyse/*`)** — **seção obrigatória**: lista as 12 skills especialistas e a matriz de acionamento (objetivo → skill). Garante que todo agente que ler o AGENTS.md consulte as especialistas antes de requisito/planejamento.
-7. **Comandos transversais** — subir infra (docker compose), atualizar submódulos, rodar cobertura global.
+7. **Rastreamento de tarefas (Jira/GitHub)** — **seção obrigatória**: declara o tracker escolhido (Jira e/ou GitHub), o transporte (MCP vs `gh`/API) e a direção. Vem da Fase 0.1.
+8. **Comandos transversais** — subir infra (docker compose), atualizar submódulos, rodar cobertura global.
 
 ---
 
@@ -134,6 +161,7 @@ Antes de finalizar:
 - [ ] Todos os comandos foram extraídos dos build files (ou marcados `[confirmar]`).
 - [ ] AGENTS.md raiz aponta para os AGENTS.md dos submódulos.
 - [ ] AGENTS.md raiz inclui a seção obrigatória de **Análise especialista (`analyse/*`)**.
+- [ ] AGENTS.md raiz inclui a seção obrigatória de **Rastreamento de tarefas (Jira/GitHub)** com tracker + transporte.
 - [ ] Convenções globais remetem a `skills-standards.md` (não duplicar regras).
 - [ ] Nenhuma seção manual foi perdida no merge.
 
@@ -165,6 +193,7 @@ Antes de finalizar:
 - `references/stack-detection.md` — comandos por stack e extração de build/test/run.
 - `references/root-agents-template.md` — template do AGENTS.md raiz.
 - `references/submodule-agents-template.md` — template do AGENTS.md de módulo.
+- `../openspec-sync-issues/references/tracker-config.md` — schema do tracker profile (Jira/GitHub + MCP/CLI).
 - `../docs/guides/workflow-req-to-dev.md` — fluxo requisito → análise → planejamento → desenvolvimento.
 - `../docs/guides/analysis-expert-flow.md` — fluxo das skills especialistas (`analyse/*`) e matriz de acionamento.
 - `../docs/guides/skills-inventory.md` — inventário das skills deste repositório.
