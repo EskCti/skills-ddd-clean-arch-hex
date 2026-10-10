@@ -1,0 +1,15 @@
+# Normaliza finais de linha para LF em arquivos texto (evita CRLF no Windows)
+* text=auto eol=lf
+
+# Binários
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.icns binary
+*.zip binary
+*.jar binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
