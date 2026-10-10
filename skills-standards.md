@@ -115,8 +115,10 @@ When editing any skill (`*/SKILL.md`):
 | Mobile     | `mobile-*`   | Telas e formulários mobile (Flutter, Android Compose)            | Flutter, Android (Kotlin)    |
 | Mobile Dioxus | `core-dioxus-*`, `backend-dioxus-*`, `test-dioxus-*`, `config-dioxus-*`, `config-mobile-dioxus-*` | Telas, widgets, navegação, state, API client e CI/CD mobile (iOS + Android) | Rust (Dioxus) |
 | Requisitos | `req-*`      | Discovery, modelagem DDD, migração e planejamento                | Agnostic                     |
+| Análise    | `analyse/*`  | Análise especialista (elicitação, stakeholder, legado, NFR, impacto, priorização, rastreabilidade, gate de qualidade) | Agnostic |
 | Qualidade  | `test-*`     | Testes unitários (≥95% domain/app) e E2E (fluxos críticos)       | TS, KT, CS, RS, Java             |
 | OpenSpec   | `openspec-*` | Fluxo de proposta/exploração/implementação                       | Agnostic                     |
+| Comandos   | `commands/*` | Slash-commands do fluxo OpenSpec/POS                             | Agnostic                     |
 | Workflow   | `git-*`      | Automação de fluxo de trabalho (commits organizados, etc.)       | Agnostic                     |
 | Contexto   | `config-agents-md` | Gera AGENTS.md na raiz e por submódulo (mapa, convenções, comandos, skills) | Agnostic          |
 
@@ -168,6 +170,32 @@ Rules for skills `core-entity*` and `core-value-object*`:
 Success: `errors` is **empty** (`[]` / `emptyList()` / `Array.Empty`).
 
 > **Backend Kotlin** usa `DomainResult` no domínio. **Android mobile** mantém `kotlin.Result` no use case, mas a **tela** recebe `List<String>` e renderiza todos os itens.
+
+## 5.2 Consulta obrigatória às skills especialistas (`analyse/*`)
+
+**Norma global**: todo agente que for **levantar requisitos, modelar domínio, definir migração ou montar backlog** DEVE consultar antes a skill especialista de `analyse/` correspondente ao seu objetivo, e produzir os artefatos nos templates T01–T11.
+
+| Objetivo | Skill especialista |
+|----------|--------------------|
+| Elicitar requisitos | `requirements-elicitation` |
+| Mapear stakeholders | `stakeholder-analysis` |
+| Extrair requisitos/regras do legado | `legacy-code-analyzer` |
+| Extrair modelo de domínio | `domain-model-extractor` |
+| Avaliar arquitetura | `architecture-assessment` |
+| RNFs mensuráveis | `nfr-specialist` |
+| Estratégia de migração | `migration-strategy-advisor` |
+| User Stories | `user-story-generator` |
+| Priorização | `prioritization-agent` |
+| Rastreabilidade | `traceability-matrix-builder` |
+| Gate de qualidade / DoR | `validation-quality-gate` |
+| Impacto de mudança | `change-impact-analyzer` |
+
+Regras:
+
+1. As skills `req-*` **recomendam** as especialistas da sua fase; o agente deve acioná-las.
+2. O `AGENTS.md` gerado por `config-agents-md` **sempre** inclui a seção obrigatória "Análise especialista (`analyse/*`)".
+3. Artefatos seguem os templates T01–T11 (`references/templates-luiza-silva.md`).
+4. Fluxo detalhado: `docs/guides/analysis-expert-flow.md`.
 
 ## 6. Quick Examples (TypeScript)
 
