@@ -726,6 +726,18 @@ gh issue create --title "US-001: <título>" --body "<corpo>" --label "epic:<nome
 - **Respeite a granularidade** — se o usuário quer menos detalhe, gere apenas épicos e stories
 - **Não force metodologia** — se o usuário não usa Scrum, adapte a terminologia (ex.: "iteração" em vez de "sprint")
 
+## Skills Especialistas Recomendadas (`analyse/*`)
+
+Antes de montar o backlog, acione as especialistas conforme o objetivo:
+
+- `user-story-generator` — converte requisitos em User Stories (T04, Given/When/Then).
+- `prioritization-agent` — MoSCoW / Valor×Esforço×Risco×Urgência / ROI.
+- `traceability-matrix-builder` — matriz objetivo → requisito → funcionalidade → teste.
+- `validation-quality-gate` — Gate de Qualidade / Definition of Ready (T11).
+- `change-impact-analyzer` — impacto de mudanças de escopo pós-baseline (T09).
+
+Ver `../docs/guides/analysis-expert-flow.md`.
+
 ## Global Standards
 
 - Consultar `../skills-standards.md` para padroes globais de nomenclatura e convencoes gerais entre skills.

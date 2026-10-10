@@ -272,6 +272,17 @@ Ao finalizar, oferecer:
 - **Documentar feature flags** se o roteamento entre legado e novo for condicional
 - **Parallel Run obrigatório** para BCs Core antes do cutover
 
+## Skills Especialistas Recomendadas (`analyse/*`)
+
+Antes de definir a estratégia de migração, acione as especialistas conforme o objetivo:
+
+- `migration-strategy-advisor` — padrão de transição (Strangler Fig/ACL), sequência por BC e riscos.
+- `change-impact-analyzer` — impacto de cada fase (T09).
+- `architecture-assessment` — diagnóstico do legado antes da modernização.
+- `legacy-code-analyzer` — dependências e acoplamentos do sistema atual.
+
+Ver `../docs/guides/analysis-expert-flow.md`.
+
 ## Global Standards
 
 - Consultar `../skills-standards.md` para padrões globais de nomenclatura e convenções gerais entre skills.

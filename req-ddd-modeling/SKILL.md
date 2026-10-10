@@ -460,6 +460,17 @@ Ofereça essas opções ao finalizar:
 - Consultar `references/ddd-tactical-patterns.md` para padrões táticos detalhados.
 - Consultar `references/client-presentation-model.md` para templates web/mobile por BC.
 
+## Skills Especialistas Recomendadas (`analyse/*`)
+
+Antes de modelar, acione as especialistas conforme o objetivo:
+
+- `domain-model-extractor` — insumo direto para o modelo tático (BCs, entidades, VOs, linguagem ubíqua).
+- `architecture-assessment` — aderência a Clean/Hexagonal/DDD antes de recomendar topologia.
+- `nfr-specialist` — RNFs que influenciam a escolha monólito modular vs microserviços.
+- `migration-strategy-advisor` — quando o BC vem de um legado.
+
+Ver `../docs/guides/analysis-expert-flow.md`.
+
 ## Global Standards
 
 - Consultar `../skills-standards.md` para padrões globais de nomenclatura e convenções gerais entre skills.

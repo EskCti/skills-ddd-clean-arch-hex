@@ -626,6 +626,19 @@ Ofereça essas opções ao finalizar:
 - **Respeite limites** — não tente acessar áreas que requerem credenciais não fornecidas
 - **Seja factual** — descreva o que o sistema faz, não o que deveria fazer
 
+## Skills Especialistas Recomendadas (`analyse/*`)
+
+Antes de levantar/documentar requisitos, acione as especialistas conforme o objetivo:
+
+- `requirements-elicitation` — roteiros de entrevista e workshops (T01).
+- `stakeholder-analysis` — mapa poder × interesse e plano de comunicação.
+- `legacy-code-analyzer` — extrai requisitos, regras e fluxos do código existente.
+- `domain-model-extractor` — extrai BCs, entidades, VOs e linguagem ubíqua.
+- `architecture-assessment` — diagnóstico de acoplamento/coesão do legado.
+- `nfr-specialist` — RNFs mensuráveis.
+
+Ver `../docs/guides/analysis-expert-flow.md`.
+
 ## Global Standards
 
 - Consultar `../skills-standards.md` para padroes globais de nomenclatura e convencoes gerais entre skills.
