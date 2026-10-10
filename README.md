@@ -19,7 +19,13 @@ O objetivo é oferecer um conjunto de instruções reutilizáveis para agentes q
 - frontend e mobile com **Clean Architecture completa** (entity → use case → repository → page/screen);
 - **Tailwind CSS** como padrão de estilização em todos os frontends web (ver `skills-standards.md` §4.1);
 - **testes unitários ≥95%** (`test-unit-*`) e **E2E de fluxos críticos** (`test-e2e-*`);
+- **contexto de agente** (AGENTS.md) na raiz e por submódulo/microserviço (`config-agents-md`);
 - padronização de nomenclatura e estrutura de código.
+
+## Documentação de referência
+
+- [Inventário de Skills](docs/guides/skills-inventory.md) — levantamento por categoria, stack e papel.
+- [Fluxo Requisito → Análise → Planejamento → Desenvolvimento](docs/guides/workflow-req-to-dev.md) — como encadear as skills da descoberta à entrega.
 
 ## Tutoriais
 
@@ -289,6 +295,10 @@ Também existem skills utilitárias para fluxo OpenSpec:
 ### Skills de workflow (Git)
 
 - `git-organized-commits`: commits **atômicos por área** (sem `git add .`), mensagens convencionais com corpo descritivo e template de PR em 4 crases — agent **`Organized Git Commits`**
+
+### Skills de contexto de agente (AGENTS.md)
+
+- `config-agents-md`: gera e mantém **AGENTS.md** na raiz do projeto e em cada submódulo/subapp (monorepo, submodules Git, microserviços ou camadas). Faz descoberta da topologia, detecta stack e comandos reais de build/test/run por módulo, e monta um AGENTS.md raiz (mapa + convenções + fluxo) e um AGENTS.md por módulo (papel, stack, layout, comandos, skills aplicáveis). Idempotente via marcadores `BEGIN/END:agents-md generated`.
 
 ## Como usar como submódulo
 

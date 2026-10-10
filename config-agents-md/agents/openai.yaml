@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Config AGENTS.md'
+  short_description: 'Gerar AGENTS.md na raiz e em cada submodulo (stack, camadas, comandos, skills)'
+  default_prompt: 'Descubra a topologia do repositorio (Fase 0): .gitmodules, workspaces, settings.gradle, Cargo workspace, *.sln. Liste modulos com build/test proprios. Detecte stack e comandos reais de build/test/run por modulo. Gere AGENTS.md raiz (mapa de modulos + convencoes via skills-standards.md + fluxo req->analise->planejamento->dev + skills disponiveis) e um AGENTS.md por submodulo (papel, stack, layout, comandos, convencoes locais, skills aplicaveis). Idempotente com marcadores BEGIN/END:agents-md generated, preservando secoes manuais. Nunca commite automaticamente.'

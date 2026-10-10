@@ -118,6 +118,7 @@ When editing any skill (`*/SKILL.md`):
 | Qualidade  | `test-*`     | Testes unitários (≥95% domain/app) e E2E (fluxos críticos)       | TS, KT, CS, RS, Java             |
 | OpenSpec   | `openspec-*` | Fluxo de proposta/exploração/implementação                       | Agnostic                     |
 | Workflow   | `git-*`      | Automação de fluxo de trabalho (commits organizados, etc.)       | Agnostic                     |
+| Contexto   | `config-agents-md` | Gera AGENTS.md na raiz e por submódulo (mapa, convenções, comandos, skills) | Agnostic          |
 
 ### Stack Suffix Convention
 
