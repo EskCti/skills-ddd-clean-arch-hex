@@ -132,7 +132,7 @@ Regras para Épicos:
 **Épico de auth** (quando aplicável) deve usar:
 
 - Auth core → **Agent:** `Config Auth Core Basic` | `Config Auth Core Basic (Kotlin)` | `Config Auth Core (C#)`
-- Auth backend → **Agent:** `Config Auth Backend Basic` | `Config Auth Backend Basic (Kotlin)` | `Config Auth Backend Basic (C#)`
+- Auth backend → **Agent:** `Config Auth Backend Basic` | `Config Auth Backend Basic (Kotlin)` | `Config Auth Backend (C#)`
 - Auth web (somente Next.js) → **Agent:** `Config Auth Web Basic`
 
 ### Fase 3 — Quebra em User Stories
@@ -615,7 +615,7 @@ Ver template em `references/delivery-profile.md`. Sem este arquivo, **não** ger
   - **Agent TS:** `E2E Tests (TypeScript)` | **KT:** `E2E Tests (Kotlin)` | **CS:** `E2E Tests (C#)` | **RS:** `E2E Tests (Rust)` | **Java:** `E2E Tests (Java)`
   - **Prompt:** "Crie E2E: API POST criar → GET buscar (Supertest/MockMvc/integration HTTP). Se houver UI, Playwright para fluxo principal."
 - [ ] `quality:ci-verify` Validar pipeline CI verde (~30min)
-  - **Agent:** `Config CI/CD` da stack
+  - **Agent:** `Config CI/CD` da stack — `Config CI/CD (TypeScript)` | `(Kotlin)` | `(C#)` | `(Rust)` | `(Java)`
   - **Prompt:** "Push/PR: fmt, lint/clippy, test, coverage ≥95% domain+application. Corrigir falhas antes de fechar o épico."
 - [ ] `quality:memory-leak` Verificar vazamento de memória (~30min) — **somente Rust**
   - **Agent:** `Config CI/CD (Rust)`
