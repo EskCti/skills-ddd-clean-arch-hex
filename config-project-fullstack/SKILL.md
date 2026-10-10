@@ -40,7 +40,7 @@ Antes de iniciar, coletar as seguintes decisões:
 1. Nome do projeto: <kebab-case>
 2. Backend: [ ] NestJS (TypeScript)  [ ] Spring Boot (Kotlin)  [ ] Spring Boot (Java)  [ ] ASP.NET Core (C#)  [ ] Axum (Rust)
 3. Frontend: [ ] Next.js (+ Tailwind/Shadcn)  [ ] Angular (+ Tailwind)  [ ] Vue 3 (+ Tailwind)  [ ] Leptos SSR (+ Tailwind)  [ ] Nenhum
-4. Mobile:   [ ] Flutter  [ ] Android (Kotlin + Compose)  [ ] Ambos  [ ] Nenhum
+4. Mobile:   [ ] Flutter  [ ] Android (Kotlin + Compose)  [ ] Dioxus (Rust, iOS + Android)  [ ] Ambos/combinar  [ ] Nenhum
 5. Autenticação: [ ] Básica (JWT)  [ ] Completa (RBAC)  [ ] Nenhuma por agora
 6. OpenSpec: [ ] Sim, quero rastrear mudanças com openspec  [ ] Não (agents diretos)
 ```
@@ -67,11 +67,14 @@ Escolha o agent conforme a combinação:
 | Axum (Rust) | Angular | `Config Project (Rust)` + `Config Project (Angular)` → `Config Shared Web (Angular)` | Cargo workspace na raiz ou `apps/backend/`; API em `:4000`; depois frontend + shell. |
 | Axum (Rust) | Vue 3 | `Config Project (Rust)` + `Config Project (Vue)` → `Config Shared Web (Vue)` | Idem; proxy Vite `/api` → `http://localhost:4000`. |
 | Axum (Rust) | Leptos SSR | `Config Project (Rust)` + `Config Project (Leptos)` → `Config Shared Web (Leptos)` | Workspace Cargo; API `:4000`, Leptos SSR `:3000`; `API_BASE_URL` no crate web-leptos. |
+| Axum (Rust) | Leptos SSR + Dioxus | `Config Full-Stack Rust` | Monorepo Cargo Axum + Leptos + Dioxus com shared kernel e clientes HTTP gerados das rotas Axum. |
 | Axum (Rust) | Nenhum | `Config Project (Rust)` | API-only; mobile opcional apontando para `:4000`. |
 
 > **Java (Spring Boot)**: Gradle multi-module — `packages/<bc>/` (domain + application, pure Java) + `apps/backend-java/modules/<bc>/` (JPA + `@RestController`). Layout: `java-namespace-layout.md`. **Kotlin vs Java**: mesma stack Spring; Kotlin usa skills `-kt`, Java usa `-java`.
 
 > **Rust**: backend é workspace Cargo (`shared-kernel` + `api` Axum), **não** monorepo Turbo. Layout modular por BC: `config-shared-core-rs/references/rust-namespace-layout.md` — camadas `domain` / `application` / `infrastructure` / `interfaces`, sem `domain::customer::Customer`.
+
+> **Dioxus (mobile Rust)**: use `Config Full-Stack Rust` (`config-fullstack-rust-rs`) para o monorepo Axum + Leptos + Dioxus, com shared kernel compartilhado e clientes HTTP gerados a partir das rotas Axum. Skills Dioxus: `config-mobile-dioxus-rs`, `core-dioxus-{screen,widget,navigation,state,native-access}-rs`, `backend-dioxus-api-client-rs`, `test-dioxus-{unit,e2e}-rs`, `config-dioxus-cicd-rs` (CI/CD mobile iOS + Android).
 
 > **OpenSpec aqui**: Se usar OpenSpec, criar a mudança ANTES do bootstrap:
 > ```
@@ -99,7 +102,8 @@ Após o backend estar configurado:
 |--------|-------|-----------------|
 | Flutter | `Config Project (Flutter)` | "Configure o app Flutter consumindo a API em http://localhost:4000, estrutura clean por feature, Riverpod, Dio, go_router." |
 | Android | `Config Project (Android)` | "Configure o app Android com Compose, Hilt, Retrofit apontando para http://localhost:4000, Navigation Compose." |
-| Ambos | Rodar Flutter → Android | Executar em sequência, ambos apontando para o mesmo backend. |
+| Dioxus (Rust) | `Config Mobile Dioxus (Rust)` | "Configure o app mobile Dioxus (iOS + Android) no workspace Cargo, clean por feature, shared kernel e clientes HTTP das rotas Axum." |
+| Combinações | Rodar em sequência | Executar cada stack em sequência, todas apontando para o mesmo backend. |
 
 ### 1D — Docker e CI/CD (durante o bootstrap)
 
