@@ -291,6 +291,8 @@ Também existem skills utilitárias para fluxo OpenSpec:
 - `openspec-propose`
 - `openspec-explore`
 - `openspec-apply-change`
+- `openspec-sync-specs`
+- `openspec-sync-issues` — espelha changes/tasks para **Jira** e/ou **GitHub Issues** (MCP ou `gh`/API), com `.md` canônico
 - `openspec-archive-change`
 
 ### Skills de workflow (Git)

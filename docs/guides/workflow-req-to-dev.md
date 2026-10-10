@@ -147,6 +147,8 @@ openspec-propose "bc-<nome>"  →  openspec-apply-change  →  openspec-archive-
 
 `config-new-module[-…]` cria o scaffold do módulo antes das tasks de domínio.
 
+**Rastreamento em tracker**: se o projeto usa Jira/GitHub Issues, `openspec-sync-issues` espelha a change (issue + subtasks) usando o transporte escolhido no `AGENTS.md` (MCP ou `gh`/API), e fecha tudo no archive.
+
 ### 3.3 Documentar o contexto para agentes (novo)
 
 Após o bootstrap, rode **`config-agents-md`** para gerar:

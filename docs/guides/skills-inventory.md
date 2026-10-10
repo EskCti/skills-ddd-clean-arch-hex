@@ -17,9 +17,9 @@ Fonte canônica das convenções: [`../../skills-standards.md`](../../skills-sta
 | Mobile | `mobile-*` | 10 | entity → usecase → repository → screen / form |
 | Requisitos / Análise | `req-*` | 4 | discovery, modelagem DDD, migração, planejamento |
 | Qualidade | `test-*` | 12 | unit (≥95% domain+app) e e2e |
-| OpenSpec | `openspec-*` | 7 | propose → explore → apply → sync → archive |
+| OpenSpec | `openspec-*` | 8 | propose → explore → apply → sync → archive |
 | Workflow | `git-*` | 1 | commits atômicos por área |
-| **Total** | | **175** | |
+| **Total** | | **176** | |
 
 Stacks suportadas: **TypeScript** (sem sufixo), **Kotlin** (`-kt`), **Java** (`-java`), **C#** (`-cs`), **Rust** (`-rs`), **Angular**, **Vue**, **Leptos**, **Dioxus**, **Flutter**, **Android**.
 
@@ -174,6 +174,7 @@ Detalhes de cobertura: `skills-standards.md §11` (Test Coverage Standard) e Epi
 | `openspec-explore` | investigação prévia do problema |
 | `openspec-apply-change` | aplicar/implementar as tasks da mudança |
 | `openspec-sync-specs` | sincronizar delta specs da mudança para as specs principais |
+| `openspec-sync-issues` | espelhar changes/tasks para Jira e/ou GitHub Issues (MCP ou `gh`/API) |
 | `openspec-archive-change` | arquivar mudança concluída |
 | `openspec-validate-dependencies` | validar dependências entre mudanças |
 | `openspec-context-cache` | cache de contexto entre execuções |
