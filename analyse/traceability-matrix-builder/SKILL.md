@@ -1,5 +1,6 @@
 ---
 name: traceability-matrix-builder
+stack: agnostic
 description: Constrói matrizes de rastreabilidade (objetivo → requisito → funcionalidade → teste), mapeia impactos de mudanças e identifica requisitos órfãos. Usar para auditoria de completude antes de entregas.
 ---
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: Architecture Assessment'
+  short_description: 'Avalia a arquitetura de um sistema legado contra Clean Architecture, Arquitetura Hexagonal e DDD, medindo acoplamento, coesão e violações de dependência. Usar para diagnóstico ante'
+  default_prompt: 'Avalia a arquitetura de um sistema legado contra Clean Architecture, Arquitetura Hexagonal e DDD, medindo acoplamento, coesão e violações de dependência. Usar para diagnóstico antes de um plano de modernização.'

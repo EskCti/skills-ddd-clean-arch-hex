@@ -1,5 +1,6 @@
 ---
 name: prioritization-agent
+stack: agnostic
 description: Prioriza requisitos e esforços de modernização com MoSCoW, matriz Valor x Esforço x Risco x Urgência, identifica quick wins e calcula ROI. Usar para montar roadmap de backlog ou modernização.
 ---
 

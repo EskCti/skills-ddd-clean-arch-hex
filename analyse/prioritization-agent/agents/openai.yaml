@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: Prioritization Agent'
+  short_description: 'Prioriza requisitos e esforços de modernização com MoSCoW, matriz Valor x Esforço x Risco x Urgência, identifica quick wins e calcula ROI. Usar para montar roadmap de backlog ou mo'
+  default_prompt: 'Prioriza requisitos e esforços de modernização com MoSCoW, matriz Valor x Esforço x Risco x Urgência, identifica quick wins e calcula ROI. Usar para montar roadmap de backlog ou modernização.'

@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: Migration Strategy Advisor'
+  short_description: 'Propõe estratégias de migração de sistemas legados (Strangler Fig, Anti-Corruption Layer, Branch by Abstraction), planeja refatoração incremental e identifica riscos e dependências'
+  default_prompt: 'Propõe estratégias de migração de sistemas legados (Strangler Fig, Anti-Corruption Layer, Branch by Abstraction), planeja refatoração incremental e identifica riscos e dependências críticas. Usar ao planejar modernização de legado.'

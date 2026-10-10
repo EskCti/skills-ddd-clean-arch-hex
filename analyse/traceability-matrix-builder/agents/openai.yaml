@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: Traceability Matrix Builder'
+  short_description: 'Constrói matrizes de rastreabilidade (objetivo → requisito → funcionalidade → teste), mapeia impactos de mudanças e identifica requisitos órfãos. Usar para auditoria de completude '
+  default_prompt: 'Constrói matrizes de rastreabilidade (objetivo → requisito → funcionalidade → teste), mapeia impactos de mudanças e identifica requisitos órfãos. Usar para auditoria de completude antes de entregas.'

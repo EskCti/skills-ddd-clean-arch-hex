@@ -1,5 +1,6 @@
 ---
 name: requirements-elicitation
+stack: agnostic
 description: Elicita requisitos de stakeholders — gera perguntas de entrevista, roteiros de workshop de descoberta e transforma anotações de reunião em requisitos estruturados. Usar no início de qualquer projeto de modernização ou levantamento.
 ---
 

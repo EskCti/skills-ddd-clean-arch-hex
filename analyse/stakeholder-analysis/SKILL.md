@@ -1,5 +1,6 @@
 ---
 name: stakeholder-analysis
+stack: agnostic
 description: Mapeia stakeholders (poder × interesse), identifica conflitos de interesse e propõe estratégias de comunicação. Usar no início de projetos para planejar engajamento e validação.
 ---
 

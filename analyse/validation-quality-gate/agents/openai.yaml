@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: Validation Quality Gate'
+  short_description: 'Aplica checklists de qualidade a requisitos, identifica ambiguidades, inconsistências e lacunas, e valida testabilidade e verificabilidade. Usar como gate antes de aprovar qualquer'
+  default_prompt: 'Aplica checklists de qualidade a requisitos, identifica ambiguidades, inconsistências e lacunas, e valida testabilidade e verificabilidade. Usar como gate antes de aprovar qualquer requisito ou spec.'

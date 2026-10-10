@@ -1,5 +1,6 @@
 ---
 name: change-impact-analyzer
+stack: agnostic
 description: Avalia o impacto de mudanças em requisitos, sistemas, testes e prazos; identifica efeitos em cadeia e calcula custo de oportunidade. Usar antes de aceitar mudanças de escopo em projetos em andamento.
 ---
 

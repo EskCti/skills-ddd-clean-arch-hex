@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: Change Impact Analyzer'
+  short_description: 'Avalia o impacto de mudanças em requisitos, sistemas, testes e prazos; identifica efeitos em cadeia e calcula custo de oportunidade. Usar antes de aceitar mudanças de escopo em pro'
+  default_prompt: 'Avalia o impacto de mudanças em requisitos, sistemas, testes e prazos; identifica efeitos em cadeia e calcula custo de oportunidade. Usar antes de aceitar mudanças de escopo em projetos em andamento.'

@@ -1,5 +1,6 @@
 ---
 name: user-story-generator
+stack: agnostic
 description: Converte requisitos técnicos em User Stories com critérios de aceite Given/When/Then e identifica dependências entre stories. Usar para transformar especificações em backlog ágil.
 ---
 

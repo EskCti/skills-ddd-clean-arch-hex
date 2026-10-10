@@ -1,5 +1,6 @@
 ---
 name: domain-model-extractor
+stack: agnostic
 description: Extrai o modelo de domínio implícito em código legado — Bounded Contexts, entidades, value objects, agregados, serviços de domínio e Linguagem Ubíqua. Usar antes de modelar DDD sobre um sistema existente.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: nfr-specialist
+stack: agnostic
 description: Identifica requisitos não funcionais (desempenho, segurança, escalabilidade, usabilidade, privacidade), propõe métricas mensuráveis e avalia impactos de mudanças em RNFs. Usar em levantamentos e antes de decisões de arquitetura.
 ---
 

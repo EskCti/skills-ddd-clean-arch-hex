@@ -1,5 +1,6 @@
 ---
 name: architecture-assessment
+stack: agnostic
 description: Avalia a arquitetura de um sistema legado contra Clean Architecture, Arquitetura Hexagonal e DDD, medindo acoplamento, coesão e violações de dependência. Usar para diagnóstico antes de um plano de modernização.
 ---
 

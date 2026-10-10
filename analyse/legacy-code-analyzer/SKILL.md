@@ -1,5 +1,6 @@
 ---
 name: legacy-code-analyzer
+stack: agnostic
 description: Analisa código legado em qualquer linguagem e extrai requisitos funcionais implícitos, entidades, regras de negócio, fluxos, dependências e acoplamentos. Usar quando houver sistema legado para mapear antes de modernizar ou documentar.
 ---
 

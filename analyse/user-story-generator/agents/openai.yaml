@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: User Story Generator'
+  short_description: 'Converte requisitos técnicos em User Stories com critérios de aceite Given/When/Then e identifica dependências entre stories. Usar para transformar especificações em backlog ágil.'
+  default_prompt: 'Converte requisitos técnicos em User Stories com critérios de aceite Given/When/Then e identifica dependências entre stories. Usar para transformar especificações em backlog ágil.'

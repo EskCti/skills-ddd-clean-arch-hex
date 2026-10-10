@@ -1,5 +1,6 @@
 ---
 name: validation-quality-gate
+stack: agnostic
 description: Aplica checklists de qualidade a requisitos, identifica ambiguidades, inconsistências e lacunas, e valida testabilidade e verificabilidade. Usar como gate antes de aprovar qualquer requisito ou spec.
 ---
 

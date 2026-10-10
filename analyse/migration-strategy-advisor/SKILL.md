@@ -1,5 +1,6 @@
 ---
 name: migration-strategy-advisor
+stack: agnostic
 description: Propõe estratégias de migração de sistemas legados (Strangler Fig, Anti-Corruption Layer, Branch by Abstraction), planeja refatoração incremental e identifica riscos e dependências críticas. Usar ao planejar modernização de legado.
 ---
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: Stakeholder Analysis'
+  short_description: 'Mapeia stakeholders (poder × interesse), identifica conflitos de interesse e propõe estratégias de comunicação. Usar no início de projetos para planejar engajamento e validação.'
+  default_prompt: 'Mapeia stakeholders (poder × interesse), identifica conflitos de interesse e propõe estratégias de comunicação. Usar no início de projetos para planejar engajamento e validação.'

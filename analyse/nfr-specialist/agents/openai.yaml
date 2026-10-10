@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Analyse: NFR Specialist'
+  short_description: 'Identifica requisitos não funcionais (desempenho, segurança, escalabilidade, usabilidade, privacidade), propõe métricas mensuráveis e avalia impactos de mudanças em RNFs. Usar em l'
+  default_prompt: 'Identifica requisitos não funcionais (desempenho, segurança, escalabilidade, usabilidade, privacidade), propõe métricas mensuráveis e avalia impactos de mudanças em RNFs. Usar em levantamentos e antes de decisões de arquitetura.'
