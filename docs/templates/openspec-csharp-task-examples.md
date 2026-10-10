@@ -434,8 +434,8 @@ public static UserEntity Create(string email, string password)
 - [ASP.NET Core Web API Best Practices](https://docs.microsoft.com/en-us/aspnet/core/web-api/)
 
 ### **Templates Relacionados**
-- [OpenSpec Task Template](../../templates/openspec-task-template.yaml)
-- [Stack C# + Vue + Android Example](../../templates/openspec-stack-cs-vue-android-example.md)
+- `../../templates/openspec-task-template.yaml`
+- `../../templates/openspec-stack-cs-vue-android-example.md`
 
 ### **Skills Específicos C#**
 - `core-value-object-cs` - Value Objects C#

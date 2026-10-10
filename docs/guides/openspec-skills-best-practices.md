@@ -386,11 +386,11 @@ echo "-----------------"
 
 ## 🔗 **Recursos Relacionados**
 
-1. **[Workflow CI/CD](workflows/openspec-ci-cd-workflow.md)** - Pipeline completo de integração contínua
-2. **[Template de Tasks](templates/openspec-csharp-task-examples.md)** - Exemplos específicos para stack C#
+1. **[Workflow CI/CD](../workflows/openspec-ci-cd-workflow.md)** - Pipeline completo de integração contínua
+2. **[Template de Tasks](../templates/openspec-csharp-task-examples.md)** - Exemplos específicos para stack C#
 3. **[Guia de Troubleshooting](openspec-troubleshooting-guide.md)** - Soluções para problemas comuns
-4. **[Checklist de Validação](checklists/openspec-phase-validation-checklist.md)** - Validação por fase do ciclo
-5. **[Dashboard de Progresso](dashboard/openspec-progress-dashboard.md)** - Monitoramento visual do progresso
+4. **[Checklist de Validação](../checklists/openspec-phase-validation-checklist.md)** - Validação por fase do ciclo
+5. **[Dashboard de Progresso](../dashboard/openspec-progress-dashboard.md)** - Monitoramento visual do progresso
 
 ---
 

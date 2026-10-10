@@ -230,11 +230,11 @@ CREATE INDEX idx_users_email ON users(email);
 
 ## 📚 **Documentação Relacionada**
 
-1. **[Strategic Overview](strategic-overview.md)** - Análise estratégica do BC
-2. **[Tactical Model](tactical-model.md)** - Modelo tático detalhado
-3. **[API Contracts](api-contracts.md)** - Contratos de API
-4. **[Integration Guide](integration-guide.md)** - Guia de integração
-5. **[Backlog](backlog.md)** - Backlog específico do BC
+1. **`strategic-overview.md`** - Análise estratégica do BC
+2. **`tactical-model.md`** - Modelo tático detalhado
+3. **`api-contracts.md`** - Contratos de API
+4. **`integration-guide.md`** - Guia de integração
+5. **`backlog.md`** - Backlog específico do BC
 
 ---
 
@@ -285,7 +285,7 @@ CREATE INDEX idx_users_email ON users(email);
 - **CI/CD**: [Link para pipeline]
 - **Monitoramento**: [Link para dashboards]
 - **Documentação Técnica**: [Link para docs técnicas]
-- **Slack Channel**: [#bc-xxx-nome](link)
+- **Slack Channel**: `link`
 
 ---
 

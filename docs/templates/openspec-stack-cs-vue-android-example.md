@@ -326,6 +326,6 @@ Este exemplo segue o [template padronizado](../templates/openspec-task-template.
 ## 📚 **Referências**
 
 - [Template Padronizado para Tasks OpenSpec](../templates/openspec-task-template.yaml)
-- [Tutorial 04 - Ciclo Completo OpenSpec](../04-ciclo-completo-openspec.md)
-- [Stack C# + Vue + Android](../stacks/dotnet-cs-vue-android.md)
+- `../04-ciclo-completo-openspec.md`
+- `../stacks/dotnet-cs-vue-android.md`
 - [Skills Standards](../../skills-standards.md)

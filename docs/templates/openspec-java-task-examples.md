@@ -120,4 +120,4 @@
 
 - [java-namespace-layout.md](../../config-shared-core-java/references/java-namespace-layout.md)
 - [java-vue-flutter.md](../tutorial/stacks/java-vue-flutter.md)
-- [openspec-kotlin-task-examples.md](./openspec-kotlin-task-examples.md) — referência JVM alternativa
+- `./openspec-kotlin-task-examples.md` — referência JVM alternativa

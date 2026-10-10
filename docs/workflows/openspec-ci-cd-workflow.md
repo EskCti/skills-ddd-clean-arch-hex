@@ -1203,9 +1203,9 @@ export class CreateUserSkill {
 - [Android CI/CD with GitHub Actions](https://developer.android.com/studio/test/ci-cd)
 
 ### **Templates e Exemplos**
-- [OpenSpec Task Templates](../../templates/openspec-task-template.yaml)
-- [Stack C# + Vue + Android Example](../../templates/openspec-stack-cs-vue-android-example.md)
-- [Context Cache Usage Example](../../examples/context-cache-usage-example.md)
+- `../../templates/openspec-task-template.yaml`
+- `../../templates/openspec-stack-cs-vue-android-example.md`
+- `../../examples/context-cache-usage-example.md`
 
 ### **Ferramentas Recomendadas**
 - **CI/CD**: GitHub Actions, Azure DevOps, CircleCI
@@ -1232,4 +1232,4 @@ Garante qualidade, velocidade e confiabilidade no processo de desenvolvimento. A
 3. Testar deploy em ambiente de staging
 4. Monitorar métricas e ajustar thresholds
 
-Para dúvidas ou problemas, consulte a [documentação de troubleshooting](../troubleshooting/openspec-ci-cd-troubleshooting.md) ou abra uma issue no repositório.
+Para dúvidas ou problemas, consulte a `../troubleshooting/openspec-ci-cd-troubleshooting.md` ou abra uma issue no repositório.

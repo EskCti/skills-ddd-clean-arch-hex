@@ -286,10 +286,10 @@ openspec/changes/archive/
 ## 🔗 **Links Úteis**
 
 ### **Documentação**
-- [Tutorial OpenSpec](../../tutorial/04-ciclo-completo-openspec.md)
-- [Template de Tasks](../../templates/openspec-task-template.yaml)
-- [Exemplo Stack C#](../../templates/openspec-stack-cs-vue-android-example.md)
-- [Mapeamento Artefato → Skill](../../../docs/modeling/loja-php/ddd-operational-notes.md#mapeamento-artefato--skill-por-camada)
+- `../../tutorial/04-ciclo-completo-openspec.md`
+- `../../templates/openspec-task-template.yaml`
+- `../../templates/openspec-stack-cs-vue-android-example.md`
+- `../../../docs/modeling/loja-php/ddd-operational-notes.md#mapeamento-artefato--skill-por-camada`
 
 ### **Skills**
 - [openspec-propose](../../openspec-propose/SKILL.md)

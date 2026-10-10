@@ -888,7 +888,7 @@ Para a stack C#, o skill valida:
 
 #### **Exemplo de Template Padronizado**
 
-Use o [template YAML](../../.agents/skills/docs/templates/openspec-task-template.yaml) para garantir consistência:
+Use o `../../.agents/skills/docs/templates/openspec-task-template.yaml` para garantir consistência:
 
 ```yaml
 task_template:
@@ -1174,7 +1174,7 @@ O projeto RetailOps já implementou múltiplas changes usando este ciclo:
 
 ### **Referências para Stack C# + Vue + Android**
 
-- [Guia completo da stack](../stacks/dotnet-cs-vue-android.md)
+- `../stacks/dotnet-cs-vue-android.md`
 - [Template padronizado](../templates/openspec-task-template.yaml)
 - [Exemplos detalhados](../templates/openspec-stack-cs-vue-android-example.md)
 - [Cache de Contexto - Exemplo Prático](../examples/context-cache-usage-example.md)

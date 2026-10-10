@@ -462,9 +462,9 @@ public class AuthController : ControllerBase
 ## 🔗 **Referências**
 
 ### **Documentação Relacionada**
-- [OpenSpec Task Template](../../templates/openspec-task-template.yaml)
-- [OpenSpec Tutorial](../../tutorial/04-ciclo-completo-openspec.md)
-- [Dashboard de Progresso](../../dashboard/openspec-progress-dashboard.md)
+- `../../templates/openspec-task-template.yaml`
+- `../../tutorial/04-ciclo-completo-openspec.md`
+- `../../dashboard/openspec-progress-dashboard.md`
 
 ### **Ferramentas Recomendadas**
 - **Testing**: xUnit/NUnit, Moq/NSubstitute, Coverlet

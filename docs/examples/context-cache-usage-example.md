@@ -588,8 +588,8 @@ Task 3: core-use-case-cs (reutiliza entity do cache)
 
 ### **Documentação**
 - [OpenSpec Context Cache SKILL](../../openspec-context-cache/SKILL.md)
-- [Tutorial OpenSpec](../../tutorial/04-ciclo-completo-openspec.md)
-- [Dashboard de Progresso](../../dashboard/openspec-progress-dashboard.md)
+- `../../tutorial/04-ciclo-completo-openspec.md`
+- `../../dashboard/openspec-progress-dashboard.md`
 
 ### **Código Fonte**
 - `packages/shared-core/src/context/` - Implementação do cache

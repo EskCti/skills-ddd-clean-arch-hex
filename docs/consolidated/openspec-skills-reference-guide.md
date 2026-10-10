@@ -12,49 +12,49 @@
 ### **1. Guias Principais**
 | Documento | Descrição | Localização | Status |
 |-----------|-----------|-------------|--------|
-| **OpenSpec + Skills Best Practices** | Princípios fundamentais e workflow otimizado | [guides/openspec-skills-best-practices.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/guides/openspec-skills-best-practices.md) | ✅ |
-| **Advanced Dependency Validation Guide** | Sistema completo de validação de dependências | [guides/advanced-dependency-validation-guide.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/guides/advanced-dependency-validation-guide.md) | ✅ |
-| **Rollback and Recovery Guide** | Estratégias e procedimentos para recuperação de falhas | [guides/openspec-rollback-recovery-guide.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/guides/openspec-rollback-recovery-guide.md) | ✅ |
-| **OpenSpec Troubleshooting Guide** | Soluações para problemas comuns | [guides/openspec-troubleshooting-guide.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/guides/openspec-troubleshooting-guide.md) | ✅ |
-| **FullStack Stack Matrix** | Matriz completa de todas as combinações de stacks | [guides/fullstack-stack-matrix.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/guides/fullstack-stack-matrix.md) | ✅ |
+| **OpenSpec + Skills Best Practices** | Princípios fundamentais e workflow otimizado | [guides/openspec-skills-best-practices.md](../guides/openspec-skills-best-practices.md) | ✅ |
+| **Advanced Dependency Validation Guide** | Sistema completo de validação de dependências | [guides/advanced-dependency-validation-guide.md](../guides/advanced-dependency-validation-guide.md) | ✅ |
+| **Rollback and Recovery Guide** | Estratégias e procedimentos para recuperação de falhas | [guides/openspec-rollback-recovery-guide.md](../guides/openspec-rollback-recovery-guide.md) | ✅ |
+| **OpenSpec Troubleshooting Guide** | Soluações para problemas comuns | [guides/openspec-troubleshooting-guide.md](../guides/openspec-troubleshooting-guide.md) | ✅ |
+| **FullStack Stack Matrix** | Matriz completa de todas as combinações de stacks | [guides/fullstack-stack-matrix.md](../guides/fullstack-stack-matrix.md) | ✅ |
 
 ### **2. Tutoriais Atualizados**
 | Documento | Descrição | Localização | Status |
 |-----------|-----------|-------------|--------|
-| **Ciclo Completo OpenSpec** | Tutorial principal com exemplos para todas as stacks | [tutorial/04-ciclo-completo-openspec.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/tutorial/04-ciclo-completo-openspec.md) | ✅ |
-| **OpenSpec C# Task Examples** | Exemplos práticos específicos para stack C# | [templates/openspec-csharp-task-examples.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/openspec-csharp-task-examples.md) | ✅ |
-| **OpenSpec TypeScript Task Examples** | Exemplos práticos específicos para stack TypeScript | [templates/openspec-typescript-task-examples.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/openspec-typescript-task-examples.md) | ✅ |
-| **OpenSpec Kotlin Task Examples** | Exemplos práticos específicos para stack Kotlin | [templates/openspec-kotlin-task-examples.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/openspec-kotlin-task-examples.md) | ✅ |
+| **Ciclo Completo OpenSpec** | Tutorial principal com exemplos para todas as stacks | [tutorial/04-ciclo-completo-openspec.md](../tutorial/04-ciclo-completo-openspec.md) | ✅ |
+| **OpenSpec C# Task Examples** | Exemplos práticos específicos para stack C# | [templates/openspec-csharp-task-examples.md](../templates/openspec-csharp-task-examples.md) | ✅ |
+| **OpenSpec TypeScript Task Examples** | Exemplos práticos específicos para stack TypeScript | `docs/templates/openspec-typescript-task-examples.md` | ✅ |
+| **OpenSpec Kotlin Task Examples** | Exemplos práticos específicos para stack Kotlin | `docs/templates/openspec-kotlin-task-examples.md` | ✅ |
 | **OpenSpec Rust Task Examples** | Exemplos práticos para stack Rust (Axum + Vue + Flutter) | [templates/openspec-rust-task-examples.md](../templates/openspec-rust-task-examples.md) | ✅ |
 
 ### **3. Templates Padronizados**
 | Documento | Descrição | Localização | Status |
 |-----------|-----------|-------------|--------|
-| **Bounded Context Documentation Template** | Template completo para documentação de BCs | [templates/bounded-context-documentation-template.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/bounded-context-documentation-template.md) | ✅ |
-| **Bounded Context Backlog Template** | Template específico para backlog de BCs | [templates/bounded-context-backlog-template.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/bounded-context-backlog-template.md) | ✅ |
-| **Angular Component Template** | Template para componentes Angular | [templates/angular-component-template.ts](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/angular-component-template.ts) | ✅ |
-| **Vue Component Template** | Template para componentes Vue | [templates/vue-component-template.vue](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/vue-component-template.vue) | ✅ |
-| **Android Screen Template** | Template para telas Android | [templates/android-screen-template.kt](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/android-screen-template.kt) | ✅ |
-| **Flutter Screen Template** | Template para telas Flutter | [templates/flutter-screen-template.dart](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/flutter-screen-template.dart) | ✅ |
+| **Bounded Context Documentation Template** | Template completo para documentação de BCs | [templates/bounded-context-documentation-template.md](../templates/bounded-context-documentation-template.md) | ✅ |
+| **Bounded Context Backlog Template** | Template específico para backlog de BCs | [templates/bounded-context-backlog-template.md](../templates/bounded-context-backlog-template.md) | ✅ |
+| **Angular Component Template** | Template para componentes Angular | `docs/templates/angular-component-template.ts` | ✅ |
+| **Vue Component Template** | Template para componentes Vue | `docs/templates/vue-component-template.vue` | ✅ |
+| **Android Screen Template** | Template para telas Android | `docs/templates/android-screen-template.kt` | ✅ |
+| **Flutter Screen Template** | Template para telas Flutter | `docs/templates/flutter-screen-template.dart` | ✅ |
 
 ### **4. Dashboards e Métricas**
 | Documento | Descrição | Localização | Status |
 |-----------|-----------|-------------|--------|
-| **OpenSpec Advanced Metrics Dashboard** | Dashboard completo com métricas de performance | [dashboard/openspec-advanced-metrics-dashboard.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/dashboard/openspec-advanced-metrics-dashboard.md) | ✅ |
-| **OpenSpec Progress Dashboard** | Dashboard básico de progresso | [dashboard/openspec-progress-dashboard.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/dashboard/openspec-progress-dashboard.md) | ✅ |
+| **OpenSpec Advanced Metrics Dashboard** | Dashboard completo com métricas de performance | [dashboard/openspec-advanced-metrics-dashboard.md](../dashboard/openspec-advanced-metrics-dashboard.md) | ✅ |
+| **OpenSpec Progress Dashboard** | Dashboard básico de progresso | [dashboard/openspec-progress-dashboard.md](../dashboard/openspec-progress-dashboard.md) | ✅ |
 
 ### **5. Scripts Automatizados**
 | Script | Descrição | Localização | Status |
 |--------|-----------|-------------|--------|
-| **validate-advanced-dependencies.sh** | Validação avançada de dependências entre skills | [scripts/validate-advanced-dependencies.sh](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/scripts/validate-advanced-dependencies.sh) | ✅ |
-| **fix-dependencies.sh** | Correção automática de problemas comuns | [scripts/fix-dependencies.sh](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/scripts/fix-dependencies.sh) | ✅ |
-| **update-system-metrics.sh** | Atualização automática de métricas do sistema | [scripts/update-system-metrics.sh](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/scripts/update-system-metrics.sh) | ✅ |
+| **validate-advanced-dependencies.sh** | Validação avançada de dependências entre skills | [scripts/validate-advanced-dependencies.sh](../../scripts/validate-advanced-dependencies.sh) | ✅ |
+| **fix-dependencies.sh** | Correção automática de problemas comuns | [scripts/fix-dependencies.sh](../../scripts/fix-dependencies.sh) | ✅ |
+| **update-system-metrics.sh** | Atualização automática de métricas do sistema | [scripts/update-system-metrics.sh](../../scripts/update-system-metrics.sh) | ✅ |
 
 ### **6. APIs e Integrações**
 | Componente | Descrição | Localização | Status |
 |------------|-----------|-------------|--------|
-| **Metrics API Controller** | API REST para métricas do sistema | [api/metrics/MetricsController.cs](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/api/metrics/MetricsController.cs) | ✅ |
-| **Metrics Configuration** | Configuração da API de métricas | [api/metrics/appsettings.metrics.json](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/api/metrics/appsettings.metrics.json) | ✅ |
+| **Metrics API Controller** | API REST para métricas do sistema | `api/metrics/MetricsController.cs` | ✅ |
+| **Metrics Configuration** | Configuração da API de métricas | `api/metrics/appsettings.metrics.json` | ✅ |
 
 ---
 
@@ -543,9 +543,9 @@ curl -X POST http://api/config/feature-flags \
 ## 📞 **Suporte e Recursos**
 
 ### **Documentação Online**
-- **Guia Principal**: [openspec-skills-best-practices.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/guides/openspec-skills-best-practices.md)
-- **Troubleshooting**: [openspec-troubleshooting-guide.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/guides/openspec-troubleshooting-guide.md)
-- **Exemplos C#**: [openspec-csharp-task-examples.md](file:///home/eskokado/projetos/eskcti/saas/ecommerce_cs/.agents/skills/docs/templates/openspec-csharp-task-examples.md)
+- **Guia Principal**: [openspec-skills-best-practices.md](../guides/openspec-skills-best-practices.md)
+- **Troubleshooting**: [openspec-troubleshooting-guide.md](../guides/openspec-troubleshooting-guide.md)
+- **Exemplos C#**: [openspec-csharp-task-examples.md](../templates/openspec-csharp-task-examples.md)
 
 ### **Scripts Disponíveis**
 ```bash

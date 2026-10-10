@@ -507,7 +507,7 @@ echo "✅ Testes de troubleshooting concluídos"
 
 ### **Canais de Suporte**
 - **Documentação**: [docs/openspec/](../)
-- **Issues**: [.github/ISSUE_TEMPLATE/](../../.github/ISSUE_TEMPLATE/)
+- **Issues**: `../../.github/ISSUE_TEMPLATE/`
 - **Slack**: `#openspec-support`
 - **Email**: `openspec-support@retailops.com`
 

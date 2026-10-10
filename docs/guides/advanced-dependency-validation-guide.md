@@ -527,10 +527,10 @@ EOF
 ## 📚 **Recursos Relacionados**
 
 1. **[Guia de Melhores Práticas](openspec-skills-best-practices.md)** - Padrões para integração OpenSpec + Skills
-2. **[Template de Tasks](templates/openspec-csharp-task-examples.md)** - Exemplos específicos para stack C#
-3. **[Workflow CI/CD](workflows/openspec-ci-cd-workflow.md)** - Pipeline completo de integração contínua
+2. **[Template de Tasks](../templates/openspec-csharp-task-examples.md)** - Exemplos específicos para stack C#
+3. **[Workflow CI/CD](../workflows/openspec-ci-cd-workflow.md)** - Pipeline completo de integração contínua
 4. **[Guia de Troubleshooting](openspec-troubleshooting-guide.md)** - Soluções para problemas comuns
-5. **[Dashboard de Progresso](dashboard/openspec-progress-dashboard.md)** - Monitoramento visual do progresso
+5. **[Dashboard de Progresso](../dashboard/openspec-progress-dashboard.md)** - Monitoramento visual do progresso
 
 ---
 
@@ -538,8 +538,8 @@ EOF
 
 ### **Canais de Suporte**
 - **Issues GitHub**: [Link para repositório]
-- **Slack**: [#openspec-validation](link)
-- **Documentação**: [docs/validation](link)
+- **Slack**: `link`
+- **Documentação**: `link`
 
 ### **Contribuição**
 ```bash
