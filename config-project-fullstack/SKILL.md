@@ -14,6 +14,24 @@ Guia o usuário pela criação de um projeto completo — backend + frontend + m
 
 ---
 
+## Antes do bootstrap — Análise especialista (`analyse/*`)
+
+O bootstrap pressupõe requisitos e backlog já definidos. Se o projeto parte de requisitos, descrição ou legado, **consulte primeiro as skills especialistas** (ver `../docs/guides/analysis-expert-flow.md`):
+
+| Objetivo | Skill `analyse/` |
+|----------|------------------|
+| Elicitar requisitos (entrevistas/workshops) | `requirements-elicitation` |
+| Mapear stakeholders | `stakeholder-analysis` |
+| Extrair requisitos/regras do legado | `legacy-code-analyzer` |
+| Extrair modelo de domínio do legado | `domain-model-extractor` |
+| Avaliar arquitetura do legado | `architecture-assessment` |
+| Definir RNFs mensuráveis | `nfr-specialist` |
+| Estratégia de migração | `migration-strategy-advisor` |
+
+Depois: `req-discovery` → `req-ddd-modeling` → `req-agile-planning` (backlog) → este orquestrador.
+
+---
+
 ## Etapa 0 — Definição do projeto
 
 Antes de iniciar, coletar as seguintes decisões:

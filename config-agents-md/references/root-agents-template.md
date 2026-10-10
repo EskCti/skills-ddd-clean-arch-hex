@@ -65,6 +65,27 @@ Ver guia completo: `<skills>/docs/guides/workflow-req-to-dev.md`.
 
 Inventário completo: `<skills>/docs/guides/skills-inventory.md`.
 
+## Análise especialista (`analyse/*`) — OBRIGATÓRIO
+
+> Antes de produzir requisitos, modelagem ou backlog, **consulte a skill especialista** correspondente ao objetivo abaixo. As especialistas alimentam as fases `req-*` com artefatos auditáveis.
+
+| Objetivo | Skill `analyse/` |
+|----------|------------------|
+| Preparar entrevistas/workshops | `requirements-elicitation` |
+| Mapear stakeholders (poder × interesse) | `stakeholder-analysis` |
+| Extrair requisitos/regras do legado | `legacy-code-analyzer` |
+| Extrair modelo de domínio do legado | `domain-model-extractor` |
+| Avaliar arquitetura (Clean/Hexagonal/DDD) | `architecture-assessment` |
+| Definir RNFs mensuráveis | `nfr-specialist` |
+| Estratégia de migração de legado | `migration-strategy-advisor` |
+| Gerar User Stories | `user-story-generator` |
+| Priorizar (MoSCoW/ROI) | `prioritization-agent` |
+| Rastreabilidade requisito → teste | `traceability-matrix-builder` |
+| Gate de qualidade / Definition of Ready | `validation-quality-gate` |
+| Impacto de mudança de escopo | `change-impact-analyzer` |
+
+Fluxo detalhado: `<skills>/docs/guides/analysis-expert-flow.md`.
+
 ## Comandos transversais
 
 ```bash

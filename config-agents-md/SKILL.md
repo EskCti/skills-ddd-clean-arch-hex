@@ -88,8 +88,9 @@ Gerar `<projectRoot>/AGENTS.md` com o template de `references/root-agents-templa
 2. **Mapa de módulos** — tabela: caminho · stack · papel · build/test · porta.
 3. **Convenções globais** — referência a `skills-standards.md` (naming, Result com lista de erros, Tailwind, cobertura ≥95%).
 4. **Fluxo de trabalho** — requisito → análise → planejamento → desenvolvimento (ver `docs/guides/workflow-req-to-dev.md`).
-5. **Skills disponíveis** — categorias (`req-*`, `core-*`, `backend-*`, `config-*`, `test-*`, `git-*`, `openspec-*`).
-6. **Comandos transversais** — subir infra (docker compose), atualizar submódulos, rodar cobertura global.
+5. **Skills disponíveis** — categorias (`req-*`, `analyse/*`, `core-*`, `backend-*`, `config-*`, `test-*`, `git-*`, `openspec-*`).
+6. **Análise especialista (`analyse/*`)** — **seção obrigatória**: lista as 12 skills especialistas e a matriz de acionamento (objetivo → skill). Garante que todo agente que ler o AGENTS.md consulte as especialistas antes de requisito/planejamento.
+7. **Comandos transversais** — subir infra (docker compose), atualizar submódulos, rodar cobertura global.
 
 ---
 
@@ -132,6 +133,7 @@ Antes de finalizar:
 - [ ] Cada módulo do mapa da raiz tem AGENTS.md correspondente.
 - [ ] Todos os comandos foram extraídos dos build files (ou marcados `[confirmar]`).
 - [ ] AGENTS.md raiz aponta para os AGENTS.md dos submódulos.
+- [ ] AGENTS.md raiz inclui a seção obrigatória de **Análise especialista (`analyse/*`)**.
 - [ ] Convenções globais remetem a `skills-standards.md` (não duplicar regras).
 - [ ] Nenhuma seção manual foi perdida no merge.
 
@@ -164,6 +166,7 @@ Antes de finalizar:
 - `references/root-agents-template.md` — template do AGENTS.md raiz.
 - `references/submodule-agents-template.md` — template do AGENTS.md de módulo.
 - `../docs/guides/workflow-req-to-dev.md` — fluxo requisito → análise → planejamento → desenvolvimento.
+- `../docs/guides/analysis-expert-flow.md` — fluxo das skills especialistas (`analyse/*`) e matriz de acionamento.
 - `../docs/guides/skills-inventory.md` — inventário das skills deste repositório.
 
 ## Global Standards
