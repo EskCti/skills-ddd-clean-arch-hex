@@ -1,0 +1,4 @@
+interface:
+  display_name: 'OpenSpec Validate Dependencies'
+  short_description: 'Valida automaticamente dependências entre tasks OpenSpec e verifica conformidade com Clean Architecture. Usar antes de openspec-apply-change para garantir ordem correta de implemen'
+  default_prompt: 'Valida automaticamente dependências entre tasks OpenSpec e verifica conformidade com Clean Architecture. Usar antes de openspec-apply-change para garantir ordem correta de implementação.'

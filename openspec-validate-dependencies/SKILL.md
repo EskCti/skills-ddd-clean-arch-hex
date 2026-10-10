@@ -139,7 +139,7 @@ Para problemas comuns, oferecer correção automática:
 
 ### 10. **Validar contra template padronizado**
 
-Comparar tasks com [template padronizado](../templates/openspec-task-template.yaml):
+Comparar tasks com [template padronizado](../docs/templates/openspec-task-template.yaml):
 - Verificar estrutura de cada task
 - Validar campos obrigatórios
 - Verificar conformidade com templates por camada
@@ -347,7 +347,7 @@ Execute as correções e valide novamente antes de openspec-apply-change.
 
 ## **Referências**
 
-- [Template Padronizado para Tasks OpenSpec](../templates/openspec-task-template.yaml)
-- [Skills Standards](../../skills-standards.md)
+- [Template Padronizado para Tasks OpenSpec](../docs/templates/openspec-task-template.yaml)
+- [Skills Standards](../skills-standards.md)
 - [Tutorial 04 - Ciclo Completo OpenSpec](../docs/tutorial/04-ciclo-completo-openspec.md)
-- [Exemplos Stack C# + Vue + Android](../templates/openspec-stack-cs-vue-android-example.md)
+- [Exemplos Stack C# + Vue + Android](../docs/templates/openspec-stack-cs-vue-android-example.md)

@@ -1,0 +1,4 @@
+interface:
+  display_name: 'OpenSpec Apply Change'
+  short_description: 'Implement tasks from an OpenSpec change. Use when the user wants to start implementing, continue implementation, or work through tasks.'
+  default_prompt: 'Implement tasks from an OpenSpec change. Use when the user wants to start implementing, continue implementation, or work through tasks.'

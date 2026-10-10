@@ -88,9 +88,9 @@ Junto com `openspec-apply-change`, o cache permite que dados idênticos não sej
 
 ## Referências
 
-- [OpenSpec Workflow](../../docs/tutorial/04-ciclo-completo-openspec.md)
-- [Template de Tasks](../../docs/templates/openspec-task-template.yaml)
-- [Dashboard de Progresso](../../docs/dashboard/openspec-progress-dashboard.md)
+- [OpenSpec Workflow](../docs/tutorial/04-ciclo-completo-openspec.md)
+- [Template de Tasks](../docs/templates/openspec-task-template.yaml)
+- [Dashboard de Progresso](../docs/dashboard/openspec-progress-dashboard.md)
 
 ## Skills relacionadas
 

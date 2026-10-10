@@ -1,0 +1,4 @@
+interface:
+  display_name: 'OpenSpec Context Cache'
+  short_description: 'Gerenciar cache de contexto por change_id no fluxo OpenSpec. Usar quando o pedido envolver cache de contexto, persistência de contexto entre changes, ou otimização de contexto Open'
+  default_prompt: 'Gerenciar cache de contexto por change_id no fluxo OpenSpec. Usar quando o pedido envolver cache de contexto, persistência de contexto entre changes, ou otimização de contexto OpenSpec.'

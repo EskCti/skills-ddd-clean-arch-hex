@@ -1,0 +1,4 @@
+interface:
+  display_name: 'OpenSpec Archive Change'
+  short_description: 'Archive a completed change in the experimental workflow. Use when the user wants to finalize and archive a change after implementation is complete.'
+  default_prompt: 'Archive a completed change in the experimental workflow. Use when the user wants to finalize and archive a change after implementation is complete.'
