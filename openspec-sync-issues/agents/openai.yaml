@@ -1,0 +1,4 @@
+interface:
+  display_name: 'OpenSpec Sync Issues'
+  short_description: 'Sincroniza changes/tasks do OpenSpec com Jira e/ou GitHub Issues (MCP ou gh)'
+  default_prompt: 'Leia o tracker-profile.md (ou skills.config.json > tracking). Se ausente, pergunte onde criar as tarefas (Jira/GitHub/ambos/nenhum) e o transporte (MCP/gh/auto). Rode openspec list --json e openspec show "<name>" --json, leia proposal.md, specs delta e tasks.md. Mapeie change->Epic/Issue, requirement->Story, task->Subtask. Cheque o ID map (.openspec-sync.json) para nao duplicar; crie/atualize via MCP (preferido) ou gh/API. Ao archive, feche issues/subtasks e transicione no Jira. Mantenha o .md canonico.'
