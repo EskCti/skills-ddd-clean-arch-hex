@@ -52,9 +52,9 @@ Se nenhuma fonte for fornecida, pergunte:
 
 1. **Se `delivery-profile.md` não existir** em `<docsPath>/planning/<projeto>/`:
    - Perguntar ao usuário (ou inferir do pedido) a **matriz de stack**:
-     - Backend: NestJS | Spring Boot | **ASP.NET Core**
-     - Web: Nenhum | Next.js | Angular | **Vue 3**
-     - Mobile: Nenhum | Flutter | **Android**
+- Backend: NestJS | Spring Boot | **ASP.NET Core** | **Axum (Rust)**
+      - Web: Nenhum | Next.js | Angular | **Vue 3** | **Leptos (Rust)**
+      - Mobile: Nenhum | Flutter | **Android** | **Dioxus (Rust)**
    - Ler `screens.md` e `requirements.md` do discovery — listar telas web e apps mobile do legado.
    - Ler `ddd-tactical-model.md` — para cada BC do MVP, marcar colunas **API | Web admin | Mobile** e validar seções **Apresentação — Web/Mobile** (ver `references/delivery-profile.md` e `req-ddd-modeling/references/client-presentation-model.md`).
    - **Criar** `<docsPath>/planning/<projeto>/delivery-profile.md`.
@@ -187,11 +187,11 @@ Ordem de implementação (inside-out):
 10. interface:controller   → backend-controller
 
 ── FRONTEND WEB (Clean Architecture completa) ───────────────
-11. interface:entity       → frontend-entity-angular | frontend-entity-vue
-12. interface:usecase      → frontend-usecase-angular | frontend-usecase-vue
-13. interface:repository   → frontend-repository-angular | frontend-repository-vue
-14. interface:page         → frontend-page-angular | frontend-page-vue
-15. interface:form-web     → frontend-form-angular | frontend-form-vue
+11. interface:entity       → frontend-entity-angular | frontend-entity-vue | frontend-entity-leptos
+12. interface:usecase      → frontend-usecase-angular | frontend-usecase-vue | frontend-usecase-leptos
+13. interface:repository   → frontend-repository-angular | frontend-repository-vue | frontend-repository-leptos
+14. interface:page         → frontend-page-angular | frontend-page-vue | frontend-page-leptos
+15. interface:form-web     → frontend-form-angular | frontend-form-vue | frontend-form-leptos
 16. interface:form         → Frontend Form Schema (Next.js)
 
 ── MOBILE (Clean Architecture completa) ─────────────────────
@@ -200,6 +200,10 @@ Ordem de implementação (inside-out):
 19. interface:mobile-repository → mobile-repository-flutter | mobile-repository-android
 20. interface:mobile            → mobile-screen-flutter | mobile-screen-android
 21. interface:mobile-form       → mobile-form-flutter | mobile-form-android
+
+> **Leptos (Rust web)**: quando Web for **Leptos**, as tasks 11–15 usam `frontend-*-leptos` — mesmo chain entity → usecase → repository → page → form, no workspace Cargo do backend Axum.
+.
+> **Dioxus (Rust mobile)**: quando Mobile for **Dioxus**, a chain usa os skills Rust compartilhados `core-*-rs` (domain + application,) + `backend-dioxus-api-client-rs` (repository HTTP que preserva `{errors:[...]}`) + `core-dioxus-screen-rs`/`core-dioxus-widget-rs` (apresentação) + `core-dioxus-navigation-rs`/`core-dioxus-state-rs`; testes → `test-dioxus-unit-rs` (≥95%)/`test-dioxus-e2e-rs`. Bootstrap: `config-mobile-dioxus-rs` + `config-dioxus-cicd-rs`.
 
 ── QUALIDADE (meta: ≥95% domain + application) ──────────────
 22. test:unit              → testes unitários (entity, VO, use case)
@@ -316,7 +320,43 @@ Regras para Tasks:
 
 > **Nota**: o sistema fonte analisado pode ser qualquer linguagem (PHP, Go, Python, etc.). As tasks sempre referenciam os skills deste repositório (TS, KT, CS, RS ou Java) porque o objetivo é **reimplementar** usando DDD/Clean Architecture. Em Rust: `rust-namespace-layout.md`. Em Java: `java-namespace-layout.md` — domínio puro em `packages/<bc>/`, Spring em `apps/backend-java`.
 
-### Fase 5 — Priorização e Roadmap
+### Fase 5 — Gate de Qualidade e Validação
+
+Antes de finalizar o `backlog.md`, avalie cada Épico/User Story principal contra o checklist de prontidão e gere uma matriz de validação:
+
+#### Checklist de Prontidão (Definition of Ready)
+
+Para cada Épico/Story, avalie:
+
+- [ ] Necessidade e benefício claros? (Sim/Não)
+- [ ] Descrição clara e sem termos vagos? (Sim/Não)
+- [ ] Critérios de aceite Given/When/Then definidos? (Sim/Não)
+- [ ] Regras de negócio e exceções mapeadas? (Sim/Não)
+- [ ] Dependências críticas identificadas? (Sim/Não)
+- [ ] Dúvidas críticas resolvidas ou com plano de ação? (Sim/Não)
+- [ ] Viabilidade técnica conhecida? (Sim/Não/N/A)
+- [ ] Dados/integrações definidos? (Sim/Não/N/A)
+- [ ] Prioridade confirmada (MoSCoW)? (Sim/Não)
+- [ ] Validador identificado? (Sim/Não)
+
+**Veredito Final:** [ PRONTO PARA DESENVOLVIMENTO | NÃO PRONTO (Motivo: ______) ]
+
+#### Matriz de Validação
+
+Gere uma tabela resumida para o Coordenador de TI:
+
+| Épico/Story | Validador | Status (Validado/Com Ressalva/Pendente) | Pendência/Ressalva | Próxima Ação Concreta |
+|---|---|---|---|---|
+| EP-001 | Financeiro | Com Ressalva | Limite para 3 cotações não confirmado | Confirmar regra até [data] |
+| EP-001-US-03 | TI | Pendente | Viabilidade técnica da integração | Realizar análise de integração |
+
+**Regras de preenchimento:**
+- "Com ressalva" deve explicar exatamente o que falta
+- Não confunda validação da necessidade com confirmação de viabilidade técnica
+- Itens pendentes precisam de próxima ação clara, não apenas de status
+- Identifique quem tem conhecimento e autoridade sobre cada requisito
+
+### Fase 6 — Priorização e Roadmap
 
 1. **Ordenar épicos** por valor de negócio e dependência
 2. **Sugerir agrupamento em sprints/releases** (se o usuário quiser)
@@ -689,3 +729,33 @@ gh issue create --title "US-001: <título>" --body "<corpo>" --label "epic:<nome
 ## Global Standards
 
 - Consultar `../skills-standards.md` para padroes globais de nomenclatura e convencoes gerais entre skills.
+
+## References
+
+### Templates de Análise de Requisitos (Luiza Silva)
+Consultar `../references/templates-luiza-silva.md` para os formatos exatos dos seguintes templates:
+
+- **T04: User Story e Critérios de Aceite** → Usar para cada User Story no backlog, garantindo formato "Como [perfil], quero [necessidade], para [benefício]" com critérios Given/When/Then.
+- **T05: Registro de Regra de Negócio** → Usar quando User Stories referenciam regras de negócio, políticas ou condições que influenciam o comportamento do sistema.
+- **T06: Registro de Decisões** → Usar SEMPRE que houver decisão de priorização, escopo, corte de funcionalidade ou mudança de direção no backlog.
+- **T07: Registro de Dúvidas e Pendências** → Usar para controlar bloqueios, dependências não resolvidas ou validações pendentes que impedem o desenvolvimento.
+- **T08: Solicitação de Mudança de Requisito** → Usar QUANDO um requisito aprovado ou em desenvolvimento precisar ser alterado, removido ou ampliado (pós-baseline).
+- **T09: Análise de Impacto** → Usar ANTES de aprovar mudanças significativas no backlog, avaliando consequências em escopo, prazo, custo e risco.
+- **T10: Termo de Validação de Requisitos** → Usar AO FINAL do planejamento, antes de iniciar o desenvolvimento, para registrar concordância formal com o escopo.
+- **T11: Checklist de Prontidão para Desenvolvimento (DoR)** → Usar como Gate obrigatório antes de cada User Story entrar na sprint, avaliando clareza, critérios, dependências e viabilidade.
+- **T12: Registro de Lições Aprendidas** → Usar AO FINAL de cada sprint ou release, transformando experiência em melhorias concretas para o próximo ciclo.
+
+### Instruções de Uso
+Ao gerar documentação de saída (`backlog.md`, `epics-summary.md`, `sprint-plan.md`):
+1. Utilize o formato **T04** para cada User Story, incluindo critérios de aceite no formato Given/When/Then.
+2. Utilize o formato **T05** para regras de negócio identificadas durante o planejamento.
+3. Utilize o formato **T06** para toda decisão de priorização ou escopo (ex: "Adiar funcionalidade X para próxima sprint").
+4. Utilize o formato **T07** para toda pendência ou bloqueio que impeça o desenvolvimento.
+5. Utilize o formato **T08** quando houver solicitação de mudança após o baseline do backlog.
+6. Utilize o formato **T09** para avaliar impacto de mudanças significativas antes de aprovar.
+7. Utilize o formato **T10** como termo de validação final antes de iniciar o desenvolvimento.
+8. Utilize o formato **T11** como Gate de Qualidade (Definition of Ready) para cada User Story.
+9. Utilize o formato **T12** ao final de cada sprint ou release para registrar lições aprendidas.
+
+### Regra Prática
+Backlog sem gate de qualidade vira caos. Toda User Story deve passar pelo checklist de prontidão (T11) antes de entrar na sprint. Decisões sem registro (T06) viram rediscussões. Pendências sem responsável (T07) nunca são resolvidas.

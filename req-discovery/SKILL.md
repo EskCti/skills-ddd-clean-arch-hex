@@ -258,6 +258,35 @@ meu-projeto/
 
 ### `requirements.md` (obrigatório)
 
+### Registro de Regras de Negócio (Desacoplado)
+
+Documente regras de negócio de forma independente dos requisitos funcionais, facilitando validação, reutilização e controle de mudanças:
+
+| ID da Regra | Nome | Descrição da Condição/Limite | Exceções | Validador (Área/Pessoa) | Vigência | Requisitos Relacionados |
+|---|---|---|---|---|---|---|
+| RN-001 | Ex: Limite de Aprovação | Compras acima de R$ 5.000 exigem aprovação gerencial | Compras emergenciais seguem fluxo específico | Financeiro | Ativa | REQ-014, REQ-017 |
+
+**Regras de preenchimento:**
+- Registre a fonte da regra (política, norma, área) para facilitar resolução de conflitos
+- Se uma regra substituir outra, preserve o histórico e a vigência
+- Valide limites, faixas e exceções com exemplos numéricos
+- Não confunda regra de negócio com interface ou implementação
+- Toda regra deve ter um validador com autoridade para alterá-la
+
+### Registro de Dúvidas e Pendências (Matriz de Controle)
+
+Sempre que houver lacunas, dúvidas ou validações pendentes durante a análise, registre-as na seguinte matriz para garantir rastreabilidade e ação:
+
+| ID | Descrição da Dúvida/Pendência | Tipo (Técnica/Regra/Decisão/Validação) | Impacto se não resolver (Baixo/Médio/Alto/Crítico) | Responsável | Prazo | Status (Aberta/Em andamento/Resolvida) |
+|---|---|---|---|---|---|---|
+| PEND-001 | Ex: Confirmar se o sistema legado permite webhook de notificação | Validação Técnica | Crítico | [Nome/Área] | [Data] | Aberta |
+
+**Regras de preenchimento:**
+- Toda pendência crítica deve aparecer em reuniões de acompanhamento
+- Feche o item somente com resposta, decisão ou evidência documentada
+- Use o impacto para priorizar cobranças e decisões
+- Relacione a pendência aos requisitos afetados (ex: REQ-XXX)
+
 ```markdown
 # Requisitos — <Nome do Sistema>
 
@@ -600,3 +629,25 @@ Ofereça essas opções ao finalizar:
 ## Global Standards
 
 - Consultar `../skills-standards.md` para padroes globais de nomenclatura e convencoes gerais entre skills.
+
+## References
+
+### Templates de Análise de Requisitos (Luiza Silva)
+Consultar `../references/templates-luiza-silva.md` para os formatos exatos dos seguintes templates:
+
+- **T01: Roteiro de Entrevista com Stakeholders** → Usar ANTES de iniciar o levantamento, para preparar conversas estruturadas com stakeholders.
+- **T02: Ata de Reunião de Levantamento** → Usar LOGO APÓS reuniões para criar memória objetiva e reduzir interpretações divergentes.
+- **T03: Ficha Individual de Requisito** → Usar para requisitos complexos ou críticos que precisam ser rastreáveis, revisáveis e testáveis.
+- **T05: Registro de Regra de Negócio** → Usar para documentar políticas, condições, limites ou cálculos de forma independente dos requisitos funcionais.
+- **T07: Registro de Dúvidas e Pendências** → Usar DURANTE TODO o ciclo de discovery para controlar itens que impedem confirmação ou avanço.
+
+### Instruções de Uso
+Ao gerar documentação de saída (`requirements.md`, `ddd-analysis.md`, `screens.md`):
+1. Utilize o formato **T03** para requisitos críticos identificados durante a análise.
+2. Utilize o formato **T05** para cada regra de negócio extraída do código ou entrevistas.
+3. Utilize o formato **T07** para toda lacuna, dúvida ou pendência encontrada durante o discovery.
+4. Se houver reuniões de levantamento, gere atas no formato **T02**.
+5. Antes de entrevistas, prepare roteiros no formato **T01**.
+
+### Regra Prática
+Template bom é o que ajuda o time a pensar, comunicar e decidir melhor. Se um campo não agrega valor, adapte ou remova conforme o contexto do projeto.
