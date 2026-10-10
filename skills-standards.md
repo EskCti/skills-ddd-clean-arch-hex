@@ -122,6 +122,8 @@ When editing any skill (`*/SKILL.md`):
 | Workflow   | `git-*`      | Automação de fluxo de trabalho (commits organizados, etc.)       | Agnostic                     |
 | Contexto   | `config-agents-md` | Gera AGENTS.md na raiz e por submódulo (mapa, convenções, comandos, skills) | Agnostic          |
 
+> **OpenSpec — via canônica vs comandos**: as skills `openspec-*` (`propose`, `explore`, `apply-change`, `sync-specs`, `archive-change`, `validate-dependencies`, `context-cache`) são a **via estável e canônica** do fluxo de mudanças. Os comandos `commands/opsx-*` (propose/explore/apply/archive/sync) e `commands/pos-*` (tarefa/review de PR) são **atalhos slash-command** que espelham o mesmo fluxo; quando houver divergência, prevalece a skill `openspec-*` correspondente. Não mantenha lógica duplicada: o comando deve referenciar a skill.
+
 ### Stack Suffix Convention
 
 | Stack             | Suffix      | Framework                         | Automação                                           |
@@ -616,16 +618,21 @@ Skills that generate documentation (`req-discovery`, `req-ddd-modeling`, `req-ag
 ### Pipeline
 
 ```
+                                                                ┌─ analyse/* (especialistas) alimentam cada fase ─┐
+                                                                ▼                                                 ▼
 Sistema fonte           req-discovery       req-ddd-modeling      req-migration-strategy  req-agile-planning    openspec-propose     openspec-apply-change
 (qualquer linguagem) →  (leitura) →         (modelagem DDD) →    (estrategia migração) → (planejamento) →      (proposta change) →  (implementacao)
                                                                   [opcional — legado]     EP-000: docker+cicd   bootstrap-<nome>    + test:coverage ≥95%
+                                                                                                                                   → sync-specs → archive-change
 ```
 
+- **Análise especialista (`analyse/*`)**: alimenta as fases — elicitação/stakeholder/legado/domínio/arquitetura/RNF (discovery), user-story/priorização/rastreabilidade/DoR/impacto (planning). Ver `docs/guides/analysis-expert-flow.md`.
+- **Comandos (`commands/opsx-*`, `commands/pos-*`)**: atalhos slash-command; a via canônica permanece `openspec-*`.
 - **Entrada**: qualquer sistema (PHP MVC, Go, Python, Java, monolito, etc.)
 - **Saida da discovery**: requisitos funcionais/nao-funcionais + analise DDD inicial
 - **Saida da modelagem DDD**: modelo estrategico (subdominios, BCs, context map, linguagem ubiqua) + modelo tatico (entities, VOs, events) + notas operacionais
-- **Saida do planning**: backlog com tasks referenciando skills TS, KT ou CS
-- **Implementacao**: sempre com os skills deste repositorio — TS (sem sufixo), KT (sufixo `-kt`) ou CS (sufixo `-cs`)
+- **Saida do planning**: backlog com tasks referenciando skills TS, KT, CS, RS, Java
+- **Implementacao**: sempre com os skills deste repositorio — TS (sem sufixo), KT (`-kt`), Java (`-java`), CS (`-cs`), RS (`-rs`)
 
 ---
 
