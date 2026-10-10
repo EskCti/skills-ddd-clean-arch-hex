@@ -102,8 +102,12 @@ Antes de criar, consultar o **ID map** (`.openspec-sync.json` ou metadados em `.
 
 ### Fase 4 — Criar/atualizar
 
-1. **GitHub** (MCP): `issue_write`/`sub_issue_write`, labels `openspec`, `epic:`/`priority:`; `gh issue create` no fallback.
-2. **Jira** (MCP): `jira_batch_create_issues`/`jira_create_issue`; linkar subtasks ao épico; setar campos (sprint/versão) se o profile declarar.
+1. **GitHub** (MCP): conforme `github.mode`:
+   - `single-issue` (default/recomendado) — **1 issue por change** com `proposal.md` + critérios de aceite no corpo, artefatos completos em blocos `<details>` (se `embed_artifacts`) e **tasks como checklist `- [ ]`** (o GitHub rastreia progresso). Label `openspec`, `openspec:<change>`, `epic` + `priority:*`.
+   - `sub-issues` — issue principal + 1 sub-issue por task (`github_sub_issue_write`).
+   - `auto` — tenta `sub-issues`; se o repo não suportar, cai para `single-issue`.
+   - Fallback CLI: `gh issue create/edit` (ou `gh api`).
+2. **Jira** (MCP): Épico → Story(s) → **subtasks nativas** por task (`jira_batch_create_issues`/`jira_create_issue` + `additional_fields.parent`); linkar ao épico; setar campos (sprint/versão) se o profile declarar.
 3. Não duplicar: se já houver issue com a label `openspec:<change>`, atualizar.
 
 ### Fase 5 — Archive → fechar

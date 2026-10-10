@@ -40,6 +40,56 @@ Gera subtask com:
 - **descrição**: o Prompt
 - **estimate** (Jira): `~2h`
 
+## GitHub — modo `single-issue` (recomendado)
+
+Uma **issue por change**, com tudo embutido — funciona em qualquer repositório/plano (não depende de sub-issues):
+
+1. **Corpo**: `proposal.md` (what & why) + critérios de aceite do delta da spec, renderizados.
+2. **Artefatos completos** em blocos colapsáveis (quando `embed_artifacts: true`):
+
+```markdown
+<details><summary>proposal.md</summary>
+
+...conteúdo integral...
+
+</details>
+<details><summary>specs/&lt;capability&gt;/spec.md (delta)</summary>
+
+...
+
+</details>
+<details><summary>tasks.md</summary>
+
+...
+
+</details>
+```
+
+3. **Tasks como checklist markdown** — o GitHub rastreia o progresso nativamente:
+
+```markdown
+### Tasks
+- [ ] `domain:entity` Criar entidade Customer — `Core Entity (C#)` (~2h)
+- [ ] `app:usecase` Criar CreateCustomerUseCase — `Core Use Case (C#)` (~2h)
+- [ ] `interface:controller` Criar POST/GET /customers — `Backend Controller (C#)` (~2h)
+```
+
+4. **IDs/labels**: `openspec`, `openspec:<change>`, `epic` + `priority:*`.
+
+- **Vantagens**: atômico, todo o contexto em um lugar, funciona sem sub-issues, e o checklist dá progresso.
+- **Limitação**: não há assignee/estado por task individual (se precisar, usar modo `sub-issues`).
+- **Fechar**: ao marcar todas as caixas (ou no `openspec archive`) → `state: closed` / `state_reason: completed`.
+
+### GitHub — modo `sub-issues`
+
+- 1 issue principal (change) + 1 **sub-issue por task** (`github_sub_issue_write`).
+- Requer suporte a sub-issues no repo; usar `mode: auto` para fell back para `single-issue`.
+
+### Jira — subtasks nativas
+
+- Épico → Story(s) → **Subtask por task** (`jira_batch_create_issues` / `additional_fields.parent`).
+- Jira sempre suporta subtasks; aqui a granularidade fina é o padrão.
+
 ## ID map
 
 Arquivo `.openspec-sync.json` na raiz do repo (ou ao lado do `openspec/`):

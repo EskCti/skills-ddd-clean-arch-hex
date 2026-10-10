@@ -58,6 +58,6 @@ transport = auto → tentar MCP; se indisponível, usar CLI e AVISAR
 
 ## Observações
 
-- **GitHub**: sub-issues não são suportadas em todos os repositórios/planos — se `use_sub_issues=false`, usar checklist (`- [ ]`) no corpo do item pai.
+- **GitHub**: sub-issues não são suportadas em todos os repositórios/planos. Use `github.mode: single-issue` (default) — **1 issue por change com os `.md` embutidos + tasks como checklist `- [ ]`**, que funciona em qualquer repo e ainda dá progresso. Use `sub-issues`/`auto` só quando o repo suportar.
 - **Jira**: o campo de épico varia por instância; descobrir com `jira_search_fields` e registrar em `jira.epic_link_field`.
 - Nunca logar tokens/segredos; usar variáveis de ambiente do MCP.

@@ -14,7 +14,9 @@ tracking:
   github:
     repo: org/repo            # vazio = derivar de `git remote get-url origin`
     labels: [openspec]
-    use_sub_issues: true      # subtasks como sub-issues (se suportado)
+    mode: single-issue        # single-issue | sub-issues | auto
+    embed_artifacts: true     # embutir proposal/spec/design/tasks no corpo (blocos <details>)
+    use_sub_issues: false     # só relevante quando mode: sub-issues
     project: ""               # GitHub Projects v2 (opcional)
 
   jira:
@@ -34,6 +36,7 @@ tracking:
 | `trackers` | `jira`, `github`, `both`, `none` | Onde espelhar. `none` = não sincroniza (só `.md`). |
 | `transport` | `mcp`, `gh`, `auto` | `mcp` = MCP Atlassian/GitHub; `gh` = CLI/API. `auto` = MCP se disponível, senão CLI (avisando). |
 | `direction` | `one-way`, `two-way` | `one-way` = OpenSpec → tracker (recomendado para começar). `two-way` = também status/comentários do tracker → OpenSpec. |
+| `github.mode` | `single-issue`, `sub-issues`, `auto` | `single-issue` = 1 issue por change com os `.md` embutidos + checklist de tasks (funciona sempre). `sub-issues` = 1 issue + subtasks (exige suporte a sub-issues). `auto` = tenta sub-issues, cai para single-issue. |
 
 ## Onde fica registrado
 
