@@ -95,6 +95,7 @@ Fluxo detalhado: `<skills>/docs/guides/analysis-expert-flow.md`.
 | Tracker | <Jira | GitHub Issues | Ambos | Nenhum> |
 | Transporte | <MCP | CLI (`gh`/API) | Auto> |
 | Direção | <1 via (OpenSpec → tracker) | 2 vias> |
+| Modo GitHub | <single-issue (1 issue com os .md + checklist) | sub-issues> |
 | Jira project | <PROJ ou —> |
 | GitHub repo | <org/repo ou —> |
 

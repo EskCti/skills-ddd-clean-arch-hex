@@ -69,6 +69,7 @@ Onde criar as tarefas (issues) deste projeto?
 [ ] Nenhum (só OpenSpec .md)
 Transporte: [ ] MCP  [ ] CLI (gh/API)  [ ] Auto
 Direção:    [ ] 1 via (OpenSpec → tracker)  [ ] 2 vias
+GitHub:     [ ] 1 issue com os .md + checklist (single-issue)  [ ] sub-issues
 ```
 
 Registrar em:
