@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Command: opsx-explore'
+  short_description: 'Enter explore mode - think through ideas, investigate problems, clarify requirements'
+  default_prompt: 'Enter explore mode - think through ideas, investigate problems, clarify requirements'

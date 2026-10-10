@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Command: pos-tarefa'
+  short_description: 'Tarefa Jira do POS (FA-XXX): proposta OpenSpec primeiro, aprovação, depois implementação — com ADR/README atualizados'
+  default_prompt: 'Tarefa Jira do POS (FA-XXX): proposta OpenSpec primeiro, aprovação, depois implementação — com ADR/README atualizados'

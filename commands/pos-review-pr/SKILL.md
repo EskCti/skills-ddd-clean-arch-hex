@@ -1,5 +1,6 @@
 ---
 name: pos-review-pr
+stack: agnostic
 description: "Review de PR do POS (GitHub) + Jira: proposta OpenSpec das correções primeiro, aprovação, depois implementação — ADR/README atualizados"
 ---
 

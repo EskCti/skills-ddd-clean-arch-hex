@@ -1,5 +1,6 @@
 ---
 name: opsx-archive
+stack: agnostic
 description: "Archive a completed change in the experimental workflow"
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: opsx-apply
+stack: agnostic
 description: "Implement tasks from an OpenSpec change (Experimental)"
 ---
 

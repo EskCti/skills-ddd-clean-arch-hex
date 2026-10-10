@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Command: opsx-apply'
+  short_description: 'Implement tasks from an OpenSpec change (Experimental)'
+  default_prompt: 'Implement tasks from an OpenSpec change (Experimental)'

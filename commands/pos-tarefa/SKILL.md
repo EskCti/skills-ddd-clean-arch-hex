@@ -1,5 +1,6 @@
 ---
 name: pos-tarefa
+stack: agnostic
 description: "Tarefa Jira do POS (FA-XXX): proposta OpenSpec primeiro, aprovação, depois implementação — com ADR/README atualizados"
 ---
 

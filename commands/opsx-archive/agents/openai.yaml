@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Command: opsx-archive'
+  short_description: 'Archive a completed change in the experimental workflow'
+  default_prompt: 'Archive a completed change in the experimental workflow'

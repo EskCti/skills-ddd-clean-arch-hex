@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Command: pos-review-pr'
+  short_description: 'Review de PR do POS (GitHub) + Jira: proposta OpenSpec das correções primeiro, aprovação, depois implementação — ADR/README atualizados'
+  default_prompt: 'Review de PR do POS (GitHub) + Jira: proposta OpenSpec das correções primeiro, aprovação, depois implementação — ADR/README atualizados'
