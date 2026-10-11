@@ -370,12 +370,11 @@ git commit -m "chore(skills): aponta para nova versão"
 
 ## Configuração de namespace e padrões
 
-O repositório possui configuração padrão em:
+O repositório versiona **apenas o exemplo**:
 
-- `.env/skills.config.json`
 - `.env/skills.config.example.json`
 
-Use esses arquivos para alinhar namespace e convenções de scaffolding entre projetos.
+O `skills.config.json` (e o override `skills.config.local.json`) é **do projeto consumidor**: copie o exemplo, ajuste os valores do seu projeto e **não versione** esse arquivo no repositório de skills (ele é ignorado pelo `.gitignore`). Precedência de resolução: flags de CLI > variáveis de ambiente > `skills.config.local.json` > `skills.config.json` > fallback do template.
 
 Parâmetros principais disponíveis hoje:
 
