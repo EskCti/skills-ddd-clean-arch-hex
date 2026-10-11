@@ -120,6 +120,7 @@ When editing any skill (`*/SKILL.md`):
 - Document explicit exceptions in the skill itself when needed.
 - If a skill generates files via script, enforce this standard in generated paths.
 - Every `SKILL.md` frontmatter must include `stack:` field (`typescript`, `kotlin`, `csharp`, or `agnostic`).
+- **Language**: keep the language of the section you are editing (CLI-generated skills often ship in English; this house's extensions and every generated project artifact — docs, tickets, AGENTS.md — follow the project's language). Translating a whole skill is a separate, deliberate change.
 
 ### Skill Categories
 
