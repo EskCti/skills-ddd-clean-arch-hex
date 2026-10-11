@@ -94,6 +94,24 @@ Consultar:
 - Vue: `config-shared-web-vue/SKILL.md` + `config-project-vue/references/tailwind-setup.md`
 - Leptos: `config-shared-web-leptos/SKILL.md` + `config-project-leptos/references/tailwind-setup.md`
 
+### 4.2 Information ownership (single source of truth)
+
+**Norma:** cada informação tem **um dono só**, e os demais documentos **apontam** para ele pelo nome do documento e da seção — nunca repetem o conteúdo.
+
+| Informação | Dono |
+|------------|------|
+| O que o sistema faz (requisitos, arquitetura, contrato, esquema, design) | documentos donos do projeto (`docs/`: product brief, HLD, LLD, design system, ADRs, GLOSSARY) |
+| Como o código é escrito (camadas, regras de import, erros, naming, níveis de teste, comandos, tracker) | `AGENTS.md` do projeto (raiz e de cada módulo) |
+| Specs e tickets publicados | tracker escolhido (Jira/GitHub) + change OpenSpec (`.md` canônico quando existir) |
+| Convenções da casa (naming, Result, cobertura, layout) | `skills-standards.md` e a `SKILL.md` da skill |
+
+Regras:
+
+1. Uma informação nova entra **na mesma tarefa** no documento dono dela.
+2. Skill que gera documentação não copia o conteúdo do projeto: lê o dono e registra apenas o que é decisão da própria skill.
+3. Em conflito, a precedência é: **decisão explícita do usuário** > **constituição do projeto** (AGENTS.md e docs donos) > **defaults desta skill**.
+4. O `AGENTS.md` gerado por `config-agents-md` pode declarar o formato de tasks, a estratégia de teste/DoD e o tracker do projeto; as skills de planejamento, apply e sync **respeitam a declaração** e só aplicam os defaults daqui na ausência dela.
+
 ## 5. Skill Authoring Rules
 
 When editing any skill (`*/SKILL.md`):
