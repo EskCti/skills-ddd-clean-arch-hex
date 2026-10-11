@@ -17,6 +17,8 @@ tracking:
     mode: single-issue        # single-issue | sub-issues | auto
     embed_artifacts: true     # embutir proposal/spec/design/tasks no corpo (blocos <details>)
     use_sub_issues: false     # só relevante quando mode: sub-issues
+    triage_labels: [ready-for-agent]  # labels das issues que um agente pode pegar
+    native_blocking: auto     # auto | true | false — relação nativa de bloqueio quando o repo suportar
     project: ""               # GitHub Projects v2 (opcional)
 
   jira:
@@ -25,6 +27,8 @@ tracking:
     epic_issue_type: Epic
     epic_link_field: ""       # ex.: customfield_10011 (Jira Cloud) — descoberto com jira_search_fields
     labels: [openspec]
+    triage_labels: [ready-for-agent]
+    blocking_link_type: "Blocks"   # link type das dependências (ex.: "Blocks" / "Cloners")
     components: []
     sprint_id: ""             # opcional
 ```
@@ -37,14 +41,17 @@ tracking:
 | `transport` | `mcp`, `gh`, `auto` | `mcp` = MCP Atlassian/GitHub; `gh` = CLI/API. `auto` = MCP se disponível, senão CLI (avisando). |
 | `direction` | `one-way`, `two-way` | `one-way` = OpenSpec → tracker (recomendado para começar). `two-way` = também status/comentários do tracker → OpenSpec. |
 | `github.mode` | `single-issue`, `sub-issues`, `auto` | `single-issue` = 1 issue por change com os `.md` embutidos + checklist de tasks (funciona sempre). `sub-issues` = 1 issue + subtasks (exige suporte a sub-issues). `auto` = tenta sub-issues, cai para single-issue. |
+| `github.triage_labels` / `jira.triage_labels` | lista | Labels das issues que um agente pode pegar sem triagem (ex.: `ready-for-agent`). |
+| `github.native_blocking` | `auto`, `true`, `false` | Usa a relação nativa de bloqueio (`blocked by`) quando o repo suportar; senão, texto no corpo. |
+| `jira.blocking_link_type` | string | Link type usado para as dependências entre issues (ex.: `Blocks`). |
 
 ## Onde fica registrado
 
-1. **`skills.config.json`** → bloco `tracking` (preferência de projeto/repo de skills).
-2. **`<docsPath>/planning/<projeto>/tracker-profile.md`** — decisão por projeto (como `delivery-profile.md`).
-3. **`AGENTS.md` raiz** — seção "Rastreamento de tarefas (Jira/GitHub)" gerada por `config-agents-md`, para todo agente ver a escolha.
+1. **`AGENTS.md` raiz** — seção "Rastreamento de tarefas (Jira/GitHub)" gerada por `config-agents-md`, para todo agente ver a escolha (fonte preferida, porque é o que o agente lê primeiro).
+2. **`<docsPath>/planning/<projeto>/tracker-profile.md`** — decisão por projeto (como `delivery-profile.md`); complementa com os campos que o AGENTS.md resume.
+3. **`skills.config.json`** → bloco `tracking` (preferência de projeto/repo de skills).
 
-> Precedência: argumento explícito do usuário > `tracker-profile.md` > `skills.config.json` > `none`.
+> Precedência: argumento explícito do usuário > `AGENTS.md` (seção de rastreamento) > `tracker-profile.md` > `skills.config.json` > `none`.
 
 ## Como o `config-agents-md` coleta
 
