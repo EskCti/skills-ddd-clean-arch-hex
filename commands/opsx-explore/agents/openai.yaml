@@ -1,4 +1,4 @@
 interface:
   display_name: 'Command: opsx-explore'
-  short_description: 'Enter explore mode - think through ideas, investigate problems, clarify requirements'
-  default_prompt: 'Enter explore mode - think through ideas, investigate problems, clarify requirements'
+  short_description: 'Atalho para a skill openspec-explore (modo exploração)'
+  default_prompt: 'Carregue a skill openspec-explore e siga o fluxo dela com os argumentos fornecidos.'

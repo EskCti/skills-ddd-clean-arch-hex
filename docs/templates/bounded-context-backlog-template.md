@@ -306,32 +306,11 @@ Sprint 3: ███ 15% (3/20 pontos)
 | `EP-001` | [Descrição] | Ativo | [Link] |
 | `EP-002` | [Descrição] | Concluído | [Link] |
 
-### **Script de Geração Automática**
-```bash
-#!/bin/bash
-# scripts/generate-bc-backlog.sh
+### **Como gerar o backlog do BC**
 
-BC_ID=$1
-BC_NAME=$2
+O backlog não vem de script: use a skill **`req-agile-planning`**, apontando para o `delivery-profile.md` e o `ddd-tactical-model.md` do BC. Ela grava em `<docsPath>/planning/<projeto>/backlog.md` e respeita o **modo de tasks** do projeto (`layer-tasks` ou `vertical-slice`).
 
-echo "📋 Gerando backlog para BC-$BC_ID: $BC_NAME"
-
-# 1. Criar estrutura de diretórios
-mkdir -p "docs/planning/bounded-contexts/BC-$BC_ID-$BC_NAME"
-mkdir -p "docs/planning/bounded-contexts/BC-$BC_ID-$BC_NAME/epics"
-
-# 2. Copiar templates
-cp "docs/templates/bounded-context-backlog-template.md" \
-   "docs/planning/bounded-contexts/BC-$BC_ID-$BC_NAME/backlog.md"
-
-# 3. Personalizar template
-sed -i "s/BC-XXX/BC-$BC_ID/g" \
-   "docs/planning/bounded-contexts/BC-$BC_ID-$BC_NAME/backlog.md"
-sed -i "s/Nome do Bounded Context/$BC_NAME/g" \
-   "docs/planning/bounded-contexts/BC-$BC_ID-$BC_NAME/backlog.md"
-
-echo "✅ Backlog gerado em: docs/planning/bounded-contexts/BC-$BC_ID-$BC_NAME/"
-```
+Se precisar de um esqueleto manual, copie este template para `<docsPath>/planning/<projeto>/backlog.md` e preencha os `<>`.
 
 ---
 

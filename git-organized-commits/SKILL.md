@@ -34,7 +34,7 @@ Analisar arquivos **modificados** e **untracked** antes de decidir grupos.
 | 1 | `docs:` | `skills-standards.md`, convenções globais |
 | 2 | `feat(req):` | `req-discovery/`, `req-ddd-modeling/`, `req-migration-strategy/`, `req-agile-planning/` |
 | 2a | `feat(analyse):` | `analyse/*` (elicitação, stakeholder, legado, domínio, NFR, migração, stories, priorização, rastreabilidade, gate) |
-| 2b | `feat(openspec):` | `openspec-*/`, `commands/opsx-*`, `commands/pos-*` |
+| 2b | `feat(openspec):` | `openspec-*/`, `commands/opsx-*`, `presets/*` |
 | 3 | `feat(config):` | `config-project-fullstack/` |
 | 3a | `feat(config):` | `config-agents-md/` (AGENTS.md raiz + submódulos) |
 | 4 | `feat(config):` | `config-docker*/`, `config-cicd*/` |

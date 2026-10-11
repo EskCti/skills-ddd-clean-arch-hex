@@ -1,4 +1,5 @@
 skills.config.json
+skills.config.local.json
 node_modules/
 dist/
 build/
@@ -9,6 +10,8 @@ coverage/
 .env
 !.env/
 !.env/**
+.env/skills.config.json
+.env/skills.config.local.json
 .gradle/
 obj/
 bin/

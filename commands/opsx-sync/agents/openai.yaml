@@ -1,4 +1,4 @@
 interface:
   display_name: 'Command: opsx-sync'
-  short_description: 'Sync delta specs from a change to main specs'
-  default_prompt: 'Sync delta specs from a change to main specs'
+  short_description: 'Atalho para a skill openspec-sync-specs (sincronizar delta specs com as specs principais)'
+  default_prompt: 'Carregue a skill openspec-sync-specs e siga o fluxo dela com os argumentos fornecidos.'

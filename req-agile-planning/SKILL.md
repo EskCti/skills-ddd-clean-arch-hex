@@ -149,6 +149,7 @@ Regras para Stories:
 
 - Cada story deve ser **independente e testável**
 - Incluir **critérios de aceitação** (Given/When/Then ou checklist)
+- **Bloqueios como grafo**: cada story declara `**Bloqueada por**: US-XXX, US-YYY` ou `Nenhuma (pode começar)` — nunca dependência em texto solto; o `openspec-sync-issues` converte isso em relação nativa no tracker (GitHub `blocked by` / Jira "is blocked by")
 - Estimativa de complexidade: 1, 2, 3, 5, 8, 13 (Fibonacci)
 - Prioridade: Must / Should / Could / Won't (MoSCoW)
 
@@ -168,9 +169,24 @@ Se o `ddd-tactical-model.md` **não** tiver apresentação e o perfil exigir web
 
 > As subseções **Telas e fluxos** complementam as tasks `interface:entity` → … — não substituem a cadeia inside-out no cliente.
 
-### Fase 4 — Decomposição em Tasks (por camada DDD)
+### Fase 4 — Decomposição em Tasks
 
-Para cada Story, criar Tasks técnicas **tipadas por camada arquitetural**, seguindo a ordem de dentro para fora da Clean Architecture:
+**Formato das tasks (modo do projeto)**
+
+O formato vem da constituição do projeto (`AGENTS.md`; norma em `../skills-standards.md` §4.2); sem declaração, vale `layer-tasks`:
+
+| Modo | Formato | Quando usar |
+|------|---------|-------------|
+| `layer-tasks` (default) | Tasks tipadas por camada (`domain:*` → `test:*`), com **Agent** + **Prompt**, na ordem inside-out | Projetos da casa (DDD/Clean Architecture) |
+| `vertical-slice` | Cada ticket é uma **fatia vertical** (tracer bullet): corta schema → API → interface → testes, com critério de aceite próprio e `Blocked by`; sem prefixo de camada nem Agent obrigatórios | Projetos que declaram fatias verticais no `AGENTS.md` |
+
+No modo `vertical-slice`:
+
+- Cada fatia é **verificável sozinha** (demoável, com critério de aceite próprio) e cabe em uma janela de contexto;
+- O bloco de fechamento do épico (`test:unit`, `test:coverage`, `test:e2e`, CI) continua valendo, mas as tasks internas **não** seguem a ordem inside-out global;
+- O `Blocked by` é a ordenação exigida; `openspec-validate-dependencies` valida o grafo e a fronteira, sem impor camadas.
+
+**Modo `layer-tasks` (default da casa)** — para cada Story, criar Tasks técnicas tipadas por camada, seguindo a ordem de dentro para fora da Clean Architecture:
 
 ```
 Ordem de implementação (inside-out):
@@ -215,11 +231,16 @@ Ordem de implementação (inside-out):
 
 > **Fechamento de épico**: cada épico funcional deve terminar com as tasks 22–25 (e 26 se Rust). Não arquivar OpenSpec nem merge sem testes + coverage + E2E + CI verde.
 
-> **OpenSpec**: para features que envolvem múltiplas camadas (backend + frontend + mobile), recomenda-se usar `openspec-propose` antes de iniciar a implementação. O `tasks.md` deve copiar o formato do backlog (**Agent** + **Prompt** por task). O `openspec-apply-change` aciona cada **Agent** listado na ordem inside-out.
+> **OpenSpec**: para features que envolvem múltiplas camadas (backend + frontend + mobile), recomenda-se usar `openspec-propose` antes de iniciar a implementação. O `tasks.md` copia o **formato do backlog**: no modo `layer-tasks`, `Agent` + `Prompt` por task, na ordem inside-out; no modo `vertical-slice`, uma entrada por fatia, com `Blocked by` e critério de aceite. O `openspec-apply-change` segue o formato declarado.
 
 ### Checklist obrigatório — BC com web e/ou mobile
 
-Antes de considerar o backlog (ou `tasks.md`) pronto para `openspec-apply-change`, validar:
+Antes de considerar o backlog (ou `tasks.md`) pronto para `openspec-apply-change`, valide conforme o modo:
+
+- **`layer-tasks`**: itens 1–7 abaixo (cadeia por camada completa, Agent + Prompt por task).
+- **`vertical-slice`**: cada fatia completa e verificável sozinha; grafo `Blocked by` sem ciclos; bloco de fechamento do épico (`test:unit`, `test:coverage`, `test:e2e`, CI) presente.
+
+Itens (modo `layer-tasks`):
 
 1. **Backend** (se aplicável): `domain:vo` → `domain:entity` → `domain:service` → `app:usecase` → `infra:persistence` → `interface:controller`
 2. **Vue/Angular** (se aplicável): **todas** as tasks `interface:entity` → `interface:usecase` → `interface:repository` → `interface:page` → `interface:form-web` (nunca só `interface:page`)
@@ -468,6 +489,8 @@ Ver template em `references/delivery-profile.md`. Sem este arquivo, **não** ger
 
 > Como desenvolvedor, quero o projeto configurado com Docker e CI/CD, para começar a implementar módulos com entrega contínua desde o início.
 
+**Bloqueada por**: Nenhuma (pode começar)
+
 **Tasks**:
 
 - [ ] `infra:fullstack` Orquestrar setup completo (~1h)
@@ -512,6 +535,7 @@ Ver template em `references/delivery-profile.md`. Sem este arquivo, **não** ger
 **Prioridade**: Must
 **Estimativa**: 5 pontos
 **Ref**: RF-001, RF-002
+**Bloqueada por**: <US-000 | Nenhuma (pode começar)>
 
 **Critérios de Aceitação**:
 
@@ -722,6 +746,8 @@ gh issue create --title "US-001: <título>" --body "<corpo>" --label "epic:<nome
 - **Não invente requisitos** — organize apenas o que foi fornecido ou confirmado
 - **Marque suposições** — quando inferir algo, indique com `[suposição]`
 - **Mantenha rastreabilidade** — cada story deve referenciar o requisito de origem (RF-XXX)
+- **Dependências são grafo** — story/task declara `Blocked by` com IDs (ou "Nenhuma"); nunca "depende de X" em texto solto
+- **Respeite o modo do projeto** — em `vertical-slice`, não expanda a fatia em tasks por camada nem imponha inside-out; em `layer-tasks`, não aceite fatia sem as tasks de camada que ela exige
 - **Seja pragmático** — tasks devem ser acionáveis, não abstratas
 - **Respeite a granularidade** — se o usuário quer menos detalhe, gere apenas épicos e stories
 - **Não force metodologia** — se o usuário não usa Scrum, adapte a terminologia (ex.: "iteração" em vez de "sprint")

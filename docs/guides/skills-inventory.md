@@ -208,19 +208,26 @@ Skills de analista sênior que alimentam as fases `req-*`. Ficam em `analyse/` e
 
 ---
 
-## 12. Comandos (`commands/*`)
+## 12. Comandos (`commands/*`) e presets (`presets/*`)
 
-Atalhos de fluxo (formato slash-command) sobre OpenSpec e Jira/GitHub do POS.
+Os `commands/opsx-*` são **atalhos** (slash-commands) que **não duplicam o fluxo**: cada um carrega a skill canônica correspondente e passa os argumentos.
 
-| Comando | Papel |
-|---------|-------|
-| `opsx-explore` | entrar em modo exploração (pensar, investigar, clarificar) |
-| `opsx-propose` | propor mudança e gerar artefatos em um passo |
-| `opsx-apply` | implementar tasks de uma mudança OpenSpec |
-| `opsx-sync` | sincronizar delta specs para as specs principais |
-| `opsx-archive` | arquivar mudança concluída |
-| `pos-review-pr` | review de PR (GitHub) + Jira: proposta OpenSpec → aprovação → implementação |
-| `pos-tarefa` | tarefa Jira (FA-XXX): proposta OpenSpec → aprovação → implementação |
+| Comando | Skill canônica |
+|---------|----------------|
+| `opsx-explore` | `openspec-explore` (pensar, investigar, clarificar) |
+| `opsx-propose` | `openspec-propose` (propor mudança e gerar artefatos) |
+| `opsx-apply` | `openspec-apply-change` (implementar tasks) |
+| `opsx-sync` | `openspec-sync-specs` (sincronizar delta specs com as specs principais) |
+| `opsx-archive` | `openspec-archive-change` (arquivar com gate de DoD e fechamento do tracker) |
+
+Para espelhar changes em issues, use a skill `openspec-sync-issues` (não há command para ela).
+
+**Presets de projeto** (`presets/*`) exemplificam como especializar o fluxo para um projeto real:
+
+| Preset | Papel |
+|--------|-------|
+| `presets/pos/pos-review-pr` | review de PR (GitHub) + Jira: proposta OpenSpec → aprovação → implementação |
+| `presets/pos/pos-tarefa` | tarefa Jira (FA-XXX): proposta OpenSpec → aprovação → implementação |
 
 ---
 

@@ -8,6 +8,10 @@ Agents usados: `req-discovery` → `req-ddd-modeling` → `req-migration-strateg
 
 > **Formato de tasks**: em `backlog.md` e `tasks.md`, use sempre **Agent** (`display_name` do `agents/openai.yaml`) + **Prompt** — nunca pasta de skill (`core-entity`, `frontend-entity-vue`). Ver `req-agile-planning`.
 >
+> **Modo do projeto**: o formato segue a constituição (`AGENTS.md`; norma em `skills-standards.md` §4.2) — `layer-tasks` (default, acima) ou `vertical-slice` (fatias com `Blocked by` e critério de aceite próprio). Os rótulos nos exemplos C# abaixo são ilustrativos; os prefixos canônicos são `domain:*`, `app:*`, `infra:*`, `interface:*`, `test:*` (ver `req-agile-planning` e `docs/templates/openspec-task-template.yaml`).
+>
+> **DoD e archive**: o gate de conclusão e o fechamento do tracker são lidos do `AGENTS.md` do projeto (ver `openspec-archive-change`).
+>
 > **Checklist CA (web/mobile)**: cada épico com UI deve ter tasks separadas para `interface:entity` → `interface:usecase` → `interface:repository` → `interface:page` — **não** apenas `Frontend Page (Vue)`. `openspec-propose` expande o template; `openspec-apply-change` valida antes de marcar `[x]`.
 >
 > **Stack C# + Vue + Android** (este monorepo): [dotnet-cs-vue-android](./stacks/dotnet-cs-vue-android.md).
@@ -49,55 +53,55 @@ Para o projeto **RetailOps** (este monorepo), siga os exemplos específicos abai
   - **Specs:** ["repository-pattern"]
 
 ### 2. Aplicação C# — Auth
-- [ ] `application:dto` LoginRequest, RegisterRequest, AuthResponse (~1h)
+- [ ] `app:dto` LoginRequest, RegisterRequest, AuthResponse (~1h)
   - **Agent:** `Core DTO (C#)`
   - **Prompt:** "DTOs para endpoints de autenticação com validações."
   - **Specs:** ["auth-dtos"]
 
-- [ ] `application:usecase` LoginUseCase + RegisterUseCase (~3h)
+- [ ] `app:usecase` LoginUseCase + RegisterUseCase (~3h)
   - **Agent:** `Core Use Case (C#)`
   - **Prompt:** "LoginUseCase valida credenciais; RegisterUseCase cria User."
   - **Specs:** ["auth-usecases"]
 
 ### 3. Infraestrutura C# — Auth
-- [ ] `infrastructure:data` UserRepository (EF Core) (~2h)
+- [ ] `infra:persistence` UserRepository (EF Core) (~2h)
   - **Agent:** `Backend Data (C#)`
   - **Prompt:** "Implementação UserRepository com EF Core DbContext."
   - **Specs:** ["efcore-repository"]
 
-- [ ] `infrastructure:controller` AuthController (~2h)
+- [ ] `interface:controller` AuthController (~2h)
   - **Agent:** `Backend Controller (C#)`
   - **Prompt:** "Controller com endpoints POST /auth/login e /auth/register."
   - **Specs:** ["auth-controller"]
 
 ### 4. Frontend Vue — Auth
-- [ ] `frontend:entity` AuthUser entity Vue (~1h)
+- [ ] `interface:entity` AuthUser entity Vue (~1h)
   - **Agent:** `Frontend Entity (Vue)`
   - **Prompt:** "Entidade AuthUser com Result<T> para frontend."
   - **Specs:** ["vue-entity"]
 
-- [ ] `frontend:repository` AuthHttpRepository Vue (~2h)
+- [ ] `interface:repository` AuthHttpRepository Vue (~2h)
   - **Agent:** `Frontend Repository (Vue)`
   - **Prompt:** "HTTP client para /auth/login e /auth/register."
   - **Specs:** ["vue-repository"]
 
-- [ ] `frontend:page` LoginView Vue (~2h)
+- [ ] `interface:page` LoginView Vue (~2h)
   - **Agent:** `Frontend Page (Vue)`
   - **Prompt:** "Tela de login com PrimeVue e validação."
   - **Specs:** ["vue-login"]
 
 ### 5. Mobile Android — Auth
-- [ ] `mobile:entity` AuthUser entity Android (~1h)
+- [ ] `interface:mobile-entity` AuthUser entity Android (~1h)
   - **Agent:** `Mobile Entity (Android)`
   - **Prompt:** "Data class AuthUser com sealed Result em Kotlin."
   - **Specs:** ["android-entity"]
 
-- [ ] `mobile:repository` AuthRepositoryImpl Android (~2h)
+- [ ] `interface:mobile-repository` AuthRepositoryImpl Android (~2h)
   - **Agent:** `Mobile Repository (Android)`
   - **Prompt:** "Retrofit service para endpoints de autenticação."
   - **Specs:** ["android-repository"]
 
-- [ ] `mobile:screen` LoginScreen Android (~2h)
+- [ ] `interface:mobile` LoginScreen Android (~2h)
   - **Agent:** `Mobile Screen (Android)`
   - **Prompt:** "Tela de login com Jetpack Compose e ViewModel."
   - **Specs:** ["android-login"]
@@ -139,38 +143,18 @@ public class CreateUserSkill : BaseSkill<CreateUserParams, User>
 }
 ```
 
-### **Script de Execução para Stack C#**
+### **Como executar a change (stack C# + Vue + Android)**
 
-```bash
-#!/bin/bash
-# scripts/execute-csharp-change.sh
+A execução é feita pela skill **`openspec-apply-change`** (ou `/opsx-apply <change>`); não há CLI por stack nem filtro por linguagem. O fluxo:
 
-CHANGE_ID=$1
-
-echo "🚀 Executando change $CHANGE_ID para stack C# + Vue + Android"
-
-# 1. Validar dependências específicas da stack
-echo "🔍 Validando dependências C#..."
-./scripts/validate-csharp-dependencies.sh --change $CHANGE_ID
-
-# 2. Executar tasks backend C#
-echo "⚡ Executando tasks backend C#..."
-openspec-apply-change $CHANGE_ID --filter "csharp"
-
-# 3. Executar tasks frontend Vue
-echo "🎨 Executando tasks frontend Vue..."
-openspec-apply-change $CHANGE_ID --filter "vue"
-
-# 4. Executar tasks mobile Android
-echo "📱 Executando tasks mobile Android..."
-openspec-apply-change $CHANGE_ID --filter "android"
-
-# 5. Executar testes integrados
-echo "🧪 Executando testes integrados..."
-dotnet test --filter "Category=Integration"
-
-echo "✅ Change $CHANGE_ID executado com sucesso para stack completa!"
 ```
+1. openspec-validate-dependencies   → valida tasks e grafo (modo do projeto: layer | vertical)
+2. openspec-apply-change            → implementa na ordem declarada (inside-out ou fronteira do grafo)
+3. <comandos de teste da stack>     → os reais do AGENTS.md do projeto (aqui, dotnet test)
+4. openspec-archive-change          → exige o gate de conclusão e fecha o tracker
+```
+
+> Os comandos de teste/build são os **declarados no `AGENTS.md` do projeto** (seção "Definição de pronto"); os exemplos deste tutorial usam `dotnet test` por serem da stack C#.
 
 Para mais detalhes específicos da stack, consulte: [dotnet-cs-vue-android](./stacks/dotnet-cs-vue-android.md)
 

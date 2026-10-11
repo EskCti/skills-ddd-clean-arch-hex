@@ -293,7 +293,11 @@ Também existem skills utilitárias para fluxo OpenSpec:
 - `openspec-apply-change`
 - `openspec-sync-specs`
 - `openspec-sync-issues` — espelha changes/tasks para **Jira** e/ou **GitHub Issues** (MCP ou `gh`/API), com `.md` canônico
-- `openspec-archive-change`
+- `openspec-validate-dependencies` — valida o formato de tasks (`layer`/`vertical`) e o grafo de bloqueios
+- `openspec-archive-change` — arquiva com gate de DoD do projeto e fechamento do tracker
+- `openspec-context-cache` — cache de contexto por change
+
+> Os comandos `commands/opsx-*` são **atalhos** que carregam a skill canônica (sem duplicar lógica); presets de projeto (ex.: `presets/pos/*`) exemplificam especializações reais.
 
 ### Skills de workflow (Git)
 
@@ -318,6 +322,13 @@ git submodule update --init --recursive
 
 ```bash
 git submodule add <URL-DESTE-REPOSITORIO> .cloud/skills
+git submodule update --init --recursive
+```
+
+### Opção C: pasta `.opencode` (opencode)
+
+```bash
+git submodule add <URL-DESTE-REPOSITORIO> .opencode/skills
 git submodule update --init --recursive
 ```
 
@@ -370,12 +381,11 @@ git commit -m "chore(skills): aponta para nova versão"
 
 ## Configuração de namespace e padrões
 
-O repositório possui configuração padrão em:
+O repositório versiona **apenas o exemplo**:
 
-- `.env/skills.config.json`
 - `.env/skills.config.example.json`
 
-Use esses arquivos para alinhar namespace e convenções de scaffolding entre projetos.
+O `skills.config.json` (e o override `skills.config.local.json`) é **do projeto consumidor**: copie o exemplo, ajuste os valores do seu projeto e **não versione** esse arquivo no repositório de skills (ele é ignorado pelo `.gitignore`). Precedência de resolução: flags de CLI > variáveis de ambiente > `skills.config.local.json` > `skills.config.json` > fallback do template.
 
 Parâmetros principais disponíveis hoje:
 

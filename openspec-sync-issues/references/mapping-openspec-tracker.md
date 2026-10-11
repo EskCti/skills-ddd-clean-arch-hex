@@ -44,7 +44,7 @@ Gera subtask com:
 
 Uma **issue por change**, com tudo embutido — funciona em qualquer repositório/plano (não depende de sub-issues):
 
-1. **Corpo**: `proposal.md` (what & why) + critérios de aceite do delta da spec, renderizados.
+1. **Corpo**: montado pelo template de `spec-issue-template.md` (Problem, Solution, User Stories, Acceptance criteria, Implementation Decisions, Testing Decisions, Out of Scope), preenchido a partir de `proposal.md` + delta da spec + `design.md`. O corpo aponta para a constituição do projeto, sem duplicá-la.
 2. **Artefatos completos** em blocos colapsáveis (quando `embed_artifacts: true`):
 
 ```markdown
@@ -83,11 +83,13 @@ Uma **issue por change**, com tudo embutido — funciona em qualquer repositóri
 ### GitHub — modo `sub-issues`
 
 - 1 issue principal (change) + 1 **sub-issue por task** (`github_sub_issue_write`).
+- Quando o repo suportar, criar as **relações de bloqueio nativas** (`blocked by`) a partir das dependências declaradas no plano.
 - Requer suporte a sub-issues no repo; usar `mode: auto` para fell back para `single-issue`.
 
 ### Jira — subtasks nativas
 
 - Épico → Story(s) → **Subtask por task** (`jira_batch_create_issues` / `additional_fields.parent`).
+- Épico e Stories usam o corpo do template (`spec-issue-template.md`); dependências viram link nativo (`is blocked by`).
 - Jira sempre suporta subtasks; aqui a granularidade fina é o padrão.
 
 ## ID map

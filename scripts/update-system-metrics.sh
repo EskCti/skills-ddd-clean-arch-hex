@@ -2,14 +2,21 @@
 
 # Script de Atualização Automática de Métricas do Sistema OpenSpec
 # Este script coleta métricas do sistema e atualiza o dashboard avançado
+#
+# Uso: PROJECT_ROOT=<raiz do projeto consumidor> bash scripts/update-system-metrics.sh
+# (sem PROJECT_ROOT, usa o diretório atual)
 
 set -e
 
 # Configurações
-PROJECT_ROOT="/home/eskokado/projetos/eskcti/saas/ecommerce_cs"
-DASHBOARD_FILE="$PROJECT_ROOT/.agents/skills/docs/dashboard/openspec-advanced-metrics-dashboard.md"
-METRICS_DATA_DIR="$PROJECT_ROOT/.agents/skills/data/metrics"
-LOG_FILE="$PROJECT_ROOT/.agents/skills/logs/metrics-update-$(date +%Y%m%d).log"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SKILLS_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_ROOT="${PROJECT_ROOT:-$(pwd)}"
+DASHBOARD_FILE="$SKILLS_ROOT/docs/dashboard/openspec-advanced-metrics-dashboard.md"
+METRICS_DATA_DIR="$SKILLS_ROOT/data/metrics"
+LOG_DIR="$SKILLS_ROOT/logs"
+LOG_FILE="$LOG_DIR/metrics-update-$(date +%Y%m%d).log"
+mkdir -p "$LOG_DIR" "$METRICS_DATA_DIR"
 TEMP_FILE="/tmp/openspec-metrics-$(date +%s).json"
 
 # Cores para output
@@ -219,7 +226,7 @@ EOF
 
 # Coletar métricas de skills
 collect_skills_metrics() {
-    local skills_dir="$PROJECT_ROOT/.agents/skills"
+    local skills_dir="$SKILLS_ROOT"
     local total_skills=0
     local csharp_skills=0
     local vue_skills=0

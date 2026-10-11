@@ -1,4 +1,4 @@
 interface:
   display_name: 'Command: opsx-apply'
-  short_description: 'Implement tasks from an OpenSpec change (Experimental)'
-  default_prompt: 'Implement tasks from an OpenSpec change (Experimental)'
+  short_description: 'Atalho para a skill openspec-apply-change (implementar tasks)'
+  default_prompt: 'Carregue a skill openspec-apply-change e siga o fluxo dela com os argumentos fornecidos.'

@@ -1,6 +1,8 @@
 # Template — AGENTS.md da raiz
 
 > Copie o bloco abaixo e substitua os `<>`. Envolva o conteúdo gerenciado pelo skill com os marcadores para permitir merge idempotente.
+>
+> **Marcadores são opcionais.** Se o projeto já tem um AGENTS.md editorial (sem marcadores), use o modo `preserve` da skill: não insira marcadores e mantenha idioma, títulos, ordem e estilo do arquivo existente (ver `SKILL.md` Fase 0.2).
 
 ```markdown
 <!-- BEGIN:agents-md generated -->
@@ -16,12 +18,34 @@
 - **Submódulos**: <N> (build/test próprios)
 - **Stacks**: <lista: Java/Kotlin, TypeScript, Rust, ...>
 
+## Estado do projeto
+
+<3-6 linhas: o que já existe hoje, o que está pronto e onde mora a estrutura-alvo (ex.: "fundação pronta; módulos de domínio em `...`; alvo na seção 1 do `docs/lld.md`"). Código novo nasce na estrutura-alvo.>
+
 ## Mapa de módulos
 
 | Módulo | Caminho | Stack | Papel | Build/Test | Porta | AGENTS.md |
 |--------|---------|-------|-------|------------|-------|-----------|
 | <ordering> | `microservices/ordering` | Java/Spring | Pedidos | `./gradlew test` | 8080 | `microservices/ordering/AGENTS.md` |
 | <web> | `apps/web` | Vue 3 | Frontend admin | `npm test` | 3000 | `apps/web/AGENTS.md` |
+
+## Onde cada informação mora
+
+- **O que o sistema faz** (requisitos, arquitetura, contrato, esquema, design): documentos donos em `<docsPath>/`.
+- **Como o código é escrito** (camadas, regras de import, erros, naming, testes, comandos): este arquivo e os `AGENTS.md` dos módulos.
+- **Specs e tickets**: <tracker> e as changes OpenSpec (`.md` canônico, quando houver).
+- Uma informação tem **um dono só**: os arquivos apontam para ele pelo nome do documento e da seção, sem repetir o conteúdo.
+
+## Assunto → Onde ler
+
+<Só quando existem docs donos. Tabela de roteamento do projeto.>
+
+| Assunto | Onde ler |
+|---------|----------|
+| Visão geral e fluxos principais | `<docsPath>/hld.md` |
+| Estrutura de pastas e bibliotecas | `<docsPath>/lld.md`, seção 1 |
+| Esquema do banco | `<docsPath>/lld.md`, seção 2 |
+| Contrato da API e códigos de erro | `<docsPath>/lld.md`, seção 3 |
 
 ## Como trabalhar (fluxo recomendado)
 
@@ -35,6 +59,8 @@ requisito → análise → planejamento → desenvolvimento → testes → commi
    `domain:vo` → `domain:entity` → `domain:service` → `domain:repository` → `app:dto` → `app:usecase` → `app:query` → `infra:persistence` → `infra:migration` → `interface:controller` (+ frontend/mobile quando aplicável).
 4. **Qualidade** — `test-unit` (≥95% domain+app) → `test:coverage` → `test:e2e` → CI verde.
 5. **Entrega** — `git-organized-commits` (commits atômicos por área); OpenSpec (`openspec-propose` → `apply` → `archive`) para mudanças rastreadas.
+
+> <Se o projeto tiver o próprio fluxo (ex.: spec → tickets verticais → apply), descreva-o aqui e o fluxo das skills vira referência.>
 
 Ver guia completo: `<skills>/docs/guides/workflow-req-to-dev.md`.
 
@@ -65,7 +91,7 @@ Ver guia completo: `<skills>/docs/guides/workflow-req-to-dev.md`.
 
 Inventário completo: `<skills>/docs/guides/skills-inventory.md`.
 
-## Análise especialista (`analyse/*`) — OBRIGATÓRIO
+## Análise especialista (`analyse/*`) — quando o fluxo `req-*` estiver em uso
 
 > Antes de produzir requisitos, modelagem ou backlog, **consulte a skill especialista** correspondente ao objetivo abaixo. As especialistas alimentam as fases `req-*` com artefatos auditáveis.
 
@@ -96,11 +122,25 @@ Fluxo detalhado: `<skills>/docs/guides/analysis-expert-flow.md`.
 | Transporte | <MCP | CLI (`gh`/API) | Auto> |
 | Direção | <1 via (OpenSpec → tracker) | 2 vias> |
 | Modo GitHub | <single-issue (1 issue com os .md + checklist) | sub-issues> |
+| Label de triagem | <ex.: ready-for-agent ou —> |
+| Bloqueios | <relação nativa (blocked by) | texto no corpo> |
 | Jira project | <PROJ ou —> |
 | GitHub repo | <org/repo ou —> |
 
 **Fluxo**: OpenSpec é canônico → `openspec-sync-issues` espelha change → issue, tasks → subtasks e fecha no archive.
 Profile detalhado: `<docsPath>/planning/<projeto>/tracker-profile.md`.
+
+## Definição de pronto
+
+Uma mudança só está concluída quando **todos** os itens abaixo passam (comandos reais do projeto, extraídos dos build files):
+
+1. Testes ligados ao código alterado passam durante o desenvolvimento.
+2. Todas as suítes do projeto passam: `<comandos reais por suíte>`.
+3. Tipos compilam: `<comando>` termina com código 0.
+4. Lint passa: `<comando>`.
+5. <Build de produção / validação visual, quando aplicável.>
+
+> As skills de apply/planejamento respeitam esta definição como o DoD do projeto; na ausência dela, valem os defaults de `skills-standards.md`.
 
 ## Comandos transversais
 
@@ -127,3 +167,5 @@ docker compose -f docker-compose.services.yml up -d
 ## Seções manuais (preservar sempre)
 
 Fora dos marcadores, o time pode adicionar seções próprias (ex.: contexto de negócio, contatos, ADRs). O skill **não** deve tocar nelas.
+
+**Projeto sem marcadores (modo `preserve`)**: o arquivo inteiro é "manual". Atualize apenas as seções equivalentes e acrescente as que faltarem, mantendo idioma, títulos, ordem e estilo — sempre com diff e confirmação antes de escrever (ver `SKILL.md` Fase 0.2).

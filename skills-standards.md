@@ -94,6 +94,24 @@ Consultar:
 - Vue: `config-shared-web-vue/SKILL.md` + `config-project-vue/references/tailwind-setup.md`
 - Leptos: `config-shared-web-leptos/SKILL.md` + `config-project-leptos/references/tailwind-setup.md`
 
+### 4.2 Information ownership (single source of truth)
+
+**Norma:** cada informação tem **um dono só**, e os demais documentos **apontam** para ele pelo nome do documento e da seção — nunca repetem o conteúdo.
+
+| Informação | Dono |
+|------------|------|
+| O que o sistema faz (requisitos, arquitetura, contrato, esquema, design) | documentos donos do projeto (`docs/`: product brief, HLD, LLD, design system, ADRs, GLOSSARY) |
+| Como o código é escrito (camadas, regras de import, erros, naming, níveis de teste, comandos, tracker) | `AGENTS.md` do projeto (raiz e de cada módulo) |
+| Specs e tickets publicados | tracker escolhido (Jira/GitHub) + change OpenSpec (`.md` canônico quando existir) |
+| Convenções da casa (naming, Result, cobertura, layout) | `skills-standards.md` e a `SKILL.md` da skill |
+
+Regras:
+
+1. Uma informação nova entra **na mesma tarefa** no documento dono dela.
+2. Skill que gera documentação não copia o conteúdo do projeto: lê o dono e registra apenas o que é decisão da própria skill.
+3. Em conflito, a precedência é: **decisão explícita do usuário** > **constituição do projeto** (AGENTS.md e docs donos) > **defaults desta skill**.
+4. O `AGENTS.md` gerado por `config-agents-md` pode declarar o formato de tasks, a estratégia de teste/DoD e o tracker do projeto; as skills de planejamento, apply e sync **respeitam a declaração** e só aplicam os defaults daqui na ausência dela.
+
 ## 5. Skill Authoring Rules
 
 When editing any skill (`*/SKILL.md`):
@@ -102,6 +120,7 @@ When editing any skill (`*/SKILL.md`):
 - Document explicit exceptions in the skill itself when needed.
 - If a skill generates files via script, enforce this standard in generated paths.
 - Every `SKILL.md` frontmatter must include `stack:` field (`typescript`, `kotlin`, `csharp`, or `agnostic`).
+- **Language**: keep the language of the section you are editing (CLI-generated skills often ship in English; this house's extensions and every generated project artifact — docs, tickets, AGENTS.md — follow the project's language). Translating a whole skill is a separate, deliberate change.
 
 ### Skill Categories
 
@@ -122,7 +141,7 @@ When editing any skill (`*/SKILL.md`):
 | Workflow   | `git-*`      | Automação de fluxo de trabalho (commits organizados, etc.)       | Agnostic                     |
 | Contexto   | `config-agents-md` | Gera AGENTS.md na raiz e por submódulo (mapa, convenções, comandos, skills) | Agnostic          |
 
-> **OpenSpec — via canônica vs comandos**: as skills `openspec-*` (`propose`, `explore`, `apply-change`, `sync-specs`, `sync-issues`, `archive-change`, `validate-dependencies`, `context-cache`) são a **via estável e canônica** do fluxo de mudanças. Os comandos `commands/opsx-*` (propose/explore/apply/archive/sync) e `commands/pos-*` (tarefa/review de PR) são **atalhos slash-command** que espelham o mesmo fluxo; quando houver divergência, prevalece a skill `openspec-*` correspondente. Não mantenha lógica duplicada: o comando deve referenciar a skill.
+> **OpenSpec — via canônica vs comandos**: as skills `openspec-*` (`propose`, `explore`, `apply-change`, `sync-specs`, `sync-issues`, `archive-change`, `validate-dependencies`, `context-cache`) são a **via estável e canônica** do fluxo de mudanças. Os comandos `commands/opsx-*` (propose/explore/apply/archive/sync) são **atalhos slash-command** que **carregam a skill correspondente** — não duplicam lógica; presets de projeto (ex.: `presets/pos/*`) exemplificam especializações reais. Quando houver divergência, prevalece a skill `openspec-*` correspondente.
 >
 > **Sincronização com tracker**: `openspec-sync-issues` espelha changes/tasks do OpenSpec para **Jira** e/ou **GitHub Issues** (transporte **MCP** ou CLI `gh`/API), mantendo o `.md` canônico. A escolha do tracker é registrada pelo `config-agents-md` no `AGENTS.md` (seção "Rastreamento de tarefas").
 
@@ -433,6 +452,20 @@ Infrastructure       →  backend-prisma-data (TS) / backend-data-kt (KT) / back
                         config-prisma (TS) / config-jpa-kt|config-jpa-java (KT/Java) / config-efcore-cs (CS) / config-sqlx-rs (RS)
 ```
 
+### Layer boundaries and dependency enforcement
+
+The layer direction is enforced with **architecture lint at CI time** — not by splitting layers into Git submodules:
+
+1. Convention and folders (baseline — enforces nothing).
+2. **Architecture lint** (default): dependency-cruiser / ESLint boundaries (TS), ArchUnit + Gradle `implementation` (KT/Java), NetArchTest + project references (C#), Cargo workspace deps + clippy (RS). Violation fails the build.
+3. **Build modules in the same repo** (Gradle modules, `.csproj`, Cargo crates, pnpm workspaces): the compiler blocks undeclared edges.
+4. Versioned package (`shared-kernel`) when reused across products.
+5. **Git submodule**: only when the piece has its own release lifecycle — never just to prevent imports.
+
+Canonical direction: `domain → shared kernel only`; `application → domain`; `infrastructure → domain/application (ports)`; `interfaces/presentation → application` (never concrete infrastructure). Per-stack examples and CI wiring: `docs/guides/layer-boundary-enforcement.md`.
+
+> `layer-tasks` (task format) and layer topology (folders/modules/submodules) are independent axes: a layer becomes a module only with its own build/test, and a submodule only with its own lifecycle.
+
 ### Implementation by Stack
 
 | Layer          | Concept             | Skill TS               | Skill KT                 | Skill CS                 | Skill RS                 | Skill Java               |
@@ -629,7 +662,7 @@ Sistema fonte           req-discovery       req-ddd-modeling      req-migration-
 ```
 
 - **Análise especialista (`analyse/*`)**: alimenta as fases — elicitação/stakeholder/legado/domínio/arquitetura/RNF (discovery), user-story/priorização/rastreabilidade/DoR/impacto (planning). Ver `docs/guides/analysis-expert-flow.md`.
-- **Comandos (`commands/opsx-*`, `commands/pos-*`)**: atalhos slash-command; a via canônica permanece `openspec-*`.
+- **Comandos (`commands/opsx-*`) e presets (`presets/*`)**: atalhos slash-command que carregam a skill canônica e exemplos de especialização de projeto; a via canônica permanece `openspec-*`.
 - **Entrada**: qualquer sistema (PHP MVC, Go, Python, Java, monolito, etc.)
 - **Saida da discovery**: requisitos funcionais/nao-funcionais + analise DDD inicial
 - **Saida da modelagem DDD**: modelo estrategico (subdominios, BCs, context map, linguagem ubiqua) + modelo tatico (entities, VOs, events) + notas operacionais

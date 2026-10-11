@@ -17,6 +17,30 @@ Archive a completed change in the experimental workflow.
 
 `<capability-path>` is the spec directory relative to `specs/` (for example, `user-auth` or `identity/user-auth`). Preserve the full path from each delta spec when resolving its main spec.
 
+**Constituição do projeto (entrada obrigatória)**
+
+Antes de arquivar, leia a constituição do projeto (norma em `../skills-standards.md` §4.2):
+
+1. `AGENTS.md` da raiz e do módulo afetado — dono do DoD ("definição de pronto"), dos comandos de verificação e do tracker.
+2. `tasks.md` da change — o bloco de fechamento do épico, quando o plano usar tasks por camada (`test:unit`, `test:coverage`, `test:e2e`, CI verde).
+
+**Gate de conclusão**
+
+O CLI não bloqueia por warnings de artefatos; o gate abaixo, porém, precede o archive:
+
+- As tasks de teste, cobertura e E2E do plano (ou o DoD do projeto) estão concluídas e os comandos reais do `AGENTS.md` passam — ou o CI comprovou.
+- Se algo não estiver satisfeito: **pare e reporte o que falta**. Arquivar ciclo incompleto é proibido.
+- Em conflito de DoD, prevalece a **constituição do projeto**; os defaults de `skills-standards.md` (≥95% em domain+application, `test:e2e`) valem quando o projeto não declarar os seus.
+
+**Fechamento do tracker**
+
+Ao concluir o archive, feche o espelho no tracker (Fase 5 de `openspec-sync-issues`), quando houver:
+
+- GitHub: `state: closed`, `state_reason: completed` (issue principal e sub-issues);
+- Jira: transições até Done (épico, stories e subtasks), com `jira_get_transitions` + `jira_transition_issue`.
+
+Se o `openspec-sync-issues` não estiver disponível, execute as transições diretamente pelo MCP/CLI do tracker declarado no `AGENTS.md`. Issue aberta após archive = ciclo incompleto.
+
 **Input**: Optionally specify a change name. If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
@@ -170,7 +194,9 @@ Archive a completed change in the experimental workflow.
 **Guardrails**
 - Announce the selected change; prompt for selection when it is ambiguous
 - Use artifact graph (openspec status --json) for completion checking
-- Don't block archive on warnings - just inform and confirm
+- Don't block archive on CLI warnings about incomplete artifacts - just inform and confirm (the project's conclusion gate above is a separate, mandatory check)
+- Never archive when the conclusion gate is unsatisfied (project DoD or the plan's closing block); when in doubt, stop and ask
+- Close the tracker when archiving (GitHub `closed`/`completed`, Jira → Done); an open issue after archive means the cycle is incomplete
 - Preserve .openspec.yaml when moving to archive (it moves with the directory)
 - Show clear summary of what happened
 - If sync is requested, run the `openspec-sync-specs` workflow inline (agent-driven)

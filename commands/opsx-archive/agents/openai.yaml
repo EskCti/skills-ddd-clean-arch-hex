@@ -1,4 +1,4 @@
 interface:
   display_name: 'Command: opsx-archive'
-  short_description: 'Archive a completed change in the experimental workflow'
-  default_prompt: 'Archive a completed change in the experimental workflow'
+  short_description: 'Atalho para a skill openspec-archive-change (arquivar com gate de DoD e fechamento do tracker)'
+  default_prompt: 'Carregue a skill openspec-archive-change e siga o fluxo dela com os argumentos fornecidos.'

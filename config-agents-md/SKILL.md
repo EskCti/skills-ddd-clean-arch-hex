@@ -55,6 +55,8 @@ Um **módulo** é candidato a AGENTS.md próprio quando **tem build/test indepen
 
 Cada submódulo de microserviço = **1 AGENTS.md**. Cada app de frontend/mobile = **1 AGENTS.md**. Camada pura (ex.: `domain/`) só ganha AGENTS.md se tiver build próprio.
 
+> **Fronteiras entre camadas**: proteja com **lint de arquitetura** (dependency-cruiser/ESLint boundaries, ArchUnit, NetArchTest, Cargo/clippy) — ver `../docs/guides/layer-boundary-enforcement.md`. Camada vira submódulo só com ciclo de vida/release próprio (ex.: shared kernel), **nunca** só para impedir import.
+
 ---
 
 ## Fase 0.1 — Rastreamento de tarefas (Jira / GitHub) — escolha do usuário
@@ -70,17 +72,33 @@ Onde criar as tarefas (issues) deste projeto?
 Transporte: [ ] MCP  [ ] CLI (gh/API)  [ ] Auto
 Direção:    [ ] 1 via (OpenSpec → tracker)  [ ] 2 vias
 GitHub:     [ ] 1 issue com os .md + checklist (single-issue)  [ ] sub-issues
+Triagem:    [ ] label das issues que um agente pode pegar: _____ (ex.: ready-for-agent)
+Bloqueios:  [ ] relação nativa (blocked by) quando houver  [ ] texto no corpo
 ```
 
 Registrar em:
 
-- `<projectRoot>/AGENTS.md` → seção **obrigatória** "Rastreamento de tarefas (Jira/GitHub)".
+- `<projectRoot>/AGENTS.md` → seção **obrigatória quando houver tracker** "Rastreamento de tarefas (Jira/GitHub)".
 - `<docsPath>/planning/<projeto>/tracker-profile.md` (formato em `../openspec-sync-issues/references/tracker-config.md`).
 - Opcional: `skills.config.json` → bloco `tracking`.
 
-Precedência: argumento do usuário > `tracker-profile.md` > `skills.config.json` > `none`.
+Precedência: argumento do usuário > `AGENTS.md` existente > `tracker-profile.md` > `skills.config.json` > `none`.
 
 > A sincronização em si é feita pela skill `openspec-sync-issues` (change → issue, tasks → subtasks, archive → fechar). O AGENTS.md só **declara a escolha** para todo agente saber onde criar tarefas.
+
+## Fase 0.2 — Modo de geração (preservação de formato)
+
+Antes de escrever qualquer AGENTS.md, detecte o modo pelo estado do arquivo:
+
+| Situação do arquivo | Modo | O que fazer |
+|---------------------|------|-------------|
+| Não existe | `create` | Gerar pelo template, com os marcadores `BEGIN/END:agents-md generated`. |
+| Existe com marcadores | `merge-generated` | Atualizar só o conteúdo entre marcadores; seções manuais intocadas. |
+| Existe sem marcadores (formato editorial do time) | `preserve` | **Não inserir marcadores**: ler o arquivo inteiro, preservar idioma, títulos, ordem e estilo das seções existentes, atualizar apenas as seções equivalentes e acrescentar as que faltarem — com diff e confirmação antes de escrever. |
+
+No modo `preserve`, a forma (idioma, títulos, tabelas) vem do arquivo existente; o skill contribui apenas com o conteúdo que falta (comandos reais, mapa de módulos, tracker, estado atual). Nunca reescreva uma seção existente sem mostrar o diff e obter confirmação.
+
+> A constituição do projeto (AGENTS.md existente + docs donos) **prevalece** sobre o template (norma em `../skills-standards.md` §4.2). O template é ponto de partida, não camisa de força.
 
 ---
 
@@ -103,22 +121,28 @@ Para cada módulo, detectar stack e layout de camadas:
 
 Consultar `references/stack-detection.md` para comandos de extração de **build/test/run/lint/coverage** por stack.
 
-> **Regra**: os comandos no AGENTS.md devem ser **os reais do módulo** (extraídos do build file), não genéricos. Se não encontrar, marque `[confirmar]`.
+> **Regra**: os comandos no AGENTS.md devem ser **os reais do módulo** (extraídos do build file), não genéricos. Se não encontrar, marque `[confirmar]`. Inclua o comando de **lint de arquitetura** (fronteiras entre camadas) na definição de pronto do módulo, quando a stack suportar — ver `../docs/guides/layer-boundary-enforcement.md`.
 
 ---
 
 ## Fase 2 — AGENTS.md da raiz
 
-Gerar `<projectRoot>/AGENTS.md` com o template de `references/root-agents-template.md`. Seções obrigatórias:
+Gerar `<projectRoot>/AGENTS.md` com o template de `references/root-agents-template.md`. Seções (obrigatórias quando aplicáveis; no modo `preserve`, acrescentar as que faltarem sem reescrever as existentes):
 
 1. **Visão do repositório** — que tipo de monorepo é, topologia.
-2. **Mapa de módulos** — tabela: caminho · stack · papel · build/test · porta.
-3. **Convenções globais** — referência a `skills-standards.md` (naming, Result com lista de erros, Tailwind, cobertura ≥95%).
-4. **Fluxo de trabalho** — requisito → análise → planejamento → desenvolvimento (ver `docs/guides/workflow-req-to-dev.md`).
-5. **Skills disponíveis** — categorias (`req-*`, `analyse/*`, `core-*`, `backend-*`, `config-*`, `test-*`, `git-*`, `openspec-*`).
-6. **Análise especialista (`analyse/*`)** — **seção obrigatória**: lista as 12 skills especialistas e a matriz de acionamento (objetivo → skill). Garante que todo agente que ler o AGENTS.md consulte as especialistas antes de requisito/planejamento.
-7. **Rastreamento de tarefas (Jira/GitHub)** — **seção obrigatória**: declara o tracker escolhido (Jira e/ou GitHub), o transporte (MCP vs `gh`/API) e a direção. Vem da Fase 0.1.
-8. **Comandos transversais** — subir infra (docker compose), atualizar submódulos, rodar cobertura global.
+2. **Estado do projeto** — 3-6 linhas: o que já existe hoje e onde está a estrutura-alvo (ex.: "fundação pronta; módulos em `...`; alvo na seção 1 do `docs/lld.md`").
+3. **Mapa de módulos** — tabela: caminho · stack · papel · build/test · porta.
+4. **Onde cada informação mora** — dono único (norma em `skills-standards.md` §4.2): docs donos do **o quê**, AGENTS.md dono do **como**, tracker dono de specs; apontar, nunca duplicar.
+5. **Assunto → Onde ler** — tabela de roteamento: assunto → documento e seção (ex.: "contrato da API → `docs/lld.md` §3"). Só quando o projeto tem docs donos.
+6. **Convenções globais** — referência a `skills-standards.md` (naming, Result com lista de erros, Tailwind, cobertura ≥95%) + as convenções locais reais do projeto.
+7. **Fluxo de trabalho** — requisito → análise → planejamento → desenvolvimento (ver `docs/guides/workflow-req-to-dev.md`), adaptado ao fluxo real do projeto quando ele tiver um.
+8. **Skills disponíveis** — categorias (`req-*`, `analyse/*`, `core-*`, `backend-*`, `config-*`, `test-*`, `git-*`, `openspec-*`).
+9. **Análise especialista (`analyse/*`)** — seção obrigatória **quando o projeto usa o fluxo `req-*`**: lista as 12 skills especialistas e a matriz de acionamento (objetivo → skill).
+10. **Rastreamento de tarefas (Jira/GitHub)** — seção obrigatória **quando houver tracker**: declara o tracker (Jira e/ou GitHub), o transporte (MCP vs `gh`/API), a direção, o modo GitHub, as labels de triagem e como as dependências viram bloqueio. Vem da Fase 0.1.
+11. **Definição de pronto** — os critérios e comandos reais de conclusão do projeto (testes, lint, tipos, build, validação visual), extraídos dos build files. É o DoD que as skills de apply/planejamento respeitam.
+12. **Comandos transversais** — subir infra (docker compose), atualizar submódulos, rodar cobertura global.
+
+> **Idioma**: gerar no idioma do projeto (o dos docs/AGENTS.md existentes). Sem docs, usar o idioma do time e registrar a escolha.
 
 ---
 
@@ -127,20 +151,23 @@ Gerar `<projectRoot>/AGENTS.md` com o template de `references/root-agents-templa
 Para cada módulo detectado, gerar `<module>/AGENTS.md` com o template de `references/submodule-agents-template.md`:
 
 1. **Papel do módulo** — 1-2 linhas: qual serviço/camada é e do que depende.
-2. **Stack e versões** — linguagem, framework, build tool (extraídos do build file).
-3. **Layout / camadas** — pastas reais (ex.: `infrastructure/adapters/in/web`).
-4. **Comandos** — build, test, test coverage, run local, lint/fmt.
-5. **Convenções locais** — naming, package base, padrões específicos do módulo.
-6. **Skills aplicáveis** — quais skills deste repositório usar dentro deste módulo.
-7. **Limites** — o que este módulo **não** deve fazer (ex.: domínio sem anotação de framework).
+2. **Estado atual** — o que já existe no módulo hoje e onde está a estrutura-alvo (ex.: seção 1 do LLD); código novo nasce nela.
+3. **Stack e versões** — linguagem, framework, build tool (extraídos do build file).
+4. **Layout / camadas** — pastas reais (ex.: `infrastructure/adapters/in/web`).
+5. **Comandos** — build, test, test coverage, run local, lint/fmt.
+6. **Onde está cada assunto** — tabela de roteamento: assunto → documento e seção (docs donos) e → skill/AGENTS.md, sem duplicar conteúdo (§4.2 do `skills-standards.md`).
+7. **Definição de pronto** — os critérios e comandos reais de conclusão do módulo (suítes de teste, lint, tipos, build, validação visual quando houver).
+8. **Convenções locais** — naming, package base, padrões específicos do módulo (incluindo sufixos de arquivo e níveis de teste, quando existirem).
+9. **Skills aplicáveis** — quais skills deste repositório usar dentro deste módulo.
+10. **Limites** — o que este módulo **não** deve fazer (ex.: domínio sem anotação de framework).
 
 ---
 
 ## Fase 4 — Idempotência e merge
 
-AGENTS.md é documento vivo e frequentemente editado à mão. Ao atualizar:
+AGENTS.md é documento vivo e frequentemente editado à mão. Ao atualizar, respeite o modo detectado na Fase 0.2:
 
-- Delimitar conteúdo gerenciado pelo skill com marcadores:
+- **`create` / `merge-generated`**: delimitar o conteúdo gerenciado pelo skill com marcadores:
 
   ```markdown
   <!-- BEGIN:agents-md generated -->
@@ -148,8 +175,10 @@ AGENTS.md é documento vivo e frequentemente editado à mão. Ao atualizar:
   <!-- END:agents-md generated -->
   ```
 
-- **Nunca sobrescrever** conteúdo fora dos marcadores (seções manuais do time).
-- Se não houver marcadores e o arquivo existir: mostre um diff proposto e **peça confirmação** antes de escrever.
+  - **Nunca sobrescrever** conteúdo fora dos marcadores (seções manuais do time).
+  - Se não houver marcadores e o arquivo existir: mostre um diff proposto e **peça confirmação** antes de escrever.
+
+- **`preserve`** (arquivo editorial, sem marcadores): **não inserir marcadores**. Ler o arquivo, atualizar apenas as seções equivalentes e acrescentar as que faltarem, mantendo idioma, títulos, ordem e estilo; mostrar diff e pedir confirmação antes de escrever.
 - Nunca commite automaticamente. Commit só via `git-organized-commits` quando o usuário pedir.
 
 ---
@@ -159,11 +188,11 @@ AGENTS.md é documento vivo e frequentemente editado à mão. Ao atualizar:
 Antes de finalizar:
 
 - [ ] Cada módulo do mapa da raiz tem AGENTS.md correspondente.
-- [ ] Todos os comandos foram extraídos dos build files (ou marcados `[confirmar]`).
-- [ ] AGENTS.md raiz aponta para os AGENTS.md dos submódulos.
-- [ ] AGENTS.md raiz inclui a seção obrigatória de **Análise especialista (`analyse/*`)**.
-- [ ] AGENTS.md raiz inclui a seção obrigatória de **Rastreamento de tarefas (Jira/GitHub)** com tracker + transporte.
-- [ ] Convenções globais remetem a `skills-standards.md` (não duplicar regras).
+- [ ] Todos os comandos foram extraídos dos build files (ou marcados `[confirmar]`); a definição de pronto do root e de cada módulo traz os comandos reais.
+- [ ] AGENTS.md raiz aponta para os AGENTS.md dos submódulos e para os docs donos (tabela "Assunto → Onde ler").
+- [ ] Idioma do projeto respeitado; no modo `preserve`, seções, títulos e estilo existentes foram mantidos.
+- [ ] Análise especialista (`analyse/*`) presente quando o projeto usa o fluxo `req-*`; rastreamento presente quando há tracker (com labels de triagem e bloqueio).
+- [ ] "Onde cada informação mora" presente, com as convenções remetendo a `skills-standards.md` (sem duplicar).
 - [ ] Nenhuma seção manual foi perdida no merge.
 
 ---
