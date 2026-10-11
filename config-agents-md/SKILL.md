@@ -55,6 +55,8 @@ Um **módulo** é candidato a AGENTS.md próprio quando **tem build/test indepen
 
 Cada submódulo de microserviço = **1 AGENTS.md**. Cada app de frontend/mobile = **1 AGENTS.md**. Camada pura (ex.: `domain/`) só ganha AGENTS.md se tiver build próprio.
 
+> **Fronteiras entre camadas**: proteja com **lint de arquitetura** (dependency-cruiser/ESLint boundaries, ArchUnit, NetArchTest, Cargo/clippy) — ver `../docs/guides/layer-boundary-enforcement.md`. Camada vira submódulo só com ciclo de vida/release próprio (ex.: shared kernel), **nunca** só para impedir import.
+
 ---
 
 ## Fase 0.1 — Rastreamento de tarefas (Jira / GitHub) — escolha do usuário
@@ -119,7 +121,7 @@ Para cada módulo, detectar stack e layout de camadas:
 
 Consultar `references/stack-detection.md` para comandos de extração de **build/test/run/lint/coverage** por stack.
 
-> **Regra**: os comandos no AGENTS.md devem ser **os reais do módulo** (extraídos do build file), não genéricos. Se não encontrar, marque `[confirmar]`.
+> **Regra**: os comandos no AGENTS.md devem ser **os reais do módulo** (extraídos do build file), não genéricos. Se não encontrar, marque `[confirmar]`. Inclua o comando de **lint de arquitetura** (fronteiras entre camadas) na definição de pronto do módulo, quando a stack suportar — ver `../docs/guides/layer-boundary-enforcement.md`.
 
 ---
 
