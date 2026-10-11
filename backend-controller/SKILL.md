@@ -12,7 +12,8 @@ Aplicar o padrão de controller como camada de entrada HTTP: receber request, va
 
 ## Guidelines
 
-- Controller não implementa regra de domínio; delega para use case/query/repository conforme o fluxo existente.
+- Controller não implementa regra de domínio; delega para use case/query (camada de aplicação).
+- **Fronteira**: o controller não importa infraestrutura concreta (Prisma, SDKs) nem repository de persistência; dependências chegam por injeção — ver `../docs/guides/layer-boundary-enforcement.md` (norma em `../skills-standards.md` §11).
 - Definir rota e verbo com decorators (`@Get`, `@Post`, `@Patch`, `@Delete`).
 - Usar `@UseGuards(JwtAuthGuard, RequirePermissionGuard)` e `@RequirePermission(...)` quando endpoint protegido.
 - Extrair input com `@Body`, `@Param`, `@Query`; normalizar tipos quando necessário (ex.: `Number(...)`, boolean por string).
