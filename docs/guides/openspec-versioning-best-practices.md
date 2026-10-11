@@ -385,10 +385,7 @@ git log --oneline v1.0.0..v1.1.0 --grep="\[EP-"
 
 ### **Scripts de Automação**
 ```bash
-#!/bin/bash
-# scripts/generate-release-notes.sh
-
-# Extrair tasks completadas de OpenSpec
+# Exemplo local: gere as notas a partir das tasks concluídas da change
 EPIC_ID=$1
 TASKS_FILE="openspec/changes/$EPIC_ID/tasks.md"
 

@@ -578,7 +578,7 @@ esac
 echo "✅ Verificação de cobertura concluída com sucesso"
 ```
 
-### **Script: `scripts/update-openspec-dashboard.sh`**
+### **Passo: atualizar o dashboard OpenSpec (script local do projeto)**
 ```bash
 #!/bin/bash
 # Script para atualizar o dashboard OpenSpec
@@ -669,7 +669,7 @@ fi
 echo "✅ Dashboard atualizado com sucesso"
 ```
 
-### **Script: `scripts/validate-openspec-dependencies.sh`**
+### **Passo: validar dependências OpenSpec (skill `openspec-validate-dependencies`)**
 ```bash
 #!/bin/bash
 # Script para validar dependências OpenSpec
