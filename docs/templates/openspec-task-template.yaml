@@ -1,10 +1,16 @@
 # Template Padronizado para Tasks OpenSpec
-# Versão: 1.0.0
-# Data: 2026-05-23
+# Versão: 1.1.0
+# Data: 2026-10-11
 # Propósito: Padronizar a estrutura de tasks no OpenSpec para melhor consistência e integração com skills
+#
+# MODOS (constituição do projeto; norma em skills-standards.md §4.2):
+# - layer-tasks (default): tasks por camada (domain:* → test:*), Agent + Prompt, ordem inside-out.
+# - vertical-slice: uma entrada por fatia vertical (tracer bullet), com critério de aceite e blocked_by;
+#   as regras de ordem por camada NÃO se aplicam (ver validation_rules.modes).
+# O canônico é o .md da change/backlog; este YAML só padroniza o formato.
 
 # ============================================================================
-# ESTRUTURA BASE DE UMA TASK
+# ESTRUTURA BASE DE UMA TASK (modo layer-tasks)
 # ============================================================================
 
 task_template:
@@ -60,14 +66,39 @@ task_template:
   # Exemplo: ["platform-company-management", "tenant-contracts"]
   specs: ["platform-company-management", "tenant-contracts"]
   
-  # Dependências (opcional)
-  # Lista de IDs de tasks que devem ser completadas antes desta
+  # Dependências/bloqueios (opcional)
+  # Grafo: IDs de tasks que devem ser concluídas antes desta.
+  # No backlog/issue vira `Blocked by` (relação nativa no tracker quando houver).
   # Exemplo: ["app:usecase", "infra:persistence"]
   dependencies: ["app:usecase", "infra:persistence"]
   
   # Notas adicionais (opcional)
   # Informações contextuais ou instruções especiais
   notes: ""
+
+# ============================================================================
+# ESTRUTURA BASE DE UMA FATIA VERTICAL (modo vertical-slice)
+# ============================================================================
+
+vertical_slice_template:
+  # ID da fatia (obrigatório) — o nome do comportamento ponta a ponta
+  id: "criar-cliente"
+  
+  # O que a fatia entrega ao usuário (obrigatório, sem lista por camada)
+  delivers: "Cadastro de cliente pela tela /clientes, persistido e consultável"
+  
+  # Critério de aceite próprio, verificável sozinho (obrigatório)
+  acceptance: "POST /clientes cria; GET /clientes/{id} retorna; tela /clientes lista e navega"
+  
+  # Bloqueios (obrigatório): IDs de outras fatias/US que precisam estar prontas
+  blocked_by: ["bootstrap-projeto"]   # ou [] — pode começar
+  
+  # Verificação (obrigatório): como provar que a fatia funciona (teste/rota/tela)
+  verify: "test:e2e do fluxo + teste no navegador da listagem"
+  
+  # Agent/skill (opcional no modo vertical; obrigatório no modo layer)
+  # agent: "Backend Controller (C#)"
+  # prompt: "..."
 
 # ============================================================================
 # TEMPLATES POR CAMADA ARQUITETURAL
@@ -224,6 +255,16 @@ templates_by_layer:
 # ============================================================================
 
 validation_rules:
+
+  # Regras por modo (constituição do projeto)
+  modes:
+    layer_tasks:
+      - "Aplicar naming, content e order abaixo"
+    vertical_slice:
+      - "Cada fatia declara delivers, acceptance, blocked_by e verify"
+      - "O grafo blocked_by deve ser acíclico e referenciar fatias/US existentes"
+      - "Não exigir prefixo de camada nem Agent por task"
+      - "As regras de order NÃO se aplicam (a ordem é o grafo + a fronteira)"
   
   # Regras de nomenclatura
   naming:
@@ -237,7 +278,7 @@ validation_rules:
     - "specs deve listar identificadores de especificação relevantes"
     - "dependencies deve listar apenas tasks realmente necessárias"
   
-  # Regras de ordem (Clean Architecture)
+  # Regras de ordem (modo layer-tasks)
   order:
     - "domain:vo e domain:entity devem vir antes de app:usecase"
     - "app:usecase deve vir antes de interface:controller"
@@ -349,12 +390,13 @@ documentation_updates:
 # ============================================================================
 
 versioning:
-  current_version: "1.0.0"
-  last_updated: "2026-05-23"
+  current_version: "1.1.0"
+  last_updated: "2026-10-11"
   maintainer: "OpenSpec Skills Team"
   
   changelog:
     - "1.0.0 (2026-05-23): Template inicial com estrutura completa"
+    - "1.1.0 (2026-10-11): Modos layer-tasks|vertical-slice, blocked_by como grafo e regras por modo"
   
   future_enhancements:
     - "Suporte a validação automática de dependências"
