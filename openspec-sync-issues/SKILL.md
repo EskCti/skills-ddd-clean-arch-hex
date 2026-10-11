@@ -144,7 +144,7 @@ Ao rodar `openspec archive` (ou após arquivar):
 - `references/transports.md` — comandos MCP vs CLI por tracker.
 - `../docs/templates/openspec-task-template.yaml` — formato de task.
 - `../openspec-propose/SKILL.md` — geração dos artefatos da change.
-- `../commands/pos-tarefa/SKILL.md` — precedente Jira → OpenSpec.
+- `../presets/pos/pos-tarefa/SKILL.md` — precedente Jira → OpenSpec (preset de projeto).
 
 ## Global Standards
 
