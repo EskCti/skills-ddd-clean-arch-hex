@@ -1,7 +1,7 @@
 ---
 name: openspec-validate-dependencies
 stack: agnostic
-description: Valida automaticamente dependências entre tasks OpenSpec e verifica conformidade com Clean Architecture. Usar antes de openspec-apply-change para garantir ordem correta de implementação.
+description: Valida dependências entre tasks OpenSpec e o grafo de bloqueios, no formato declarado pelo projeto (camadas inside-out ou fatias verticais). Usar antes de openspec-apply-change para garantir que as tasks podem ser executadas na ordem correta.
 license: MIT
 compatibility: Requires openspec CLI.
 metadata:
@@ -10,9 +10,9 @@ metadata:
   generatedBy: '1.2.0'
 ---
 
-Valida automaticamente dependências entre tasks OpenSpec e verifica conformidade com Clean Architecture.
+Valida dependências entre tasks OpenSpec e o grafo de bloqueios, **no formato que o projeto declarar** — tasks por camada (inside-out, default) ou fatias verticais.
 
-**Propósito**: Garantir que as tasks em `tasks.md` seguem a ordem correta de implementação (inside-out) e que todas as dependências necessárias estão presentes antes de executar `openspec-apply-change`.
+**Propósito**: Garantir que cada task pode ser executada na ordem certa: no modo `layer`, a ordem inside-out; no modo `vertical`, a completude de cada fatia e o grafo de bloqueios. O formato vem da constituição do projeto (`AGENTS.md`; norma em `skills-standards.md` §4.2); sem declaração, vale o modo `layer`.
 
 **Quando usar**:
 - Antes de executar `openspec-apply-change` em uma change
@@ -38,7 +38,23 @@ Se um nome for fornecido, use-o. Caso contrário:
 
 Sempre anunciar: "Validando dependências da change: <nome>"
 
-### 2. **Ler arquivo tasks.md**
+### 2. **Ler a constituição e determinar o modo de validação**
+
+Ler a constituição do projeto (norma em `../skills-standards.md` §4.2):
+
+1. `AGENTS.md` da raiz e do módulo afetado — formato de tasks, DoD e comandos declarados pelo projeto.
+2. O plano/backlog da change, quando existir — as dependências entre stories/tickets.
+
+Determinar o **modo de validação**:
+
+| Modo | Quando | O que valida |
+|------|--------|--------------|
+| `layer` (default) | Sem declaração no projeto | Ordem inside-out das tasks por camada, mapeamento Agent → skill e grafo de bloqueios |
+| `vertical` | O projeto declara fatias verticais (tracer bullet) | Completude de cada fatia (caminho ponta a ponta e verificável sozinha) e grafo de bloqueios — **sem exigir ordem entre camadas de fatias diferentes** |
+
+> Em conflito, prevalece a constituição do projeto; o default da casa é `layer`.
+
+### 3. **Ler arquivo tasks.md**
 
 ```bash
 openspec status --change "<nome>" --json
@@ -48,101 +64,117 @@ Verificar se `tasks.md` existe e está acessível. Se não existir:
 - Reportar erro: "tasks.md não encontrado para a change <nome>"
 - Sugerir executar `openspec-propose` primeiro
 
-### 3. **Analisar estrutura de tasks**
+### 4. **Analisar estrutura de tasks**
 
 Extrair todas as tasks do `tasks.md`:
-- ID da task (prefixo)
-- Agent
-- Dependências (se especificadas)
+- ID da task (prefixo, no modo `layer`)
+- Fatia a que pertence (no modo `vertical`)
+- Agent (quando houver)
+- Dependências/bloqueios (`Blocked by`, `dependencies`)
 - Status (se aplicável)
 
-### 4. **Validar regras Clean Architecture**
+### 5. **Validar o formato declarado**
 
-#### **Regra 1: Ordem inside-out obrigatória**
+#### **Modo `layer` (default) — Regra 1: Ordem inside-out**
 Verificar que tasks seguem a ordem:
 ```
 domain:vo → domain:entity → domain:service → app:dto → app:usecase → app:query → infra:persistence → interface:controller
 ```
 
-#### **Regra 2: Frontend Vue - ordem completa**
+**Regra 2: Frontend Vue — ordem completa**
 Para tasks Vue, verificar:
 ```
 interface:entity → interface:usecase → interface:repository → interface:page → interface:form-web
 ```
 
-#### **Regra 3: Mobile Android - ordem completa**
+**Regra 3: Mobile Android — ordem completa**
 Para tasks Android, verificar:
 ```
 interface:mobile-entity → interface:mobile-usecase → interface:mobile-repository → interface:mobile
 ```
 
-#### **Regra 4: Testes no final**
+**Regra 4: Testes no final**
 Verificar que tasks de teste estão no final:
 ```
 test:unit → test:e2e → test:unit-web → test:unit-mobile
 ```
 
-### 5. **Validar dependências explícitas**
+#### **Modo `vertical` — Regra única: fatia completa e verificável**
 
-Para cada task com campo `dependencies`:
-- Verificar se todas as dependências listadas existem como tasks
-- Verificar se dependências estão antes da task dependente
-- Reportar dependências faltantes ou fora de ordem
+Para cada fatia (slice):
 
-### 6. **Validar mapeamento Agent → Skill**
+- Corta um caminho **completo** pelas camadas que a funcionalidade exige (schema → API → interface → testes);
+- É **verificável sozinha** (critério de aceite próprio, sem depender de fatia futura);
+- Não mistura camadas de fatias diferentes numa mesma task;
+- As Regras 1–4 acima **não se aplicam**: violações de "ordem por camada" entre fatias **não** são reportadas.
 
-Para cada `Agent` listado:
+### 6. **Validar o grafo de bloqueios (todos os modos)**
+
+Para cada task com dependência declarada (`Blocked by`, `dependencies`):
+
+- Verificar se todas as dependências listadas existem como tasks/fatias;
+- Verificar se o grafo é acíclico (nenhum ciclo de bloqueio);
+- No modo `layer`, verificar se as dependências estão antes da task dependente; no modo `vertical`, apenas a ordem topológica do grafo, sem impor camadas;
+- Calcular a **fronteira**: as tasks cujos bloqueios já foram concluídos são as que podem ser pegas;
+- Reportar dependências faltantes, ciclos ou referências órfãs.
+
+### 7. **Validar mapeamento Agent → Skill**
+
+No modo `layer` (ou quando a task declarar `Agent`):
 - Verificar se corresponde a um skill existente
 - Verificar se a stack está correta (ex: `(C#)` para tasks backend C#)
 - Reportar Agents inválidos ou skills não encontrados
 
-### 7. **Validar prompts**
+### 8. **Validar prompts**
 
-Para cada `Prompt`:
+Para cada `Prompt` (quando existir):
 - Verificar se é específico e direcionado
 - Verificar se inclui todos os requisitos necessários
 - Verificar se referencia specs corretamente
 
-### 8. **Gerar relatório de validação**
+### 9. **Gerar relatório de validação**
 
 #### **Seção A: Status Geral**
-- Total de tasks analisadas
-- Tasks com dependências válidas
-- Tasks com dependências inválidas
-- Conformidade Clean Architecture
+- **Modo de validação** (layer | vertical)
+- Total de tasks (ou fatias) analisadas
+- Dependências válidas / inválidas
+- Conformidade com o **formato declarado** pelo projeto
+- Fronteira atual (tasks desbloqueadas)
 
 #### **Seção B: Problemas Identificados**
 Listar cada problema com:
-- ID da task
+- ID da task (ou fatia)
 - Tipo de problema
 - Recomendação de correção
 
 #### **Seção C: Checklist de Correção**
 Checklist interativo para corrigir problemas:
-- [ ] Reordenar tasks fora de sequência
+- [ ] Reordenar tasks fora de sequência (modo `layer`)
+- [ ] Completar fatias incompletas (modo `vertical`)
 - [ ] Adicionar tasks faltantes
 - [ ] Corrigir Agents inválidos
 - [ ] Melhorar prompts genéricos
 
-### 9. **Oferecer correções automáticas**
+### 10. **Oferecer correções automáticas**
 
 Para problemas comuns, oferecer correção automática:
 
-#### **Problema: Task `interface:page` sem `interface:entity` antes**
+#### **Problema: Task `interface:page` sem `interface:entity` antes (modo `layer`)**
 **Correção**: Inserir task `interface:entity` antes
 
-#### **Problema: Task `app:usecase` sem `domain:entity` antes**
+#### **Problema: Task `app:usecase` sem `domain:entity` antes (modo `layer`)**
 **Correção**: Inserir task `domain:entity` antes
+
+#### **Problema: Fatia sem teste (modo `vertical`)**
+**Correção**: Acrescentar o critério/tarefa de teste dentro da mesma fatia
 
 #### **Problema: Agent inválido `Backend Controller` (sem stack)**
 **Correção**: Corrigir para `Backend Controller (C#)` ou stack apropriada
 
-### 10. **Validar contra template padronizado**
+### 11. **Validar contra o template ou o plano do projeto**
 
-Comparar tasks com [template padronizado](../docs/templates/openspec-task-template.yaml):
-- Verificar estrutura de cada task
-- Validar campos obrigatórios
-- Verificar conformidade com templates por camada
+- Modo `layer`: comparar tasks com [template padronizado](../docs/templates/openspec-task-template.yaml) — estrutura, campos obrigatórios e conformidade por camada.
+- Modo `vertical`: comparar cada fatia com o [template de issue/spec](../openspec-sync-issues/references/spec-issue-template.md) e o plano do projeto — critério de aceite e verificabilidade.
 
 ---
 
@@ -183,7 +215,7 @@ Comparar tasks com [template padronizado](../docs/templates/openspec-task-templa
 - `test:unit-web` - Frontend Tests
 - `test:unit-mobile` - Mobile Tests
 
-### **2. Ordem Obrigatória (Clean Architecture)**
+### **2. Ordem Obrigatória (modo `layer`)**
 
 ```
 1.  domain:vo
@@ -296,6 +328,8 @@ Executar como pré-requisito:
 2. Se válido: `openspec-apply-change "ep-001-auth"`
 3. Se inválido: Reportar problemas e sugerir correções
 
+> No modo `vertical`, a validação cobre a **completude das fatias e o grafo de bloqueios**; a ordem por camada não se aplica e violações desse tipo não são reportadas.
+
 ### **Validação em CI/CD**
 Incluir no pipeline:
 ```yaml
@@ -314,8 +348,9 @@ steps:
 ✅ Validação concluída com sucesso!
 
 Change: ep-001-auth
+Modo de validação: layer (default da casa)
 Tasks analisadas: 12
-Conformidade Clean Architecture: 100%
+Conformidade com o formato declarado: 100%
 Dependências válidas: 12/12
 
 Recomendação: Pronto para openspec-apply-change
