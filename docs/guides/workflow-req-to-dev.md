@@ -156,7 +156,7 @@ Após o bootstrap, rode **`config-agents-md`** para gerar:
 - `AGENTS.md` na raiz — mapa de módulos, convenções (via `skills-standards.md`), fluxo e comandos transversais;
 - `AGENTS.md` por submódulo — papel, stack, layout, comandos reais, skills aplicáveis.
 
-Rode novamente sempre que a topologia mudar (novo BC, novo microserviço, novo app).
+Rode novamente sempre que a topologia mudar (novo BC, novo microserviço, novo app). Em projeto já existente, use o modo **`preserve`**: mantenha o formato editorial e acrescente apenas o que falta (ver [Adoção em projeto existente](#adoção-em-projeto-existente-projeto-em-andamento)).
 
 ---
 
@@ -170,6 +170,18 @@ Rode novamente sempre que a topologia mudar (novo BC, novo microserviço, novo a
 6. **`git-organized-commits`** — commits atômicos por área (nunca `git add .`).
 
 > **Definição de pronto do épico**: testes + cobertura + E2E + CI verde (e memory-leak em Rust) antes de merge/archive.
+
+---
+
+## Adoção em projeto existente (projeto em andamento)
+
+Quando o repositório já tem código e uma constituição própria (AGENTS.md editorial, docs donos, tracker):
+
+1. **Leia antes de escrever**: AGENTS.md da raiz e dos módulos + docs donos (arquitetura, contrato, esquema) + GLOSSARY/ADRs. A constituição **prevalece** sobre o template (norma em `skills-standards.md` §4.2).
+2. **Atualize o contexto, não o substitua**: rode `config-agents-md` no modo `preserve` — sem marcadores novos, mantendo idioma, títulos e estilo; ele acrescenta só o que falta (comandos reais, mapa, estado atual, definição de pronto, tracker).
+3. **Mapeie gaps como prefactor**: lacunas da filosofia (portas ausentes, VO, Result) entram como tasks de prefactor (`domain:*` / `infra:*`) no próximo backlog — não refatore o existente de uma vez. "Make the change easy, then make the easy change."
+4. **Escolha o formato do projeto**: `layer-tasks` ou `vertical-slice`, conforme o AGENTS.md; as change agents respeitam a declaração e só aplicam os defaults da casa na ausência dela.
+5. **Entre pelas próximas mudanças**: propose → apply → archive sobre o que já existe; o DoD é o do projeto (comandos reais declarados), com fallback para os defaults.
 
 ---
 

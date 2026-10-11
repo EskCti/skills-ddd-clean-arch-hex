@@ -8,6 +8,10 @@ Agents usados: `req-discovery` → `req-ddd-modeling` → `req-migration-strateg
 
 > **Formato de tasks**: em `backlog.md` e `tasks.md`, use sempre **Agent** (`display_name` do `agents/openai.yaml`) + **Prompt** — nunca pasta de skill (`core-entity`, `frontend-entity-vue`). Ver `req-agile-planning`.
 >
+> **Modo do projeto**: o formato segue a constituição (`AGENTS.md`; norma em `skills-standards.md` §4.2) — `layer-tasks` (default, acima) ou `vertical-slice` (fatias com `Blocked by` e critério de aceite próprio). Os rótulos nos exemplos C# abaixo são ilustrativos; os prefixos canônicos são `domain:*`, `app:*`, `infra:*`, `interface:*`, `test:*` (ver `req-agile-planning` e `docs/templates/openspec-task-template.yaml`).
+>
+> **DoD e archive**: o gate de conclusão e o fechamento do tracker são lidos do `AGENTS.md` do projeto (ver `openspec-archive-change`).
+>
 > **Checklist CA (web/mobile)**: cada épico com UI deve ter tasks separadas para `interface:entity` → `interface:usecase` → `interface:repository` → `interface:page` — **não** apenas `Frontend Page (Vue)`. `openspec-propose` expande o template; `openspec-apply-change` valida antes de marcar `[x]`.
 >
 > **Stack C# + Vue + Android** (este monorepo): [dotnet-cs-vue-android](./stacks/dotnet-cs-vue-android.md).
