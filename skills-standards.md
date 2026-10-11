@@ -140,7 +140,7 @@ When editing any skill (`*/SKILL.md`):
 | Workflow   | `git-*`      | Automação de fluxo de trabalho (commits organizados, etc.)       | Agnostic                     |
 | Contexto   | `config-agents-md` | Gera AGENTS.md na raiz e por submódulo (mapa, convenções, comandos, skills) | Agnostic          |
 
-> **OpenSpec — via canônica vs comandos**: as skills `openspec-*` (`propose`, `explore`, `apply-change`, `sync-specs`, `sync-issues`, `archive-change`, `validate-dependencies`, `context-cache`) são a **via estável e canônica** do fluxo de mudanças. Os comandos `commands/opsx-*` (propose/explore/apply/archive/sync) e `commands/pos-*` (tarefa/review de PR) são **atalhos slash-command** que espelham o mesmo fluxo; quando houver divergência, prevalece a skill `openspec-*` correspondente. Não mantenha lógica duplicada: o comando deve referenciar a skill.
+> **OpenSpec — via canônica vs comandos**: as skills `openspec-*` (`propose`, `explore`, `apply-change`, `sync-specs`, `sync-issues`, `archive-change`, `validate-dependencies`, `context-cache`) são a **via estável e canônica** do fluxo de mudanças. Os comandos `commands/opsx-*` (propose/explore/apply/archive/sync) são **atalhos slash-command** que **carregam a skill correspondente** — não duplicam lógica; presets de projeto (ex.: `presets/pos/*`) exemplificam especializações reais. Quando houver divergência, prevalece a skill `openspec-*` correspondente.
 >
 > **Sincronização com tracker**: `openspec-sync-issues` espelha changes/tasks do OpenSpec para **Jira** e/ou **GitHub Issues** (transporte **MCP** ou CLI `gh`/API), mantendo o `.md` canônico. A escolha do tracker é registrada pelo `config-agents-md` no `AGENTS.md` (seção "Rastreamento de tarefas").
 
@@ -647,7 +647,7 @@ Sistema fonte           req-discovery       req-ddd-modeling      req-migration-
 ```
 
 - **Análise especialista (`analyse/*`)**: alimenta as fases — elicitação/stakeholder/legado/domínio/arquitetura/RNF (discovery), user-story/priorização/rastreabilidade/DoR/impacto (planning). Ver `docs/guides/analysis-expert-flow.md`.
-- **Comandos (`commands/opsx-*`, `commands/pos-*`)**: atalhos slash-command; a via canônica permanece `openspec-*`.
+- **Comandos (`commands/opsx-*`) e presets (`presets/*`)**: atalhos slash-command que carregam a skill canônica e exemplos de especialização de projeto; a via canônica permanece `openspec-*`.
 - **Entrada**: qualquer sistema (PHP MVC, Go, Python, Java, monolito, etc.)
 - **Saida da discovery**: requisitos funcionais/nao-funcionais + analise DDD inicial
 - **Saida da modelagem DDD**: modelo estrategico (subdominios, BCs, context map, linguagem ubiqua) + modelo tatico (entities, VOs, events) + notas operacionais
