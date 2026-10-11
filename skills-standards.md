@@ -452,6 +452,20 @@ Infrastructure       →  backend-prisma-data (TS) / backend-data-kt (KT) / back
                         config-prisma (TS) / config-jpa-kt|config-jpa-java (KT/Java) / config-efcore-cs (CS) / config-sqlx-rs (RS)
 ```
 
+### Layer boundaries and dependency enforcement
+
+The layer direction is enforced with **architecture lint at CI time** — not by splitting layers into Git submodules:
+
+1. Convention and folders (baseline — enforces nothing).
+2. **Architecture lint** (default): dependency-cruiser / ESLint boundaries (TS), ArchUnit + Gradle `implementation` (KT/Java), NetArchTest + project references (C#), Cargo workspace deps + clippy (RS). Violation fails the build.
+3. **Build modules in the same repo** (Gradle modules, `.csproj`, Cargo crates, pnpm workspaces): the compiler blocks undeclared edges.
+4. Versioned package (`shared-kernel`) when reused across products.
+5. **Git submodule**: only when the piece has its own release lifecycle — never just to prevent imports.
+
+Canonical direction: `domain → shared kernel only`; `application → domain`; `infrastructure → domain/application (ports)`; `interfaces/presentation → application` (never concrete infrastructure). Per-stack examples and CI wiring: `docs/guides/layer-boundary-enforcement.md`.
+
+> `layer-tasks` (task format) and layer topology (folders/modules/submodules) are independent axes: a layer becomes a module only with its own build/test, and a submodule only with its own lifecycle.
+
 ### Implementation by Stack
 
 | Layer          | Concept             | Skill TS               | Skill KT                 | Skill CS                 | Skill RS                 | Skill Java               |
