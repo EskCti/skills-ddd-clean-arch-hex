@@ -188,6 +188,18 @@ This skill supports the "actions on a change" model:
 - **Can be invoked anytime**: Before all artifacts are done (if tasks exist), after partial implementation, interleaved with other actions
 - **Allows artifact updates**: If implementation reveals design issues, suggest updating artifacts - not phase-locked, work fluidly
 
+**Constituição do projeto (entrada obrigatória)**
+
+Antes de implementar, leia a constituição do projeto (norma em `../skills-standards.md` §4.2):
+
+1. `AGENTS.md` da raiz e do módulo afetado — dono de como o código é escrito (camadas, regras de import, erros, testes, comandos).
+2. Documentos donos em `docs/` que o ticket ou a task referenciar — dono de o que o sistema faz.
+
+Precedência em conflito: **decisão explícita do usuário > constituição do projeto > defaults desta skill**.
+
+- O **DoD efetivo é o do projeto**: execute os comandos de verificação declarados no `AGENTS.md` (a "definição de pronto" dele). Os defaults desta skill (`test:coverage` ≥95% em domain+application etc., na seção abaixo) valem quando o projeto não declarar os seus.
+- O **formato das tasks do projeto prevalece**: se o plano/tickets do projeto usar outro fatiamento (ex.: fatias verticais), siga-o; a ordem inside-out abaixo é o default para tasks por camada do backlog DDD.
+
 **Integração com o backlog DDD**
 
 Changes geradas por `req-agile-planning` carregam tasks no formato:

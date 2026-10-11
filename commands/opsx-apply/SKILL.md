@@ -8,6 +8,18 @@ Implement tasks from an OpenSpec change.
 
 **Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
 
+**Constituição do projeto (entrada obrigatória)**
+
+Antes de implementar, leia a constituição do projeto (norma em `../../skills-standards.md` §4.2):
+
+1. `AGENTS.md` da raiz e do módulo afetado — dono de como o código é escrito (camadas, regras de import, erros, testes, comandos).
+2. Documentos donos em `docs/` que o ticket ou a task referenciar — dono de o que o sistema faz.
+
+Precedência em conflito: **decisão explícita do usuário > constituição do projeto > defaults desta skill**.
+
+- O **DoD efetivo é o do projeto**: execute os comandos de verificação declarados no `AGENTS.md` (a "definição de pronto" dele). Os defaults das skills (`test:coverage` ≥95% em domain+application etc.) valem quando o projeto não declarar os seus.
+- O **formato das tasks do projeto prevalece**: se o plano/tickets do projeto usar outro fatiamento (ex.: fatias verticais), siga-o; a ordem inside-out é o default para tasks por camada do backlog DDD.
+
 **Input**: Optionally specify a change name (e.g., `/opsx-apply add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 **Provided arguments**: <entrada fornecida pelo usuário na solicitação>
 
