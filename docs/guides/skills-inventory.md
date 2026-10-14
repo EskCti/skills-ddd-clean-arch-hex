@@ -9,7 +9,8 @@ Fonte canônica das convenções: [`../../skills-standards.md`](../../skills-sta
 |-----------|---------|-----|-------|
 | Orquestrador | `config-project-fullstack` | 1 | Ponto de entrada full-stack |
 | Análise especialista | `analyse/*` | 12 | elicitação, stakeholder, legado, NFR, impacto, priorização, rastreabilidade, gate de qualidade |
-| Comandos | `commands/*` | 7 | slash-commands (opsx-* / pos-*) sobre o fluxo OpenSpec |
+| Comandos | `commands/*` | 5 | atalhos slash-command (opsx-*) sobre o fluxo OpenSpec |
+| Presets | `presets/*` | 4 | especializações de projeto (`pos`, `fritta`): proposta OpenSpec → aprovação → implementação |
 | Config / Bootstrap | `config-*` | 55 | Projeto, módulo, docker, CI/CD, auth, banco, shared kernel, Dioxus, AGENTS.md |
 | Núcleo (domínio + aplicação) | `core-*` | 40 | entity, value object, domain service, repository, use case, DTO, CQRS, Dioxus |
 | Backend (infra + interface) | `backend-*` | 11 | adapters de persistência e controllers |
@@ -19,7 +20,7 @@ Fonte canônica das convenções: [`../../skills-standards.md`](../../skills-sta
 | Qualidade | `test-*` | 12 | unit (≥95% domain+app) e e2e |
 | OpenSpec | `openspec-*` | 8 | propose → explore → apply → sync → archive |
 | Workflow | `git-*` | 1 | commits atômicos por área |
-| **Total** | | **176** | |
+| **Total** | | **178** | |
 
 Stacks suportadas: **TypeScript** (sem sufixo), **Kotlin** (`-kt`), **Java** (`-java`), **C#** (`-cs`), **Rust** (`-rs`), **Angular**, **Vue**, **Leptos**, **Dioxus**, **Flutter**, **Android**.
 
@@ -228,6 +229,8 @@ Para espelhar changes em issues, use a skill `openspec-sync-issues` (não há co
 |--------|-------|
 | `presets/pos/pos-review-pr` | review de PR (GitHub) + Jira: proposta OpenSpec → aprovação → implementação |
 | `presets/pos/pos-tarefa` | tarefa Jira (FA-XXX): proposta OpenSpec → aprovação → implementação |
+| `presets/fritta/dev-tarefa` | tarefa Jira (FA-XXX) de **qualquer módulo**: proposta OpenSpec → aprovação → implementação, verificação por módulo |
+| `presets/fritta/dev-review-pr` | review de PR de **qualquer módulo**: classificação → proposta OpenSpec → aprovação → implementação e cobertura comentada no PR |
 
 ---
 
