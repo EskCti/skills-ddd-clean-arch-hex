@@ -6,6 +6,8 @@ Esta pasta guarda **presets**: skills adaptadas a um projeto real, mantidas como
 |--------|---------|-----------------|
 | `pos/pos-tarefa` | fritta / POS (Android + Jira) | Fluxo proposta OpenSpec → aprovação → implementação, com ADR/README atualizados e commit seletivo |
 | `pos/pos-review-pr` | fritta / POS (GitHub + Jira) | Review de PR com classificação de comentários, proposta OpenSpec das correções e aprovação antes de implementar |
+| `fritta/dev-tarefa` | fritta / todos os módulos (Jira) | Mesma filosofia, genérica: detecta o módulo pela tarefa (backend, frontend, storefront, POS, mobile, infra), verifica por módulo e atualiza os docs/ADRs afetados |
+| `fritta/dev-review-pr` | fritta / todos os módulos (GitHub + Jira) | Correções da review de qualquer módulo: classificação, proposta OpenSpec, teste de regressão por correção, cobertura comentada no PR e aprovação antes do push |
 
 Regras:
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Command: dev-tarefa'
+  short_description: 'Tarefa Jira (FA-XXX) de qualquer módulo do fritta: proposta OpenSpec primeiro, aprovação, depois implementação — docs/ADRs atualizados'
+  default_prompt: 'Tarefa Jira (FA-XXX) de qualquer módulo do fritta: proposta OpenSpec primeiro, aprovação, depois implementação — docs/ADRs atualizados'

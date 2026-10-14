@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Command: dev-review-pr'
+  short_description: 'Review de PR (GitHub) de qualquer módulo do fritta + Jira: proposta OpenSpec das correções primeiro, aprovação, depois implementação — docs/ADRs atualizados'
+  default_prompt: 'Review de PR (GitHub) de qualquer módulo do fritta + Jira: proposta OpenSpec das correções primeiro, aprovação, depois implementação — docs/ADRs atualizados'

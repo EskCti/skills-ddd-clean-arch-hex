@@ -297,7 +297,7 @@ Também existem skills utilitárias para fluxo OpenSpec:
 - `openspec-archive-change` — arquiva com gate de DoD do projeto e fechamento do tracker
 - `openspec-context-cache` — cache de contexto por change
 
-> Os comandos `commands/opsx-*` são **atalhos** que carregam a skill canônica (sem duplicar lógica); presets de projeto (ex.: `presets/pos/*`) exemplificam especializações reais.
+> Os comandos `commands/opsx-*` são **atalhos** que carregam a skill canônica (sem duplicar lógica); presets de projeto (ex.: `presets/pos/*`, `presets/fritta/*`) exemplificam especializações reais.
 
 ### Skills de workflow (Git)
 
