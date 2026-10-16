@@ -19,7 +19,13 @@ tracking:
     use_sub_issues: false     # só relevante quando mode: sub-issues
     triage_labels: [ready-for-agent]  # labels das issues que um agente pode pegar
     native_blocking: auto     # auto | true | false — relação nativa de bloqueio quando o repo suportar
-    project: ""               # GitHub Projects v2 (opcional)
+    project: ""               # GitHub Projects v2 (opcional) — número (ex.: "2")
+    status_field_id: ""       # ID do campo Status no project (PVTSSF_...)
+    status_options:           # IDs das opções do ciclo de vida (provisionar em Backlog→Em dev→Revisão→Concluído)
+      backlog: ""             # ex.: f75ad846
+      in_development: ""      # ex.: 47fc9ee4
+      review: ""              # ex.: 92fa7b65
+      done: ""                # ex.: 98236657
 
   jira:
     project_key: PROJ
@@ -43,6 +49,8 @@ tracking:
 | `github.mode` | `single-issue`, `sub-issues`, `auto` | `single-issue` = 1 issue por change com os `.md` embutidos + checklist de tasks (funciona sempre). `sub-issues` = 1 issue + subtasks (exige suporte a sub-issues). `auto` = tenta sub-issues, cai para single-issue. |
 | `github.triage_labels` / `jira.triage_labels` | lista | Labels das issues que um agente pode pegar sem triagem (ex.: `ready-for-agent`). |
 | `github.native_blocking` | `auto`, `true`, `false` | Usa a relação nativa de bloqueio (`blocked by`) quando o repo suportar; senão, texto no corpo. |
+| `github.project` | número do projeto | Board GitHub Projects v2 onde as issues entram (fluxo de status). |
+| `github.status_field_id` / `github.status_options` | IDs | Campo Status e opções do ciclo de vida (Backlog → Em desenvolvimento → Revisão → Concluído); preenchidos pelo provisionamento (`config-agents-md` §Fase 0.1.1). |
 | `jira.blocking_link_type` | string | Link type usado para as dependências entre issues (ex.: `Blocks`). |
 
 ## Onde fica registrado

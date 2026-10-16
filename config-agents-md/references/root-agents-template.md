@@ -130,6 +130,26 @@ Fluxo detalhado: `<skills>/docs/guides/analysis-expert-flow.md`.
 **Fluxo**: OpenSpec é canônico → `openspec-sync-issues` espelha change → issue, tasks → subtasks e fecha no archive.
 Profile detalhado: `<docsPath>/planning/<projeto>/tracker-profile.md`.
 
+**Provisionamento** (recursos que devem existir antes do primeiro sync — criar quando faltarem; IDs no `tracker-profile.md`):
+
+```bash
+gh repo create <org>/<repo> --private --source=. --remote=origin   # repo inexistente
+gh project create --owner <org> --title "<Título>"                 # board (GitHub Projects v2)
+gh project link <n> --repo <org>/<repo>                            # linka repo ao board
+gh label create openspec --color 5319e7                            # labels do profile
+# campo Status do board: Backlog → Em desenvolvimento → Revisão → Concluído
+# (renomear opções default via GraphQL updateProjectV2Field; salvar IDs em tracker-profile.md)
+```
+
+**Fluxo de status** (quem transiciona):
+
+| Evento OpenSpec | Status da issue |
+|---|---|
+| Change proposta + `openspec-sync-issues` | Backlog |
+| `opsx-apply` inicia a implementação | Em desenvolvimento |
+| PR aberto / CI validando | Revisão |
+| Archive (DoD satisfeito, merge feito) | Concluído + fechar (`state_reason=completed`) |
+
 ## Definição de pronto
 
 Uma mudança só está concluída quando **todos** os itens abaixo passam (comandos reais do projeto, extraídos dos build files):

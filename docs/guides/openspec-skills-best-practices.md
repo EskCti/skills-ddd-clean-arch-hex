@@ -48,10 +48,19 @@ openspec-propose → openspec-validate-dependencies → openspec-apply-change �
 - `config-agents-md` gera e mantém os AGENTS.md; rode de novo quando a topologia mudar (novo BC, novo app, novo serviço).
 - Projeto com AGENTS.md editorial: modo `preserve`, sem marcadores novos e sem reescrever seções.
 
-## 7. Commits e branches
+## 7. Commits, branches e tracker
 
 - `git-organized-commits`: commits atômicos por área, staging seletivo, **nunca** `git add .`.
 - Branch com o identificador da issue/ticket quando o tracker tiver um (`feature/<id>-<slug>`).
+- **Provisionar antes de espelhar**: repo, project (GitHub Projects v2), campo Status e labels devem **existir** — `config-agents-md` §Fase 0.1.1 provisiona e grava os IDs no `tracker-profile.md`; `openspec-sync-issues` faz o pré-flight e recusa criar issue sem destino.
+- **Ciclo de vida do status** (quem transiciona é quem dispara o evento):
+
+  | Evento OpenSpec | Status |
+  |---|---|
+  | Change proposta + sync | Backlog |
+  | `opsx-apply` inicia | Em desenvolvimento |
+  | PR aberto / CI validando | Revisão |
+  | Archive (DoD OK, merge feito) | Concluído + fechar (`state_reason=completed`) |
 
 ## Referências
 

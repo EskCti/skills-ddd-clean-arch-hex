@@ -84,7 +84,19 @@ Registrar em:
 
 Precedência: argumento do usuário > `AGENTS.md` existente > `tracker-profile.md` > `skills.config.json` > `none`.
 
-> A sincronização em si é feita pela skill `openspec-sync-issues` (change → issue, tasks → subtasks, archive → fechar). O AGENTS.md só **declara a escolha** para todo agente saber onde criar tarefas.
+### Fase 0.1.1 — Provisionamento do tracker (fazer existir, não só declarar)
+
+Após a escolha, **verificar e provisionar** os recursos no tracker — declarar sem criar deixa o próximo agente sem destino real para as issues:
+
+1. **Repo** (GitHub): se `repo` não existir no remote (`gh repo view <org>/<repo>` falha), propor `gh repo create <org>/<repo> --private --source=. --remote=origin` + push. Confirmar antes.
+2. **Project** (GitHub Projects v2, quando o projeto usar board): `gh project create --owner <org> --title "<Título>"`; linkar o repo (`gh project link <n> --repo <org>/<repo>`).
+3. **Campo Status** (ciclo de vida das issues): garantir as opções na ordem **Backlog → Em desenvolvimento → Revisão → Concluído**. O campo `Status` default do GitHub traz `Todo/In Progress/Done`; quando não puder renomear (campo built-in sem `field-update` no `gh`), usar `updateProjectV2Field` (GraphQL) com `singleSelectOptions` (aceita `id` para renomear/reordenar e itens novos sem `id`; `color` e `description` são obrigatórios por opção). Salvar os IDs das opções no `tracker-profile.md` (seção `status_options`).
+4. **Labels** (GitHub): criar as labels do profile (`labels` + `openspec:<change>` + `triage_labels`) se não existirem — `gh label create`.
+5. **Issue espelho inicial** (opcional, se já houver change ativa): delegar à `openspec-sync-issues` — não criar issue manualmente.
+
+Registrar em `<docsPath>/planning/<projeto>/tracker-profile.md` o que foi provisionado (repo, número/ID do project, `status_field_id`, `status_options`). IDs importam: `gh project item-edit` e o `openspec-sync-issues` usam esses IDs para transicionar status.
+
+> A sincronização em si é feita pela skill `openspec-sync-issues` (change → issue, tasks → subtasks, transições de status, archive → fechar). O AGENTS.md **declara a escolha e os comandos de provisionamento/fluxo** para todo agente saber onde criar tarefas e como atualizá-las.
 
 ## Fase 0.2 — Modo de geração (preservação de formato)
 
@@ -138,7 +150,7 @@ Gerar `<projectRoot>/AGENTS.md` com o template de `references/root-agents-templa
 7. **Fluxo de trabalho** — requisito → análise → planejamento → desenvolvimento (ver `docs/guides/workflow-req-to-dev.md`), adaptado ao fluxo real do projeto quando ele tiver um.
 8. **Skills disponíveis** — categorias (`req-*`, `analyse/*`, `core-*`, `backend-*`, `config-*`, `test-*`, `git-*`, `openspec-*`).
 9. **Análise especialista (`analyse/*`)** — seção obrigatória **quando o projeto usa o fluxo `req-*`**: lista as 12 skills especialistas e a matriz de acionamento (objetivo → skill).
-10. **Rastreamento de tarefas (Jira/GitHub)** — seção obrigatória **quando houver tracker**: declara o tracker (Jira e/ou GitHub), o transporte (MCP vs `gh`/API), a direção, o modo GitHub, as labels de triagem e como as dependências viram bloqueio. Vem da Fase 0.1.
+10. **Rastreamento de tarefas (Jira/GitHub)** — seção obrigatória **quando houver tracker**: declara o tracker (Jira e/ou GitHub), o transporte (MCP vs `gh`/API), a direção, o modo GitHub, as labels de triagem e como as dependências viram bloqueio. Acrescenta o **provisionamento** (comandos para criar repo/project/labels quando faltarem — Fase 0.1.1) e o **fluxo de status** (Backlog → Em desenvolvimento → Revisão → Concluído, com quem transiciona em cada evento OpenSpec). Vem da Fase 0.1/0.1.1.
 11. **Definição de pronto** — os critérios e comandos reais de conclusão do projeto (testes, lint, tipos, build, validação visual), extraídos dos build files. É o DoD que as skills de apply/planejamento respeitam.
 12. **Comandos transversais** — subir infra (docker compose), atualizar submódulos, rodar cobertura global.
 

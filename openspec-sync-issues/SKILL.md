@@ -38,6 +38,17 @@ Se o profile não existir, **pergunte** antes de criar qualquer issue:
 > "Onde devo criar as tarefas deste projeto? [ ] Jira  [ ] GitHub Issues  [ ] Ambos  [ ] Nenhum
 > E como devo acessá-los? [ ] MCP  [ ] CLI (`gh`/API)  [ ] Auto"
 
+### Pré-flight — o destino deve existir
+
+Antes do primeiro write, **verificar** que os recursos do profile existem de fato:
+
+1. **Repo**: `gh repo view <org>/<repo>` (ou equivalente MCP). Se não existir e houver remote local, propor o provisionamento (`gh repo create`) — confirmar com o usuário; se recusado, parar.
+2. **Project** (quando o profile declarar `project`): `gh project view <n> --owner <org>`. Se não existir, propor criação (`gh project create` + `gh project link`) — ou prosseguir sem project avisando que o fluxo de status fica desabilitado.
+3. **Campo de status**: se houver project, conferir `status_field_id` + `status_options` no profile. Se ausentes, propor provisionar o campo Status (**Backlog → Em desenvolvimento → Revisão → Concluído**) e gravar os IDs no profile (procedimento em `../config-agents-md/SKILL.md` §Fase 0.1.1).
+4. **Labels**: criar as declaradas no profile se não existirem (`gh label create`).
+
+Sem destino provisionado, **não criar issue "em algum lugar"** — o espelho sem home é dívida.
+
 ---
 
 ## Transporte (MCP vs CLI)
@@ -110,14 +121,28 @@ Antes de criar, consultar o **ID map** (`.openspec-sync.json` ou metadados em `.
    - `sub-issues` — issue principal + 1 sub-issue por task (`github_sub_issue_write`); quando o repo suportar, criar as **relações de bloqueio nativas** (`blocked by`) a partir das dependências do plano.
    - `auto` — tenta `sub-issues`; se o repo não suportar, cai para `single-issue`.
    - Fallback CLI: `gh issue create/edit` (ou `gh api`).
-2. **Jira** (MCP): Épico → Story(s) → **subtasks nativas** por task (`jira_batch_create_issues`/`jira_create_issue` + `additional_fields.parent`); linkar ao épico; criar as dependências como link nativo (`is blocked by`) quando o plano declarar bloqueios; setar campos (sprint/versão) se o profile declarar.
+   - **Project + status inicial**: quando o profile declarar `project`, adicionar a issue ao board (`gh project item-add` / `addProjectV2ItemById`) e setar **Backlog** (`gh project item-edit --field-id <status_field_id> --single-select-option-id <backlog>`). Guardar o `item_id` no ID map — é ele que permite transicionar status depois.
+2. **Jira** (MCP): Épico → Story(s) → **subtasks nativas** por task (`jira_batch_create_issues`/`jira_create_issue` + `additional_fields.parent`); linkar ao épico; criar as dependências como link nativo (`is blocked by`) quando o plano declarar bloqueios; setar campos (sprint/versão) se o profile declarar. Status inicial: coluna/to-do do fluxo do projeto.
 3. Não duplicar: se já houver issue com a label `openspec:<change>`, atualizar.
+
+### Ciclo de vida de status (project/board)
+
+Quando o profile declarar `project` com `status_options`, o status segue o ciclo do projeto — **quem transiciona é quem dispara o evento**:
+
+| Evento | De → Para | Quem |
+|---|---|---|
+| Change nova espelhada | → Backlog | esta skill (Fase 4) |
+| `openspec-apply-change` / `opsx-apply` inicia | Backlog → Em desenvolvimento | esta skill (invocada no início do apply) |
+| PR aberto ou CI validando | Em desenvolvimento → Revisão | esta skill (invocada ao abrir PR) ou o agente, reportando |
+| `openspec-archive-change` | Revisão → Concluído + fechar issue | esta skill (Fase 5) |
+
+Transição via CLI: `gh project item-edit --project-id <project.id> --id <item_id do ID map> --field-id <status_field_id> --single-select-option-id <opção>`. Sem `item_id` no ID map (issues antigas), re-obter com `gh project item-list` e filtrar pela issue. Em Jira: `jira_get_transitions` → `jira_transition_issue`.
 
 ### Fase 5 — Archive → fechar
 
 Ao rodar `openspec archive` (ou após arquivar):
 
-- GitHub: fechar issues/subtasks (`state: closed`, `state_reason: completed`).
+- GitHub: setar status **Concluído** no project (quando houver) e fechar issues/subtasks (`state: closed`, `state_reason: completed`).
 - Jira: `jira_get_transitions` → `jira_transition_issue` para Done; fechar subtasks.
 - Atualizar o ID map com o status final.
 
