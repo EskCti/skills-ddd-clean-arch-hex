@@ -1,6 +1,5 @@
 ---
 name: openspec-propose
-stack: agnostic
 description: Propose a new change with all artifacts generated in one step. Use when the user wants to quickly describe what they want to build and get a complete proposal with design, specs, and tasks ready for implementation.
 allowed-tools: Bash(openspec:*)
 license: MIT
@@ -28,18 +27,6 @@ When the user is ready to implement, they must start the apply workflow explicit
 ---
 
 **Store selection:** If the user names a store (a store is a standalone OpenSpec repo registered on this machine) or the work lives in one, run `openspec store list --json` to discover registered store ids, then pass `--store <id>` on the commands that read or write specs and changes (`new change`, `status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`, `context`, `schemas`, `view`). Once selected, treat `--store <id>` as sticky for the rest of the workflow. Every unscoped example of those commands below is shorthand: before running it, append the flag. For example, run `openspec status --change "<name>" --json --store "<id>"`, not the unscoped form shown below. Other commands do not take the flag. Hints printed by commands already carry the flag; keep it on follow-ups. Without a store, commands act on the nearest local `openspec/` root.
-
-**Constituição do projeto (entrada obrigatória)**
-
-Antes de criar os artefatos, leia a constituição do projeto (norma em `../skills-standards.md` §4.2):
-
-1. `AGENTS.md` da raiz e do módulo afetado — dono de como o código é escrito (camadas, regras de import, erros, testes, comandos, tracker).
-2. Documentos donos em `docs/` referenciados por ele — dono de o que o sistema faz (requisitos, arquitetura, contrato).
-
-Ao gerar os artefatos:
-
-- O `design.md` segue as regras de camadas, erros e testes declaradas na constituição; não as repita nos artefatos, aponte para o documento e a seção.
-- Se o projeto declarar formato de tasks, estratégia de teste/DoD ou tracker diferentes dos defaults desta skill, **o projeto prevalece**; os defaults de `skills-standards.md` valem na ausência da declaração.
 
 **Input**: The user's request should include a change name (kebab-case) OR a description of what they want to build.
 
